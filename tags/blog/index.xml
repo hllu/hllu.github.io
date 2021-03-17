@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on lhl&#39;s blog</title>
+    <link>https://hllu.github.io/tags/blog/</link>
+    <description>Recent content in Blog on lhl&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 Oct 2019 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第一篇博客</title>
+      <link>https://hllu.github.io/post/demo/</link>
+      <pubDate>Sat, 19 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/post/demo/</guid>
+      <description>这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;ldquo;content-org/&amp;rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上</description>
+    </item>
+    
+  </channel>
+</rss>
