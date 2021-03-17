@@ -2,68 +2,74 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hllu.github.id/tags/aplayer/</loc>
+    <loc>https://hllu.github.io/tags/aplayer/</loc>
     <lastmod>2021-01-10T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/aplayer-test/</loc>
+    <loc>https://hllu.github.io/post/aplayer-test/</loc>
     <lastmod>2021-01-10T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/</loc>
+    <loc>https://hllu.github.io/</loc>
     <lastmod>2021-01-10T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/</loc>
+    <loc>https://hllu.github.io/post/</loc>
     <lastmod>2021-01-10T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/test/</loc>
+    <loc>https://hllu.github.io/tags/test/</loc>
     <lastmod>2021-01-10T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/css/</loc>
+    <loc>https://hllu.github.io/tags/css/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/html/</loc>
+    <loc>https://hllu.github.io/tags/html/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/markdown/</loc>
+    <loc>https://hllu.github.io/tags/markdown/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/markdown-syntax/</loc>
+    <loc>https://hllu.github.io/post/markdown-syntax/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/themes/</loc>
+    <loc>https://hllu.github.io/tags/themes/</loc>
     <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/about/</loc>
+    <loc>https://hllu.github.io/about/</loc>
     <lastmod>2020-04-11T19:15:32+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/math-typesetting/</loc>
+    <loc>https://hllu.github.io/post/math-typesetting/</loc>
     <lastmod>2020-03-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/placeholder-text/</loc>
+    <loc>https://hllu.github.io/tags/blog/</loc>
+    <lastmod>2019-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/post/demo/</loc>
+    <lastmod>2019-10-19T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/post/placeholder-text/</loc>
     <lastmod>2019-03-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/text/</loc>
+    <loc>https://hllu.github.io/tags/text/</loc>
     <lastmod>2019-03-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/emoji/</loc>
+    <loc>https://hllu.github.io/tags/emoji/</loc>
     <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/emoji-support/</loc>
+    <loc>https://hllu.github.io/post/emoji-support/</loc>
     <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/cjk/</loc>
+    <loc>https://hllu.github.io/tags/cjk/</loc>
     <lastmod>2018-03-09T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/cjk-unicode-test/</loc>
+    <loc>https://hllu.github.io/post/cjk-unicode-test/</loc>
     <lastmod>2018-03-09T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/tags/wtf/</loc>
+    <loc>https://hllu.github.io/tags/wtf/</loc>
     <lastmod>2017-04-01T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/post/wtf-article/</loc>
+    <loc>https://hllu.github.io/post/wtf-article/</loc>
     <lastmod>2017-04-01T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.id/archives/</loc>
+    <loc>https://hllu.github.io/archives/</loc>
   </url><url>
-    <loc>https://hllu.github.id/search/</loc>
+    <loc>https://hllu.github.io/search/</loc>
   </url>
 </urlset>
