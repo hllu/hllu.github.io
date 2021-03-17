@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on </title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 18 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的第一篇博客</title>
+      <link>/posts/first/</link>
+      <pubDate>Tue, 18 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/first/</guid>
+      <description>first second comes with a configurable sidebar that can be on the left, on the right, or disabled. The default layout can be specified in the [Params.sidebar] section of the configuration. The position can be specified for home, list and single pages individually. Use the keys home, list and single with values &amp;ldquo;left&amp;rdquo;, &amp;ldquo;right&amp;rdquo; or false. The layout can be configured per page, by setting the sidebar parameter with one of the same values in the page’s front matter.</description>
+    </item>
+    
+  </channel>
+</rss>
