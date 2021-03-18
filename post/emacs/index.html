@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>emacs使用介绍 - lhl&#39;s blog</title>
+
+
+<meta name="author" content="[Lu Hailong]" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="emacs, org-model" />
+
+
+<meta property="og:title" content="emacs使用介绍" />
+<meta name="twitter:title" content="emacs使用介绍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/post/emacs/" /><meta property="og:description" content="这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下 Ctrl-h t 或者F1 t即可打开自带的此文档 入" />
+<meta name="twitter:description" content="这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下 Ctrl-h t 或者F1 t即可打开自带的此文档 入" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2021-03-18T00:00:00+08:00" /><meta property="article:modified_time" content="2021-03-18T00:00:00+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">lhl&#39;s blog</a>
+            
+            <span class="title-sub">lhl 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/post/emacs/">emacs使用介绍</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-03-18</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2053 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-model">org-model</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p>这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带
+的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下
+Ctrl-h t 或者F1 t即可打开自带的此文档
+<img class="img-zoomable" src="/ox-hugo/emacspig.png" alt="" />
+</p>
+<h2 id="入门命令">入门命令</h2>
+<p>基础的，Emacs 命令通常包含有 CONTROL 键（有时候以 CTRL 或 CTL 来表示）或是META 键（有时候以 EDIT 或 ALT 来表示）。为了避免每一次都要写出其全名，我们将会使用下述的缩写：</p>
+<p>C-<chr> 表示当键入字符 <chr> 时 按住 CONTROL 键。因此，C-f 就是：按住 CONTROL 键再键入 f 。
+M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
+如果没有 META 、 EDIT 或 ALT 键时，则可以用「按一下 ESC 键然后放开，再键入 <chr> 的步骤」来替代。我们以 <ESC> 来表示 ESC 键。</p>
+<h3 id="基础操作">基础操作</h3>
+<p>基础操作中，我都用了默认的快捷键，只增加了一个C-h,定义功能与backspace
+键相同。需要记住的是以下几个：</p>
+<ul>
+<li>C-M-v  另一个窗口向下滚动</li>
+<li>C-M-SHIFT-v 另一个窗口向上滚动</li>
+<li>C-c C-x C-v 直接预览图片</li>
+<li>C-x C-x  交换光标和标记的位置</li>
+<li>M-h 标记当前段落</li>
+<li>M-z 删除光标到指定字符之间的内容</li>
+</ul>
+<p>emacs的一些基础配置如下，</p>
+<pre><code class="language-lisp">(package-initialize)
+
+(set-foreground-color &quot;grey&quot;)
+(set-background-color &quot;black&quot;)
+(set-cursor-color &quot;gold1&quot;)
+(set-mouse-color &quot;gold1&quot;)
+
+;;启动设置
+(setq default-frame-alist
+             '((vertical-scroll-bars)
+               (top . 0)
+               (left . 0)
+               (width . 120)
+               (height . 43)
+               (background-color . &quot;black&quot;)
+               (foreground-color . &quot;grey&quot;)
+               (cursor-color . &quot;gold1&quot;)
+               (mouse-color . &quot;gold1&quot;)
+               (tool-bar-lines . 0)
+               (menu-bar-lines . 0)
+               (right-fringe)
+               (left-fringe)))
+
+;;启动自动最大化(数据自己调整，注意格式，如(top . 0)，圆点前后都要留有空格)
+;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 142) (height . 46)))
+
+
+;; 设置另外一些颜色：语法高亮显示的背景和主题，区域选择的背景和主题，二次选择的背景和选择
+(set-face-foreground 'highlight &quot;white&quot;)
+(set-face-background 'highlight &quot;blue&quot;)
+(set-face-foreground 'region &quot;cyan&quot;)
+(set-face-background 'region &quot;blue&quot;)
+(set-face-foreground 'secondary-selection &quot;skyblue&quot;)
+(set-face-background 'secondary-selection &quot;darkblue&quot;)
+
+;;------------窗口界面设置结束-----------------
+
+;;------------显示时间设置------------------------------
+
+(display-time-mode 1);;启用时间显示设置，在minibuffer上面的那个杠上
+(setq display-time-24hr-format t);;时间使用24小时制
+(setq display-time-day-and-date t);;时间显示包括日期和具体时间
+(setq display-time-use-mail-icon t);;时间栏旁边启用邮件设置
+(setq display-time-interval 10);;时间的变化频率
+
+;;------------显示时间设置结束--------------
+
+;;------------定制操作习惯--------------------
+;;设置打开文件的缺省路径
+(setq default-directory &quot;/Users/xxx&quot;)
+
+;;关闭烦人的出错时的提示声
+(setq visible-bell t)
+
+;;关闭emacs启动时的画面
+(setq inhibit-startup-message t)
+
+;; 改变 Emacs 固执的要你回答 yes 的行为。按 y 或空格键表示 yes，n 表示 no。
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; 语法高亮。除 shell-mode 和 text-mode 之外的模式中使用语法高亮。
+(setq font-lock-maximum-decoration t)
+(setq font-lock-global-modes '(not shell-mode text-mode))
+(setq font-lock-verbose t)
+(setq font-lock-maximum-size '((t . 1048576) (vm-mode . 5250000)))
+
+;;显示行列号
+(setq column-number-mode t)
+(setq line-number-mode t)
+;;不要在鼠标点击的那个地方插入剪贴板内容。
+(global-linum-mode t)
+(setq mouse-yank-at-point t)
+
+;;设置粘贴缓冲条目数量.用一个很大的kill ring(最多的记录个数). 这样防止我不小心删掉重要的东西
+(setq kill-ring-max 200)
+
+; Autofill in all modes;;
+(setq-default auto-fill-function 'do-auto-fill)
+
+;;把 fill-column 设为 60. 这样的文字更好读
+(setq default-fill-column 120)
+
+;;不用 TAB 字符来indent, 这会引起很多奇怪的错误。
+(setq-default indent-tabs-mode nil)
+(setq default-tab-width 8);;tab键为8个字符宽度
+(setq tab-stop-list ())
+
+
+;;(setq enable-recursive-minibuffers t)
+;;可以递归的使用 minibuffer
+
+;;防止页面滚动时跳动， scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文。
+(setq scroll-margin 3 scroll-conservatively 10000)
+
+;;设置缺省主模式是text，,并进入auto-fill次模式.而不是基本模式fundamental-mode
+(setq default-major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;;打开括号匹配显示模式
+(show-paren-mode t)
+
+;;括号匹配时可以高亮显示另外一边的括号，但光标不会烦人的跳到另一个括号处。
+(setq show-paren-style 'parenthesis)
+
+;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。
+(mouse-avoidance-mode 'animate)
+
+;;在标题栏显示buffer的名字，而不是 emacs@wangyin.com 这样没用的提示。
+(setq frame-title-format &quot;emacs@%b&quot;)
+
+;;让 Emacs 可以直接打开和显示图片。
+(setq auto-image-file-mode t)
+
+;;进行语法加亮。
+(setq global-font-lock-mode t)
+
+
+;; 把C-j绑定到到达指定行上 
+(global-set-key (kbd &quot;C-h&quot;) 'backward-delete-char-untabify)
+(global-set-key (kbd &quot;M-h&quot;) 'backward-kill-word)
+(global-set-key (kbd &quot;&lt;f1&gt;&quot;) 'help-command)
+(global-set-key (kbd &quot;&lt;f7&gt;&quot;) 'magit-status)
+
+;;当你在shell、telnet、w3m等模式下时，必然碰到过要输入密码的情况,此时加密显出你的密码
+(add-hook 'comint-output-filter-functions
+          'comint-watch-for-password-prompt)
+
+;; 设定不产生备份文件
+(setq make-backup-files nil)
+
+;; 不生成临时文件
+(setq-default make-backup-files nil)
+
+
+(put 'scroll-left 'disabled nil) ;允许屏幕左移
+(put 'scroll-right 'disabled nil) ;允许屏幕右移
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'LaTeX-hide-environment 'disabled nil)
+;;把这些缺省禁用的功能打开。
+
+;;允许emacs和外部其他程序的粘贴
+(setq x-select-enable-clipboard t)
+
+(setq user-full-name &quot;name&quot;)
+(setq user-mail-address &quot;name@qq.com&quot;)
+;;设置有用的个人信息,这在很多地方有用。
+
+
+(setq track-eol t)
+;; 当光标在行尾上下移动的时候，始终保持在行尾。
+;;--------------------src -------------
+;;(require 'org-tempo)
+;; if want use &lt;s TAB to begin a src block in org-mode 9.3,you must
+;; add org-tempo. you can also use C-c C-, to do the same thing.
+;;--------------------------------------
+
+</code></pre>
+<h3 id="安装插件">安装插件</h3>
+<p>目前常用的插件有以下几个</p>
+<ul>
+<li>openwith</li>
+</ul>
+<p>可以配置用外部程序打开emacs的文件</p>
+<ul>
+<li>magit</li>
+</ul>
+<p>git的前端界面</p>
+<ul>
+<li>mu4e</li>
+</ul>
+<p>邮件客户端</p>
+<ul>
+<li>org-hugo</li>
+</ul>
+<p>org文件生成hugo需要的md文件</p>
+<p>其他大部分插件都是built-in，默认可以使用。</p>
+<h3 id="块操作">块操作</h3>
+<h4 id="块操作命令有以下几个">块操作命令有以下几个</h4>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-x  r  k</td>
+<td>剪切一个矩形块</td>
+</tr>
+<tr>
+<td>C-x  r  y</td>
+<td>粘贴一个矩形块</td>
+</tr>
+<tr>
+<td>C-x  r  o</td>
+<td>插入一个矩形块</td>
+</tr>
+<tr>
+<td>C-x  r  c</td>
+<td>清除一个矩形块(使其变成空白)</td>
+</tr>
+<tr>
+<td>C-x  r  t</td>
+<td>在选定区域的所有列前插入样的字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="列操作">列操作</h3>
+<p>按列排序
+删除重复列</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody>
+</table>
+<h3 id="进阶操作">进阶操作</h3>
+<h4 id="排序">排序</h4>
+<h4 id="删除重复">删除重复</h4>
+<h4 id="删除指定">删除指定</h4>
+<h2 id="管理日志和日程">管理日志和日程</h2>
+<h2 id="direct模式">direct模式</h2>
+<h3 id="openwith">openwith</h3>
+<p>打开各种docx、pptx、xlsx等文件的配置，我配置中好像“｜”不起作用，第二行
+的视频播放配置可能无效，由于没有验证，也没再管他。有兴趣的可以研究一下。</p>
+<pre><code class="language-lisp">(require 'openwith)
+(openwith-mode t)
+(setq openwith-associations
+        '((&quot;\.docx$&quot; &quot;open&quot; (file) )(&quot;\.xlsx$&quot; &quot;open&quot; (file) ) (&quot;\.pptx$&quot; &quot;open&quot; (file))
+          (&quot;\.mov\|\.RM$\|\.RMVB$\|\.avi$\|\.AVI$\|\.flv$\|\.mp4\|\.mkv$\|\.rmvb$&quot; &quot;open&quot; (file) )
+          (&quot;\.pdf$&quot; &quot;open&quot; (file))
+          (&quot;\.CHM$\|\.chm$&quot; &quot;open&quot;  (file) )
+          )
+        )
+
+</code></pre>
+<h2 id="org模式">org模式</h2>
+<h3 id="表格">表格</h3>
+<p>C-c -</p>
+<h3 id="导出pdf">导出pdf</h3>
+<h2 id="magit">magit</h2>
+<h2 id="blog">blog</h2>
+<h2 id="python开发">python开发</h2>
+<h2 id="email">email</h2>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#入门命令">入门命令</a>
+      <ul>
+        <li><a href="#基础操作">基础操作</a></li>
+        <li><a href="#安装插件">安装插件</a></li>
+        <li><a href="#块操作">块操作</a></li>
+        <li><a href="#列操作">列操作</a></li>
+        <li><a href="#进阶操作">进阶操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#管理日志和日程">管理日志和日程</a></li>
+    <li><a href="#direct模式">direct模式</a>
+      <ul>
+        <li><a href="#openwith">openwith</a></li>
+      </ul>
+    </li>
+    <li><a href="#org模式">org模式</a>
+      <ul>
+        <li><a href="#表格">表格</a></li>
+        <li><a href="#导出pdf">导出pdf</a></li>
+      </ul>
+    </li>
+    <li><a href="#magit">magit</a></li>
+    <li><a href="#blog">blog</a></li>
+    <li><a href="#python开发">python开发</a></li>
+    <li><a href="#email">email</a></li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/css/">css</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/html/">html</a>
+            </span>
+            
+            <span>
+                <a href="/tags/markdown/">markdown</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/themes/">themes</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#入门命令">入门命令</a>
+      <ul>
+        <li><a href="#基础操作">基础操作</a></li>
+        <li><a href="#安装插件">安装插件</a></li>
+        <li><a href="#块操作">块操作</a></li>
+        <li><a href="#列操作">列操作</a></li>
+        <li><a href="#进阶操作">进阶操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#管理日志和日程">管理日志和日程</a></li>
+    <li><a href="#direct模式">direct模式</a>
+      <ul>
+        <li><a href="#openwith">openwith</a></li>
+      </ul>
+    </li>
+    <li><a href="#org模式">org模式</a>
+      <ul>
+        <li><a href="#表格">表格</a></li>
+        <li><a href="#导出pdf">导出pdf</a></li>
+      </ul>
+    </li>
+    <li><a href="#magit">magit</a></li>
+    <li><a href="#blog">blog</a></li>
+    <li><a href="#python开发">python开发</a></li>
+    <li><a href="#email">email</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2021
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

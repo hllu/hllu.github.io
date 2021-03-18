@@ -6,7 +6,16 @@
     <description>Recent content in Posts on lhl&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>emacs使用介绍</title>
+      <link>https://hllu.github.io/post/emacs/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/post/emacs/</guid>
+      <description>这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下 Ctrl-h t 或者F1 t即可打开自带的此文档 入</description>
+    </item>
+    
     <item>
       <title>Markdown Syntax</title>
       <link>https://hllu.github.io/post/markdown-syntax/</link>
