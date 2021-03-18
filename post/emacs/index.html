@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-03-18</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2053 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2067 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-model">org-model</a>&nbsp;</span>
 
@@ -112,9 +112,11 @@
     <div class="post-content markdown-body">
         <p>这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带
 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下
-Ctrl-h t 或者F1 t即可打开自带的此文档
-<img class="img-zoomable" src="/ox-hugo/emacspig.png" alt="" />
-</p>
+Ctrl-h t 或者F1 t即可打开自带的此文档</p>
+<figure>
+    <img src="/ox-hugo/emacspig.png" width="120 ~"/> 
+</figure>
+
 <h2 id="入门命令">入门命令</h2>
 <p>基础的，Emacs 命令通常包含有 CONTROL 键（有时候以 CTRL 或 CTL 来表示）或是META 键（有时候以 EDIT 或 ALT 来表示）。为了避免每一次都要写出其全名，我们将会使用下述的缩写：</p>
 <p>C-<chr> 表示当键入字符 <chr> 时 按住 CONTROL 键。因此，C-f 就是：按住 CONTROL 键再键入 f 。
@@ -386,6 +388,12 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
 <h3 id="表格">表格</h3>
 <p>C-c -</p>
 <h3 id="导出pdf">导出pdf</h3>
+<h3 id="指定图片尺寸">指定图片尺寸</h3>
+<pre><code class="language-lisp">
+#+ATTR_ORG: :width 100 ~
+#+ATTR_HTML:  :width 100p ~
+
+</code></pre>
 <h2 id="magit">magit</h2>
 <h2 id="blog">blog</h2>
 <h2 id="python开发">python开发</h2>
@@ -505,6 +513,7 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
       <ul>
         <li><a href="#表格">表格</a></li>
         <li><a href="#导出pdf">导出pdf</a></li>
+        <li><a href="#指定图片尺寸">指定图片尺寸</a></li>
       </ul>
     </li>
     <li><a href="#magit">magit</a></li>
@@ -631,6 +640,7 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
       <ul>
         <li><a href="#表格">表格</a></li>
         <li><a href="#导出pdf">导出pdf</a></li>
+        <li><a href="#指定图片尺寸">指定图片尺寸</a></li>
       </ul>
     </li>
     <li><a href="#magit">magit</a></li>
