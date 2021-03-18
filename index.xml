@@ -6,26 +6,7 @@
     <description>Recent content on lhl&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>In-post APlayer Test</title>
-      <link>https://hllu.github.io/post/aplayer-test/</link>
-      <pubDate>Sun, 10 Jan 2021 00:00:00 +0800</pubDate>
-      
-      <guid>https://hllu.github.io/post/aplayer-test/</guid>
-      <description>&lt;div class=&#34;post-player-wrapper&#34;&gt;
-  &lt;div
-    class=&#34;post-aplayer&#34;
-    data-urls=&#34;/theme/hugo-theme-fuji/aplayer/berlin.mp3&#34;
-    data-names=&#34;Berlin&#34;
-    data-artists=&#34;Crowander&#34;
-    data-covers=&#34;/theme/hugo-theme-fuji/aplayer/crowander.jpg&#34;
-  &gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;This post is for in-post APlayer test, above is previous post-player.&lt;/p&gt;
-&lt;p&gt;Music files are all downloaded from &lt;a href=&#34;https://freemusicarchive.org&#34; target=&#34;_blank&#34;&gt;Free Music Archive&lt;/a&gt;.&lt;/p&gt;</description>
-    </item>
-    
+    <lastBuildDate>Mon, 11 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Markdown Syntax</title>
       <link>https://hllu.github.io/post/markdown-syntax/</link>
@@ -79,41 +60,6 @@ Hugo is for people who want to hand code their own website without worrying abou
       
       <guid>https://hllu.github.io/post/demo/</guid>
       <description>这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;ldquo;content-org/&amp;rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上</description>
-    </item>
-    
-    <item>
-      <title>Placeholder Text</title>
-      <link>https://hllu.github.io/post/placeholder-text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://hllu.github.io/post/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de
-pectora summo. Redit teque digerit hominumque toris verebor lumina non cervice
-subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc
-caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis
-lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Emoji Support</title>
-      <link>https://hllu.github.io/post/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://hllu.github.io/post/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
-&lt;p&gt;The &lt;a href=&#34;https://gohugo.io/functions/emojify/&#34; target=&#34;_blank&#34;&gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34; target=&#34;_blank&#34;&gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To enable emoji globally, set &lt;code&gt;enableEmoji&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in your site’s &lt;a href=&#34;https://gohugo.io/getting-started/configuration/&#34; target=&#34;_blank&#34;&gt;configuration&lt;/a&gt; and then you can type emoji shorthand codes directly in content files; e.g.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;:s ee_no_evil:[Remove the space]&lt;/code&gt; 🙈 &lt;code&gt;:h ear_no_evil:[Remove the space]&lt;/code&gt; 🙉 &lt;code&gt;:s peak_no_evil:[Remove the space]&lt;/code&gt; 🙊&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>纯简体中文测试文章</title>
-      <link>https://hllu.github.io/post/wtf-article/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0800</pubDate>
-      
-      <guid>https://hllu.github.io/post/wtf-article/</guid>
-      <description>&lt;p&gt;本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。&lt;/p&gt;
-&lt;p&gt;可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。&lt;/p&gt;</description>
     </item>
     
   </channel>
