@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>picture on lhl&#39;s blog</title>
+    <link>https://hllu.github.io/tags/picture/</link>
+    <description>Recent content in picture on lhl&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/picture/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>图片显示测试</title>
+      <link>https://hllu.github.io/post/picture/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/post/picture/</guid>
+      <description>图片测试-尺寸控制 指定像素显示 图片测试-按比例显示 Neural network representationFigure 1: pic central 图片测试-按比例显示 Neural network representationFigure 2: pic align right</description>
+    </item>
+    
+  </channel>
+</rss>

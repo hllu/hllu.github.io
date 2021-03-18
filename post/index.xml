@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>图片显示测试</title>
+      <link>https://hllu.github.io/post/picture/</link>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/post/picture/</guid>
+      <description>图片测试-尺寸控制 指定像素显示 图片测试-按比例显示 Neural network representationFigure 1: pic central 图片测试-按比例显示 Neural network representationFigure 2: pic align right</description>
+    </item>
+    
+    <item>
       <title>Markdown Syntax</title>
       <link>https://hllu.github.io/post/markdown-syntax/</link>
       <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
