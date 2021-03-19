@@ -2,28 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hllu.github.io/tags/draft/</loc>
-    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/</loc>
-    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/list/</loc>
-    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/</loc>
-    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/test-for-the-third-time/</loc>
-    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/emacs/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/post/emacs/</loc>
+    <loc>https://hllu.github.io/posts/emacs/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/posts/emacs/</loc>
+    <loc>https://hllu.github.io/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/org-model/</loc>
@@ -32,40 +17,16 @@
     <loc>https://hllu.github.io/tags/picture/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/post/</loc>
-    <lastmod>2021-03-18T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/post/picture/</loc>
+    <loc>https://hllu.github.io/posts/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/posts/picture/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/tags/css/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/html/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/markdown/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/post/markdown-syntax/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/themes/</loc>
-    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/about/</loc>
     <lastmod>2020-04-11T19:15:32+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/post/math-typesetting/</loc>
-    <lastmod>2020-03-08T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/blog/</loc>
-    <lastmod>2019-10-19T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/post/demo/</loc>
     <lastmod>2019-10-19T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/posts/demo/</loc>
@@ -74,9 +35,5 @@
     <loc>https://hllu.github.io/archives/</loc>
   </url><url>
     <loc>https://hllu.github.io/search/</loc>
-  </url><url>
-    <loc>https://hllu.github.io/tags/test/</loc>
-  </url><url>
-    <loc>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</loc>
   </url>
 </urlset>

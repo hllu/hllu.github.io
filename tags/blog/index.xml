@@ -9,15 +9,6 @@
     <lastBuildDate>Sat, 19 Oct 2019 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>第一篇博客</title>
-      <link>https://hllu.github.io/post/demo/</link>
-      <pubDate>Sat, 19 Oct 2019 00:00:00 +0800</pubDate>
-      
-      <guid>https://hllu.github.io/post/demo/</guid>
-      <description>这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;ldquo;content-org/&amp;rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上</description>
-    </item>
-    
-    <item>
-      <title>第一篇博客</title>
       <link>https://hllu.github.io/posts/demo/</link>
       <pubDate>Sat, 19 Oct 2019 00:00:00 +0800</pubDate>
       
