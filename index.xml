@@ -22,7 +22,7 @@
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
       
       <guid>https://hllu.github.io/post/picture/</guid>
-      <description>图片测试-尺寸控制 指定像素显示 图片测试-按比例显示-left Neural network representationFigure 1: pic left 图片测试-按比例显示 Neural network representationFigure 2: pic align right 图片测试-按比例显示-central pp representationFigure 3: pic centre 图片测试-原始尺寸</description>
+      <description>图片测试-尺寸控制 指定像素显示 .org-center { margin-left: auto; margin-right: auto; text-align: center; } 图片测试-按比例显示-left Neural network representationFigure 1: pic left 图片测试-按比例显示 Neural network representationFigure 2: pic align right 图片测试-按比例显示-central pp representationFigure 3: pic centre 图片测试-原始尺寸</description>
     </item>
     
     <item>
@@ -78,6 +78,15 @@ Hugo is for people who want to hand code their own website without worrying abou
       
       <guid>https://hllu.github.io/post/demo/</guid>
       <description>这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;ldquo;content-org/&amp;rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上</description>
+    </item>
+    
+    <item>
+      <title>test emacs config for hugo 2</title>
+      <link>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</guid>
+      <description>State &amp;ldquo;DONE&amp;rdquo; from &amp;ldquo;TODO&amp;rdquo; [2021-03-19 Fri 11:26] type some thing</description>
     </item>
     
   </channel>

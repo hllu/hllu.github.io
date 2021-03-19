@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-03-18</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2076 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3766 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-model">org-model</a>&nbsp;</span>
 
@@ -121,22 +121,52 @@ Ctrl-h t 或者F1 t即可打开自带的此文档</p>
 </figure>
 
 </div>
-<h2 id="入门命令">入门命令</h2>
-<p>基础的，Emacs 命令通常包含有 CONTROL 键（有时候以 CTRL 或 CTL 来表示）或是META 键（有时候以 EDIT 或 ALT 来表示）。为了避免每一次都要写出其全名，我们将会使用下述的缩写：</p>
-<p>C-<chr> 表示当键入字符 <chr> 时 按住 CONTROL 键。因此，C-f 就是：按住 CONTROL 键再键入 f 。
-M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
-如果没有 META 、 EDIT 或 ALT 键时，则可以用「按一下 ESC 键然后放开，再键入 <chr> 的步骤」来替代。我们以 <ESC> 来表示 ESC 键。</p>
+<h2 id="基础命令">基础命令</h2>
+<p>C-<chr> 表示当键入字符 <chr> 时 按住 CONTROL 键。因此，C-f 就是：按住
+CONTROL 键再键入 f 。</p>
+<p>M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。</p>
+<p>如果没有 META 、 EDIT 或 ALT 键时，则可以用「按一下 ESC 键然后放开，再键入 <chr> 的步骤」来替代。</p>
 <h3 id="基础操作">基础操作</h3>
 <p>基础操作中，我都用了默认的快捷键，只增加了一个C-h,定义功能与backspace
 键相同。需要记住的是以下几个：</p>
-<ul>
-<li>C-M-v  另一个窗口向下滚动</li>
-<li>C-M-SHIFT-v 另一个窗口向上滚动</li>
-<li>C-c C-x C-v 直接预览图片</li>
-<li>C-x C-x  交换光标和标记的位置</li>
-<li>M-h 标记当前段落</li>
-<li>M-z 删除光标到指定字符之间的内容</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-M-v</td>
+<td>另一个窗口向下滚动</td>
+</tr>
+<tr>
+<td>C-M-SHIFT-v</td>
+<td>另一个窗口向上滚动</td>
+</tr>
+<tr>
+<td>C-c  C-x  C-v</td>
+<td>直接预览图片</td>
+</tr>
+<tr>
+<td>C-x  C-x</td>
+<td>交换光标和标记的位置</td>
+</tr>
+<tr>
+<td>M-h</td>
+<td>标记当前段落</td>
+</tr>
+<tr>
+<td>M-z</td>
+<td>删除光标到指定字符之间的内容</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>emacs的一些基础配置如下，</p>
 <pre><code class="language-lisp">(package-initialize)
 
@@ -301,21 +331,11 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
 <h3 id="安装插件">安装插件</h3>
 <p>目前常用的插件有以下几个</p>
 <ul>
-<li>openwith</li>
+<li>openwith ：可以配置用外部程序打开emacs的文件</li>
+<li>magit ：git的前端界面</li>
+<li>mu4e：邮件客户端</li>
+<li>ox-hugo ：org文件生成hugo需要的md文件</li>
 </ul>
-<p>可以配置用外部程序打开emacs的文件</p>
-<ul>
-<li>magit</li>
-</ul>
-<p>git的前端界面</p>
-<ul>
-<li>mu4e</li>
-</ul>
-<p>邮件客户端</p>
-<ul>
-<li>org-hugo</li>
-</ul>
-<p>org文件生成hugo需要的md文件</p>
 <p>其他大部分插件都是built-in，默认可以使用。</p>
 <h3 id="块操作">块操作</h3>
 <h4 id="块操作命令有以下几个">块操作命令有以下几个</h4>
@@ -370,9 +390,14 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
 </table>
 <h3 id="进阶操作">进阶操作</h3>
 <h4 id="排序">排序</h4>
+<p class="verse">
+C-u 7 M-x sort-field<br />
+</p>
 <h4 id="删除重复">删除重复</h4>
+<blockquote>
+<p>M -x  delete-duplicate-lines</p>
+</blockquote>
 <h4 id="删除指定">删除指定</h4>
-<h2 id="管理日志和日程">管理日志和日程</h2>
 <h2 id="direct模式">direct模式</h2>
 <h3 id="openwith">openwith</h3>
 <p>打开各种docx、pptx、xlsx等文件的配置，我配置中好像“｜”不起作用，第二行
@@ -389,16 +414,340 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
 
 </code></pre>
 <h2 id="org模式">org模式</h2>
+<h3 id="文本操作">文本操作</h3>
+<h4 id="移动">移动</h4>
+<table>
+<thead>
+<tr>
+<th>C-c C-n</th>
+<th>下个标题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C-c C-p</td>
+<td>上个标题</td>
+</tr>
+<tr>
+<td>C-c C-f</td>
+<td>下个同级的标题</td>
+</tr>
+<tr>
+<td>C-c C-b</td>
+<td>上个同级的标题</td>
+</tr>
+<tr>
+<td>C-c C-u</td>
+<td>回到上层标题</td>
+</tr>
+</tbody>
+</table>
+<h4 id="编辑">编辑</h4>
+<h5 id="文档中常用的配置">文档中常用的配置</h5>
+<pre><code class="language-text">#+OPTIONS ^:nil 关闭下划线转义 输入a_{b}才转义
+#+OPTIONS: toc:t  ^:nil author:nil num:2
+#+OPTINS: n:t  html 中不换行
+
+</code></pre>
+<h5 id="列表">列表</h5>
+<p>在大纲树的一项中，自定义格式的列表可以提供更多的组织结构，也使我们可以
+得到一个复先框列表（见 5.6 节［复先框］）。Org 模式可以处理这种列表，
+并且 HTML 导出器（见12章）也支持这种格式。</p>
+<p>Org 能够识别有序列表、无序列表和描述列表。</p>
+<p>无序列表项以‘-’、‘+’或者‘*‘开头。
+有序列表项以‘1.’、‘1)’或者开头。
+描述列表用‘::’将项和描述分开。
+同一列表中的项的第一行必须缩进相同程度。当下一行的缩进与列表项的的开头
+的符号或者数字相同或者更小时，这一项就结束了。当所有的项都关上时，或者
+后面有两个空行时，列表就结束了。例如：</p>
+<h4 id="链接">链接</h4>
+<p>Org 能够识别 URL 格式的文本并将它们处理成可点击的链接。通常链接格式是这样的：</p>
+<pre><code class="language-shell">[[link][description]]
+</code></pre>
+<p>或者</p>
+<pre><code class="language-shell">[[link]]
+</code></pre>
+<p>要想编辑链接，可以光标置于链接上并键入 C-c C-l。</p>
+<h5 id="内部链接">内部链接</h5>
+<p>如果一个链接地址并不是 URL 的形式，就会作为当前文件内部链接来处理。最重要的一个例子是</p>
+<pre><code class="language-shell">[[#my-custom-id]]
+</code></pre>
+<p>它会链接到 CUSTOM_ID 属性是 “my-custom-id” 的项。</p>
+<p>类似</p>
+<pre><code class="language-shell">[[My Target]]
+</code></pre>
+<p>和</p>
+<pre><code class="language-shell">[[My Target][Find my target]]
+</code></pre>
+<p>的链接，点击后本文件中查找对应的目标。</p>
+<h5 id="外部链接">外部链接</h5>
+<p>Org 支持的链接格式包括文件、网页、新闻组、BBDB 数据库项、IRC 会话和记
+录。外部链接是 URL 格式的定位器。以识别符开头，后面跟着一个冒号，冒号
+后面不能有空格。下面是一些例子：</p>
+<pre><code class="language-text">
+- http://www.astro.uva.nl/~dominik         :: on the web
+- file:/home/dominik/images/jupiter.jpg    :: file, absolute path
+- /home/dominik/images/jupiter.jpg         :: same as above
+- file:papers/last.pdf                     :: file, relative path
+- file:projects.org                        :: another Org file
+- docview:papers/last.pdf::NNN             :: open file in doc-view mode at page NNN
+- id:B7423F4D-2E8A-471B-8810-C40F074717E9  :: Link to heading by ID
+- news:comp.emacs                          :: Usenet link
+- mailto:adent@galaxy.net                  :: Mail link
+- vm:folder                                :: VM folder link
+- vm:folder#id                             :: VM message link
+- wl:folder#id                             :: WANDERLUST message link
+- mhe:folder#id                            :: MH-E message link
+- rmail:folder#id                          :: RMAIL message link
+- gnus:group#id                            :: Gnus article link
+- bbdb:R.*Stallman                         :: BBDB link (with regexp)
+- irc:/irc.com/#emacs/bob                  :: IRC link
+- info:org:External%20links                :: Info node link (with encoded space)
+</code></pre>
+<h3 id="管理日志和日程">管理日志和日程</h3>
+<h4 id="相关的配置">相关的配置</h4>
+<pre><code class="language-lisp">;;-------------begin  gtd------------------------------
+(global-set-key &quot;\C-c1&quot; 'org-store-link)
+(global-set-key &quot;\C-cc&quot; 'org-capture)
+;;(global-set-key &quot;\C-cr&quot; 'remember)
+(global-set-key &quot;\C-ca&quot; 'org-agenda)
+(global-set-key &quot;\C-cb&quot; 'org-iswitchb)
+
+(setq org-todo-keywords
+      '((sequence &quot;REPORT(r)&quot;)
+       (sequence &quot;TODO(t!)&quot; &quot;|&quot; &quot;DONE(d!)&quot; &quot;CANCELED(c@/!)&quot;))
+      )
+(setq org-capture-templates
+      '((&quot;t&quot; &quot;Todo&quot; entry (file+headline &quot;~/.todos/gtd.org&quot; &quot;Tasks&quot;)
+         &quot;* TODO %?\n %i\n %a&quot;)
+        (&quot;j&quot; &quot;Journal&quot; entry (file+datetree &quot;~/.todos/journal.org&quot;)
+         &quot;* %?\nEntered on %U\n %i\n %a&quot;)))
+(setq org-agenda-files (list &quot;~/.todos/gtd.org&quot;
+                              &quot;~/.todos/journal.org&quot;
+                              &quot;~/Documents/todo/&quot;
+                              ))
+(setq org-default-notes-file &quot;~/.todos/journal.org&quot;)
+;;----------------end gtd-------------------------------
+
+</code></pre>
 <h3 id="表格">表格</h3>
-<p>C-c -</p>
+<h4 id="基本操作">基本操作</h4>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TAB</td>
+<td>切换到下个单元格，如是最后一个单元格，则新建一行并跳到该行第一个单元格</td>
+</tr>
+<tr>
+<td>M-S-right</td>
+<td>在当前列前插入一列</td>
+</tr>
+<tr>
+<td>M-S-left</td>
+<td>删除当前列</td>
+</tr>
+<tr>
+<td>M-S-down</td>
+<td>在当前行前插入一行</td>
+</tr>
+<tr>
+<td>M-S-up</td>
+<td>删除当前行</td>
+</tr>
+<tr>
+<td>C-m</td>
+<td>移动到下一行，或新建一行</td>
+</tr>
+<tr>
+<td>M-up/M-down</td>
+<td>将当前行往上/下移动</td>
+</tr>
+<tr>
+<td>M-left/M-right</td>
+<td>将当前列往左/右移动</td>
+</tr>
+<tr>
+<td>C-c `</td>
+<td>编辑当前单元格</td>
+</tr>
+<tr>
+<td>C-c C-x C-w</td>
+<td>剪切某个区域的表格内容</td>
+</tr>
+<tr>
+<td>C-c C-x C-y</td>
+<td>拷贝复制的内容到表格</td>
+</tr>
+<tr>
+<td>S-return</td>
+<td>当单元格无内容时，将其上方第一个非空内容拷贝过来;否则拷贝当前内容到下一行并随之移动</td>
+</tr>
+<tr>
+<td>C-c C-c</td>
+<td>强制表格重新排列</td>
+</tr>
+<tr>
+<td>C-c ^</td>
+<td>表格排序</td>
+</tr>
+<tr>
+<td>C-c 竖线</td>
+<td>选中一部分数据，直接建立表格</td>
+</tr>
+<tr>
+<td>C-c -</td>
+<td>在一行后执行，在下一行添加表格分割线</td>
+</tr>
+</tbody>
+</table>
+<h4 id="表格计算-公式编辑">表格计算、公式编辑</h4>
+<h4 id="表格绘图">表格绘图</h4>
 <h3 id="导出pdf">导出pdf</h3>
+<p>导出pdf，需要latex的支持，需要安装相关的组建并配置。由于相对比较复杂，
+可以用一个折中的简单办法，先吧org文件转化为html文件，再从web浏览器上面
+保存为pdf文档，目前看基本上可以用。
+以下是曾经用过的latex相关配置：</p>
+<pre><code class="language-lisp">
+;; (setq tex-compile-commands '((&quot;xelatex %r&quot;)))
+;; (setq tex-command &quot;xelatex&quot;)
+;; (setq-default TeX-engine 'xelatex)
+
+;; (add-hook 'LaTeX-mode-hook (lambda()
+;;           (add-to-list 'TeX-command-list '(&quot;XeLaTeX&quot; &quot;xelatex %(mode) %t&quot; TeX-run-TeX nil  (latex-mode) ))
+;;           (setq TeX-command-default &quot;XeLaTeX&quot;)
+;;           (setq TeX-save-query  nil )
+;;           (setq TeX-show-compilation t)
+;;           (setq TeX-PDF-mode t)
+;;            ))
+
+
+;; 使用Listings宏包格式化源代码(只是把代码框用listing环境框起来，还需要额外的设置)
+(setq org-export-latex-listings t)
+;; Options for \lset command（reference to listing Manual)
+(setq org-export-latex-listings-options
+      '(
+        (&quot;basicstyle&quot; &quot;\\color{foreground}\\small\\mono&quot;)           ; 源代码字体样式
+        (&quot;keywordstyle&quot; &quot;\\color{function}\\bfseries\\small\\mono&quot;) ; 关键词字体样式
+        (&quot;identifierstyle&quot; &quot;\\color{doc}\\small\\mono&quot;)
+        (&quot;commentstyle&quot; &quot;\\color{comment}\\small\\itshape&quot;)         ; 批注样式
+        (&quot;stringstyle&quot; &quot;\\color{string}\\small&quot;)                    ; 字符串样式
+        (&quot;showstringspaces&quot; &quot;false&quot;)                                ; 字符串空格显示
+        (&quot;numbers&quot; &quot;left&quot;)                                          ; 行号显示
+        (&quot;numberstyle&quot; &quot;\\color{preprocess}&quot;)                       ; 行号样式
+        (&quot;stepnumber&quot; &quot;1&quot;)                                          ; 行号递增
+        (&quot;backgroundcolor&quot; &quot;\\color{background}&quot;)                   ; 代码框背景色
+        (&quot;tabsize&quot; &quot;4&quot;)                                             ; TAB等效空格数
+        (&quot;captionpos&quot; &quot;t&quot;)                                          ; 标题位置 top or buttom(t|b)
+        (&quot;breaklines&quot; &quot;true&quot;)                                       ; 自动断行
+        (&quot;breakatwhitespace&quot; &quot;true&quot;)                                ; 只在空格分行
+        (&quot;showspaces&quot; &quot;false&quot;)                                      ; 显示空格
+        (&quot;columns&quot; &quot;flexible&quot;)                                      ; 列样式
+        (&quot;frame&quot; &quot;single&quot;)                                          ; 代码框：阴影盒
+        (&quot;frameround&quot; &quot;tttt&quot;)                                       ; 代码框： 圆角
+        (&quot;framesep&quot; &quot;0pt&quot;)
+        (&quot;framerule&quot; &quot;8pt&quot;)
+        (&quot;rulecolor&quot; &quot;\\color{background}&quot;)
+        (&quot;fillcolor&quot; &quot;\\color{white}&quot;)
+        (&quot;rulesepcolor&quot; &quot;\\color{comdil}&quot;)
+        (&quot;framexleftmargin&quot; &quot;10mm&quot;)
+        ))
+
+
+;;  \usepackage{fontspec}
+;;  \setmainfont{Microsoft YaHei}
+
+
+
+(defun my-auto-tex-parameters (backend)
+  &quot;Automatically select the tex packages to include.&quot;
+  ;; default packages for ordinary latex or pdflatex export
+(setq org-latex-default-packages-alist
+      '((&quot;AUTO&quot; &quot;inputenc&quot; t)
+        (&quot;&quot; &quot;graphicx&quot; t)
+        (&quot;&quot; &quot;longtable&quot; nil)
+        (&quot;&quot; &quot;float&quot; nil)
+         (&quot;&quot; &quot;fontspec&quot; t)
+              (&quot;&quot; &quot;xunicode&quot; t)
+              (&quot;&quot; &quot;url&quot; t)
+              (&quot;&quot; &quot;rotating&quot; t)
+              (&quot;american&quot; &quot;babel&quot; t)
+              (&quot;babel&quot; &quot;csquotes&quot; t)
+              (&quot;&quot; &quot;soul&quot; t)
+              (&quot;xetex&quot; &quot;hyperref&quot; t)
+          (&quot;T1&quot;   &quot;fontenc&quot;   t)
+          (&quot;&quot;     &quot;fixltx2e&quot;  nil)
+          (&quot;&quot;     &quot;wrapfig&quot;   nil)
+          (&quot;&quot;     &quot;soul&quot;      t)
+          (&quot;&quot;     &quot;textcomp&quot;  t)
+          (&quot;&quot;     &quot;marvosym&quot;  t)
+          (&quot;&quot;     &quot;wasysym&quot;   t)
+          (&quot;&quot;     &quot;latexsym&quot;  t)
+          (&quot;&quot;     &quot;amssymb&quot;   t)
+          (&quot;&quot;     &quot;hyperref&quot;  nil))))
+ ;; Packages to include when xelatex is used
+      ;; (setq org-export-latex-classes
+      ;;       (cons '(&quot;ctexart&quot;
+      ;;               &quot;\\documentclass[11pt,ctexart]{memoir}&quot;
+      ;;               (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
+      ;;               (&quot;\\subsection{%s}&quot; . &quot;\\subsection*{%s}&quot;)
+      ;;               (&quot;\\subsubsection{%s}&quot; . &quot;\\subsubsection*{%s}&quot;)
+      ;;               (&quot;\\paragraph{%s}&quot; . &quot;\\paragraph*{%s}&quot;)
+      ;;               (&quot;\\subparagraph{%s}&quot; . &quot;\\subparagraph*{%s}&quot;))
+      ;;             org-export-latex-classes))
+(add-hook 'org-export-before-parsing-hook 'my-auto-tex-parameters)
+
+;;set xetex mode in tex/latex
+;; (add-hook 'LaTeX-mode-hook (lambda()
+;;         (add-to-list 'TeX-command-list '(&quot;XeLaTeX&quot; &quot;%`xelatex%(mode)%' %t&quot; TeX-run-TeX nil t))
+;;         (setq TeX-command-default &quot;XeLaTeX&quot;)
+;;         (setq TeX-save-query nil)
+;;         (setq TeX-show-compilation t)
+;;         ))
+
+
+;; (setq org-latex-to-pdf-process
+;;   '(&quot;xelatex -interaction nonstopmode %f&quot;
+;;     &quot;xelatex -interaction nonstopmode %f&quot;)) ;; for multiple passes
+(setq org-latex-pdf-process '(&quot;xelatex -shell-escape -interaction nonstopmode %f&quot;
+                              &quot;xelatex -shell-escape -interaction nonstopmode %f&quot;))
+</code></pre>
 <h3 id="指定图片尺寸">指定图片尺寸</h3>
+<h4 id="用像素指定图片尺寸">用像素指定图片尺寸</h4>
 <pre><code class="language-lisp">
 #+ATTR_ORG: :width 100 ~
 #+ATTR_HTML:  :width 100p ~
+[[./shanshui.jpg]]
+
+</code></pre>
+<h4 id="用比例指定图片尺寸">用比例指定图片尺寸</h4>
+<p>:title表示图片名称， 对齐方式用‘：align right’</p>
+<pre><code class="language-list">
+#+CAPTION: pic align right
+#+ATTR_HTML: :alt neural network :title Neural network representation :align right
+#+ATTR_HTML: :width 30% :height 30%
+ [[./shanshui.jpg]]
+
+</code></pre>
+<h4 id="图片居中">图片居中</h4>
+<p>可以用center来表示图片居中</p>
+<pre><code class="language-lisp">
+#+begin_center
+
+#+ATTR_ORG: :width 100 ~
+#+ATTR_HTML:  :width 100p ~
+[[./shanshui.jpg]]
+
+#+end_center
 
 </code></pre>
 <h2 id="magit">magit</h2>
+<p>magit status 中 ? 键可提示magit命令绑定在哪些按键上.</p>
 <h2 id="blog">blog</h2>
 <h2 id="python开发">python开发</h2>
 <h2 id="email">email</h2>
@@ -502,7 +851,7 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3><nav id="TableOfContents">
   <ul>
-    <li><a href="#入门命令">入门命令</a>
+    <li><a href="#基础命令">基础命令</a>
       <ul>
         <li><a href="#基础操作">基础操作</a></li>
         <li><a href="#安装插件">安装插件</a></li>
@@ -511,7 +860,6 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
         <li><a href="#进阶操作">进阶操作</a></li>
       </ul>
     </li>
-    <li><a href="#管理日志和日程">管理日志和日程</a></li>
     <li><a href="#direct模式">direct模式</a>
       <ul>
         <li><a href="#openwith">openwith</a></li>
@@ -519,6 +867,8 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
     </li>
     <li><a href="#org模式">org模式</a>
       <ul>
+        <li><a href="#文本操作">文本操作</a></li>
+        <li><a href="#管理日志和日程">管理日志和日程</a></li>
         <li><a href="#表格">表格</a></li>
         <li><a href="#导出pdf">导出pdf</a></li>
         <li><a href="#指定图片尺寸">指定图片尺寸</a></li>
@@ -633,7 +983,7 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
         <h3>Table of Contents</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#入门命令">入门命令</a>
+    <li><a href="#基础命令">基础命令</a>
       <ul>
         <li><a href="#基础操作">基础操作</a></li>
         <li><a href="#安装插件">安装插件</a></li>
@@ -642,7 +992,6 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
         <li><a href="#进阶操作">进阶操作</a></li>
       </ul>
     </li>
-    <li><a href="#管理日志和日程">管理日志和日程</a></li>
     <li><a href="#direct模式">direct模式</a>
       <ul>
         <li><a href="#openwith">openwith</a></li>
@@ -650,6 +999,8 @@ M-<chr> 表示当键入字符 <chr> 时 按住 META 或 EDIT 或 ALT 键。
     </li>
     <li><a href="#org模式">org模式</a>
       <ul>
+        <li><a href="#文本操作">文本操作</a></li>
+        <li><a href="#管理日志和日程">管理日志和日程</a></li>
         <li><a href="#表格">表格</a></li>
         <li><a href="#导出pdf">导出pdf</a></li>
         <li><a href="#指定图片尺寸">指定图片尺寸</a></li>

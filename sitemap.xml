@@ -52,6 +52,10 @@
   </url><url>
     <loc>https://hllu.github.io/archives/</loc>
   </url><url>
+    <loc>https://hllu.github.io/posts/</loc>
+  </url><url>
     <loc>https://hllu.github.io/search/</loc>
+  </url><url>
+    <loc>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</loc>
   </url>
 </urlset>
