@@ -5,35 +5,14 @@
     <link>https://hllu.github.io/tags/test/</link>
     <description>Recent content in test on lhl&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://hllu.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>In-post APlayer Test</title>
-      <link>https://hllu.github.io/post/aplayer-test/</link>
-      <pubDate>Sun, 10 Jan 2021 00:00:00 +0800</pubDate>
+      <title>test emacs config for hugo 2</title>
+      <link>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://hllu.github.io/post/aplayer-test/</guid>
-      <description>&lt;div class=&#34;post-player-wrapper&#34;&gt;
-  &lt;div
-    class=&#34;post-aplayer&#34;
-    data-urls=&#34;/theme/hugo-theme-fuji/aplayer/berlin.mp3&#34;
-    data-names=&#34;Berlin&#34;
-    data-artists=&#34;Crowander&#34;
-    data-covers=&#34;/theme/hugo-theme-fuji/aplayer/crowander.jpg&#34;
-  &gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;This post is for in-post APlayer test, above is previous post-player.&lt;/p&gt;
-&lt;p&gt;Music files are all downloaded from &lt;a href=&#34;https://freemusicarchive.org&#34; target=&#34;_blank&#34;&gt;Free Music Archive&lt;/a&gt;.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>纯简体中文测试文章</title>
-      <link>https://hllu.github.io/post/wtf-article/</link>
-      <pubDate>Sat, 01 Apr 2017 00:00:00 +0800</pubDate>
-      
-      <guid>https://hllu.github.io/post/wtf-article/</guid>
-      <description>&lt;p&gt;本文内容无实际意义，由狗屁不通文章生成器自动生成，不代表作者本人观点。&lt;/p&gt;
-&lt;p&gt;可是，即使是这样，一段代码写一天的出现仍然代表了一定的意义。一段代码写一天，到底应该如何实现。马克思在不经意间这样说过，一切节省，归根到底都归结为时间的节省。这不禁令我深思。马克思曾经说过，一切节省，归根到底都归结为时间的节省。&lt;/p&gt;</description>
+      <guid>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</guid>
+      <description>State &amp;ldquo;DONE&amp;rdquo; from &amp;ldquo;TODO&amp;rdquo; [2021-03-19 Fri 11:26] type some thing 定风波 莫听传林打叶声 莫听穿林打叶声，何妨吟啸且徐行。竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。 料峭春风吹酒醒，微冷，山头斜照却相迎。回首向来萧瑟处，归去，也无风雨也无晴。 译文 解释部分 三</description>
     </item>
     
   </channel>

@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hllu.github.io/tags/draft/</loc>
+    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/</loc>
+    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/list/</loc>
+    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/</loc>
+    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/test-for-the-third-time/</loc>
+    <lastmod>2021-03-19T18:01:00+08:00</lastmod>
+  </url><url>
     <loc>https://hllu.github.io/tags/emacs/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
@@ -11,16 +26,10 @@
     <loc>https://hllu.github.io/posts/emacs/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/</loc>
-    <lastmod>2021-03-18T00:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/org-model/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/picture/</loc>
-    <lastmod>2021-03-18T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/</loc>
     <lastmod>2021-03-18T00:00:00+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/post/</loc>
@@ -65,6 +74,8 @@
     <loc>https://hllu.github.io/archives/</loc>
   </url><url>
     <loc>https://hllu.github.io/search/</loc>
+  </url><url>
+    <loc>https://hllu.github.io/tags/test/</loc>
   </url><url>
     <loc>https://hllu.github.io/posts/test-emacs-config-for-hugo-2/</loc>
   </url>

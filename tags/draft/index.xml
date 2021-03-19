@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>draft on lhl&#39;s blog</title>
+    <link>https://hllu.github.io/tags/draft/</link>
+    <description>Recent content in draft on lhl&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 19 Mar 2021 18:01:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/draft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>test for the third time</title>
+      <link>https://hllu.github.io/posts/test-for-the-third-time/</link>
+      <pubDate>Fri, 19 Mar 2021 18:01:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/test-for-the-third-time/</guid>
+      <description>why no tag ,why no time ,</description>
+    </item>
+    
+  </channel>
+</rss>
