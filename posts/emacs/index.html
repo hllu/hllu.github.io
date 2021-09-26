@@ -25,7 +25,7 @@
 <title>emacs使用介绍 - lhl&#39;s blog</title>
 
 
-<meta name="author" content="[Lu Hailong]" />
+<meta name="author" content="[luhailong]" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-03-18</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3776 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3968 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-model">org-model</a>&nbsp;</span>
 
@@ -398,6 +398,20 @@ C-u 7 M-x sort-field<br />
 <p>M -x  delete-duplicate-lines</p>
 </blockquote>
 <h4 id="删除指定">删除指定</h4>
+<h4 id="tramp">tramp</h4>
+<h5 id="配置">配置</h5>
+<p>(require &lsquo;tramp)</p>
+<h5 id="sudo">sudo</h5>
+<p class="verse">
+/sudo::/path/to/file<br />
+</p>
+<h5 id="ssh">ssh</h5>
+<p class="verse">
+/ssh:username@server.net:/path/to/file.txt<br />
+<br />
+/sftp:username@server.net:/path/to/file.txt<br />
+</p>
+<p>server name 可以在host中定义</p>
 <h2 id="direct模式">direct模式</h2>
 <h3 id="openwith">openwith</h3>
 <p>打开各种docx、pptx、xlsx等文件的配置，我配置中好像“｜”不起作用，第二行
@@ -484,24 +498,24 @@ C-u 7 M-x sort-field<br />
 录。外部链接是 URL 格式的定位器。以识别符开头，后面跟着一个冒号，冒号
 后面不能有空格。下面是一些例子：</p>
 <pre><code class="language-text">
-- http://www.astro.uva.nl/~dominik         :: on the web
-- file:/home/dominik/images/jupiter.jpg    :: file, absolute path
-- /home/dominik/images/jupiter.jpg         :: same as above
-- file:papers/last.pdf                     :: file, relative path
-- file:projects.org                        :: another Org file
-- docview:papers/last.pdf::NNN             :: open file in doc-view mode at page NNN
-- id:B7423F4D-2E8A-471B-8810-C40F074717E9  :: Link to heading by ID
-- news:comp.emacs                          :: Usenet link
-- mailto:adent@galaxy.net                  :: Mail link
-- vm:folder                                :: VM folder link
-- vm:folder#id                             :: VM message link
-- wl:folder#id                             :: WANDERLUST message link
-- mhe:folder#id                            :: MH-E message link
-- rmail:folder#id                          :: RMAIL message link
-- gnus:group#id                            :: Gnus article link
-- bbdb:R.*Stallman                         :: BBDB link (with regexp)
-- irc:/irc.com/#emacs/bob                  :: IRC link
-- info:org:External%20links                :: Info node link (with encoded space)
+http://www.astro.uva.nl/~dominik         :: on the web
+file:/home/dominik/images/jupiter.jpg    :: file, absolute path
+/home/dominik/images/jupiter.jpg         :: same as above
+file:papers/last.pdf                     :: file, relative path
+file:projects.org                        :: another Org file
+docview:papers/last.pdf::NNN             :: open file in doc-view mode at page NNN
+id:B7423F4D-2E8A-471B-8810-C40F074717E9  :: Link to heading by ID
+news:comp.emacs                          :: Usenet link
+mailto:adent@galaxy.net                  :: Mail link
+vm:folder                                :: VM folder link
+vm:folder#id                             :: VM message link
+wl:folder#id                             :: WANDERLUST message link
+mhe:folder#id                            :: MH-E message link
+rmail:folder#id                          :: RMAIL message link
+gnus:group#id                            :: Gnus article link
+bbdb:R.*Stallman                         :: BBDB link (with regexp)
+irc:/irc.com/#emacs/bob                  :: IRC link
+info:org:External%20links                :: Info node link (with encoded space)
 </code></pre>
 <h3 id="管理日志和日程">管理日志和日程</h3>
 <h4 id="相关的配置">相关的配置</h4>
@@ -748,8 +762,48 @@ C-u 7 M-x sort-field<br />
 <h2 id="magit">magit</h2>
 <p>magit status 中 ? 键可提示magit命令绑定在哪些按键上.</p>
 <h2 id="blog">blog</h2>
-<p>需要添加hugo部分</p>
+<h3 id="ox-hugo相关的配置">ox-hugo相关的配置</h3>
+<pre><code class="language-shell">(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
+;;---------------begin hugo------------------------
+;; org-hugo capture
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    &quot;Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information.&quot;
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer &quot;Post Title: &quot;)) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat &quot;** TODO &quot; title &quot;     :@随笔:&quot;)
+                   &quot;:PROPERTIES:&quot;
+                   ,(concat &quot;:EXPORT_FILE_NAME: &quot; fname)
+                   ,(concat &quot;:EXPORT_DATE: &quot; date) ;Enter current date and time
+                   &quot;:END:&quot;
+                   &quot;%?\n&quot;)          ;Place the cursor here finally
+                 &quot;\n&quot;)))
+
+  (add-to-list 'org-capture-templates
+               '(&quot;h&quot;                ;`org-capture' binding + h
+                 &quot;Hugo post&quot;
+                 entry
+                 ;; It is assumed that below file is present in `org-directory'
+                 ;; and that it has a &quot;Blog Ideas&quot; heading. It can even be a
+                 ;; symlink pointing to the actual location of all-posts.org!
+                 (file+headline &quot;~/blog/gitblog//orgcontent/0000head.org&quot; &quot;INBOX&quot;)
+                 (function org-hugo-new-subtree-post-capture-template))))
+
+;;---------------end hugo--------------------------
+
+</code></pre>
+<p>配置好之后，用以下命令，就可以把org文件导出为md文件并放在对应的目录下</p>
+<pre><code class="language-text">C-c C-e H H
+</code></pre>
 <h2 id="python开发">python开发</h2>
+<h2 id="ediff">ediff</h2>
 <h2 id="email">email</h2>
 
     </div>
@@ -830,6 +884,10 @@ C-u 7 M-x sort-field<br />
                 <a href="/tags/picture/">picture</a>
             </span>
             
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
         </div>
     </div>
     <div class="sidebar-item sidebar-toc">
@@ -859,8 +917,13 @@ C-u 7 M-x sort-field<br />
       </ul>
     </li>
     <li><a href="#magit">magit</a></li>
-    <li><a href="#blog">blog</a></li>
+    <li><a href="#blog">blog</a>
+      <ul>
+        <li><a href="#ox-hugo相关的配置">ox-hugo相关的配置</a></li>
+      </ul>
+    </li>
     <li><a href="#python开发">python开发</a></li>
+    <li><a href="#ediff">ediff</a></li>
     <li><a href="#email">email</a></li>
   </ul>
 </nav></div>
@@ -942,6 +1005,10 @@ C-u 7 M-x sort-field<br />
                 <a href="/tags/picture/">picture</a>
             </span>
             
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
         </div>
     </div>
     
@@ -975,8 +1042,13 @@ C-u 7 M-x sort-field<br />
       </ul>
     </li>
     <li><a href="#magit">magit</a></li>
-    <li><a href="#blog">blog</a></li>
+    <li><a href="#blog">blog</a>
+      <ul>
+        <li><a href="#ox-hugo相关的配置">ox-hugo相关的配置</a></li>
+      </ul>
+    </li>
     <li><a href="#python开发">python开发</a></li>
+    <li><a href="#ediff">ediff</a></li>
     <li><a href="#email">email</a></li>
   </ul>
 </nav>

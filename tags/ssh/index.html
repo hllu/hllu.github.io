@@ -22,25 +22,23 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>使用org和ssh实现对ssh连接的管理 - lhl&#39;s blog</title>
+<title>ssh - lhl&#39;s blog</title>
 
 
-<meta name="author" content="[luhailong]" />
+<meta name="author" content="hllu" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta name="keywords" content="ssh" />
+<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/ssh/index.xml" title="lhl's blog" />
 
-
-<meta property="og:title" content="使用org和ssh实现对ssh连接的管理" />
-<meta name="twitter:title" content="使用org和ssh实现对ssh连接的管理" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8org%E5%92%8Cssh%E5%AE%9E%E7%8E%B0%E5%AF%B9ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%AE%A1%E7%90%86/" /><meta property="og:description" content="emacs中，要打开一个ssh连接，可以用以下命令: /ssh name@10.110.20.18:~ 当输入密码的时候，emacs可以自动保存密码，方便以后输入。但这个连接的信 息无法与xshell等软件一样保存起来，下次输入的时候，还需要丛别的地" />
-<meta name="twitter:description" content="emacs中，要打开一个ssh连接，可以用以下命令: /ssh name@10.110.20.18:~ 当输入密码的时候，emacs可以自动保存密码，方便以后输入。但这个连接的信 息无法与xshell等软件一样保存起来，下次输入的时候，还需要丛别的地" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:title" content="ssh" />
+<meta name="twitter:title" content="ssh" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hllu.github.io/tags/ssh/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2021-09-24T17:26:00+08:00" /><meta property="article:modified_time" content="2021-09-24T17:26:00+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2021-09-24T17:26:00+08:00" />
 
 
 <style>
@@ -95,76 +93,28 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
-<article>
-    
-    <h2 class="post-item post-title">
-        <a href="https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8org%E5%92%8Cssh%E5%AE%9E%E7%8E%B0%E5%AF%B9ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%AE%A1%E7%90%86/">使用org和ssh实现对ssh连接的管理</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-09-24</span>
+
+<div class="page-info">
+  <span>Posts with the tag ssh: </span>
+</div>
+
+
+
+<div class="post">
+  <h2 class="post-item post-title">
+    <a href="https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8org%E5%92%8Cssh%E5%AE%9E%E7%8E%B0%E5%AF%B9ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%AE%A1%E7%90%86/">使用org和ssh实现对ssh连接的管理</a>
+  </h2>
+  <div class="post-item post-meta">
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-09-24</span>
 
 <span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;508 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ssh">ssh</a>&nbsp;</span>
 
-    </div>
-    
-    <div class="post-content markdown-body">
-        <p>emacs中，要打开一个ssh连接，可以用以下命令:</p>
-<pre><code class="language-shell">/ssh name@10.110.20.18:~
-</code></pre>
-<p>当输入密码的时候，emacs可以自动保存密码，方便以后输入。但这个连接的信
-息无法与xshell等软件一样保存起来，下次输入的时候，还需要丛别的地方查询
-这个服务器的ip用户名密码等信息，非常不方便。</p>
-<p>经过查询，找到了一个办法，可以通过org模式和ssh配合，来保存ssh连接信息。</p>
-<h2 id="使用ssh连接上远程服务器">使用ssh连接上远程服务器</h2>
-<p>例如，我们可以通过以下命令连接到远程</p>
-<pre><code class="language-shell">/ssh name@10.110.20.18:~
-</code></pre>
-<h2 id="在连接成功的页面-最上面会显示连接的路径信息">在连接成功的页面，最上面会显示连接的路径信息</h2>
-<blockquote>
-<p>/ssh:share@10.164.16.20:/home/share:
-total used in directory 16588808 available 292.1 GiB
-drwxr-xr-x 23 share        share       4096 Aug 30 15:06 .
-drwxr-xr-x  4 root         root        4096 Jul 26 10:21 ..
--rw&mdash;&mdash;-  1 share        share       4940 Sep 24 17:11 .bash_history
--rw-r&ndash;r&ndash;  1 share        share        220 Nov 20  2019 .bash_logout</p>
-</blockquote>
-<h2 id="保存链接信息">保存链接信息</h2>
-<p>鼠标停留在第一行的连接信息处，可以用org的capture功能，记录一个journal
-信息。</p>
-<p>快捷键：</p>
-<pre><code class="language-shell">C-c c j
-</code></pre>
-<p>会记录保存的信息</p>
-<blockquote>
-<p>Entered on <span class="timestamp-wrapper"><span class="timestamp">[2021-09-24 Fri 17:20]</span></span></p>
-<p><a href="/ssh:share@10.164.16.20:/home/share">file:/ssh:share@10.164.16.20:/home/share</a></p>
-</blockquote>
-<h2 id="重复访问">重复访问</h2>
-<p>因为journal是一个笔记文件，记录了需要经常访问的信息。我们可以通过访问
-journal文件找到这个ssh连接。</p>
-<p>快捷键：</p>
-<pre><code class="language-shell">C-u C-c j
-</code></pre>
-<p>然后通过vm等关键子查询到这个连接的信息，光标停留在ssh这一行的时候，点
-访问，就可以ssh到服务了。
-访问的快捷键
-快捷键：</p>
-<pre><code class="language-shell">C-c C-,
-</code></pre>
-<h2 id="ssh-模式下文件互相访问">ssh 模式下文件互相访问</h2>
-<p>在dirct模式下，通过C命令，即可实现文件相互copy</p>
-
-    </div>
-</article>
-
-
-<div class="license markdown-body">
-    <blockquote>
-        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
-               target="_blank">CC BY-NC-SA 4.0</a>.</p>
-    </blockquote>
+  </div>
+  <div class="post-item post-summary markdown-body">
+    emacs中，要打开一个ssh连接，可以用以下命令: /ssh name@10.110.20.18:~ 当输入密码的时候，emacs可以自动保存密码，方便以后输入。但这个连接的信 息无法与xshell等软件一样保存起来，下次输入的时候，还需要丛别的地
+  </div>
 </div>
 
 
@@ -240,16 +190,9 @@ journal文件找到这个ssh连接。</p>
             
         </div>
     </div>
-    <div class="sidebar-item sidebar-toc">
-        <h3>Table of Contents</h3><nav id="TableOfContents">
-  <ul>
-    <li><a href="#使用ssh连接上远程服务器">使用ssh连接上远程服务器</a></li>
-    <li><a href="#在连接成功的页面-最上面会显示连接的路径信息">在连接成功的页面，最上面会显示连接的路径信息</a></li>
-    <li><a href="#保存链接信息">保存链接信息</a></li>
-    <li><a href="#重复访问">重复访问</a></li>
-    <li><a href="#ssh-模式下文件互相访问">ssh 模式下文件互相访问</a></li>
-  </ul>
-</nav></div>
+    
+    
+    
 </aside>
         </div>
         <div class="btn">
@@ -333,21 +276,6 @@ journal文件找到这个ssh连接。</p>
             </span>
             
         </div>
-    </div>
-    
-    
-    
-    <div class="sidebar-item sidebar-toc">
-        <h3>Table of Contents</h3>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#使用ssh连接上远程服务器">使用ssh连接上远程服务器</a></li>
-    <li><a href="#在连接成功的页面-最上面会显示连接的路径信息">在连接成功的页面，最上面会显示连接的路径信息</a></li>
-    <li><a href="#保存链接信息">保存链接信息</a></li>
-    <li><a href="#重复访问">重复访问</a></li>
-    <li><a href="#ssh-模式下文件互相访问">ssh 模式下文件互相访问</a></li>
-  </ul>
-</nav>
     </div>
     
     
