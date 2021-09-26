@@ -6,7 +6,16 @@
     <description>Recent content in Posts on lhl&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Sep 2021 17:26:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用org和ssh实现对ssh连接的管理</title>
+      <link>https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8org%E5%92%8Cssh%E5%AE%9E%E7%8E%B0%E5%AF%B9ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Fri, 24 Sep 2021 17:26:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8org%E5%92%8Cssh%E5%AE%9E%E7%8E%B0%E5%AF%B9ssh%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%AE%A1%E7%90%86/</guid>
+      <description>emacs中，要打开一个ssh连接，可以用以下命令: /ssh name@10.110.20.18:~ 当输入密码的时候，emacs可以自动保存密码，方便以后输入。但这个连接的信 息无法与xshell等软件一样保存起来，下次输入的时候，还需要丛别的地</description>
+    </item>
+    
     <item>
       <title>emacs使用介绍</title>
       <link>https://hllu.github.io/posts/emacs/</link>
@@ -31,7 +40,7 @@
       <pubDate>Sat, 19 Oct 2019 00:00:00 +0800</pubDate>
       
       <guid>https://hllu.github.io/posts/demo/</guid>
-      <description>这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;ldquo;content-org/&amp;rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上</description>
+      <description>Hugo + org 使用 emacs的org mode 加上ox-hugo可以方便的生产blog。 把org文件导出成md 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&amp;quot;content-org/&amp;quot;</description>
     </item>
     
   </channel>

@@ -25,7 +25,7 @@
 <title>第一篇博客 - lhl&#39;s blog</title>
 
 
-<meta name="author" content="[Lu Hailong]" />
+<meta name="author" content="[luhailong]" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
@@ -37,8 +37,8 @@
 <meta property="og:title" content="第一篇博客" />
 <meta name="twitter:title" content="第一篇博客" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/demo/" /><meta property="og:description" content="这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&ldquo;content-org/&rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上" />
-<meta name="twitter:description" content="这是标题 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&ldquo;content-org/&rdquo; . ((org-mode . ((eval . (org-hugo-auto-export-mode))))))) 启动 hugo server biaoti 2 slkfjjjjjjjjjjjjjjl lajfa f biaot 22 slfjsl lsjlsj老司机福利是减肥路上" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/demo/" /><meta property="og:description" content="Hugo &#43; org 使用 emacs的org mode 加上ox-hugo可以方便的生产blog。 把org文件导出成md 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&quot;content-org/&quot;" />
+<meta name="twitter:description" content="Hugo &#43; org 使用 emacs的org mode 加上ox-hugo可以方便的生产blog。 把org文件导出成md 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&quot;content-org/&quot;" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2019-10-19T00:00:00+08:00" /><meta property="article:modified_time" content="2019-10-19T00:00:00+08:00" />
 
@@ -103,27 +103,43 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-10-19</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;91 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;193 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/blog">Blog</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        <h2 id="这是标题">这是标题</h2>
+        <h2 id="hugo-plus-org-使用">Hugo + org 使用</h2>
+<p>emacs的org mode 加上ox-hugo可以方便的生产blog。</p>
+<h3 id="把org文件导出成md">把org文件导出成md</h3>
 <p>使用 ox-hugo 把 org 文件导出为 md 文件</p>
 <p>方式一：手动导出</p>
-<p>C-c C-e H H</p>
+<pre><code class="language-text">C-c C-e H H
+</code></pre>
 <p>方式二：保存 org 文件时自动导出</p>
 <p>在站点根目录新建 dir-locals.el 文件</p>
-<p>vi .dir-locals.el
-((&ldquo;content-org/&rdquo;
-. ((org-mode . ((eval . (org-hugo-auto-export-mode)))))))
-启动 hugo server</p>
-<h2 id="biaoti-2">biaoti 2</h2>
-<p>slkfjjjjjjjjjjjjjjl lajfa f</p>
-<h3 id="biaot-22">biaot 22</h3>
-<p>slfjsl lsjlsj老司机福利是减肥路上</p>
+<pre><code class="language-text">vi .dir-locals.el
+((&quot;content-org/&quot;
+  . ((org-mode . ((eval . (org-hugo-auto-export-mode)))))))
+
+</code></pre>
+<p>启动 hugo server</p>
+<h3 id="编译hugo">编译hugo</h3>
+<p>在hugo的根目录下，执行以下命令</p>
+<pre><code class="language-text">hugo server -D
+</code></pre>
+<h3 id="把生成好的public目录通过git传到github">把生成好的public目录通过git传到github</h3>
+<p>初始化git仓库</p>
+<pre><code class="language-text">cd public
+git init
+git remote add origin git@github.com:vritser/vritser.github.io.git
+</code></pre>
+<p>提交，推送</p>
+<pre><code class="language-text">cd public
+git init
+git remote add origin git@github.com:vritser/vritser.github.io.git
+</code></pre>
 
     </div>
 </article>
@@ -208,10 +224,11 @@
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3><nav id="TableOfContents">
   <ul>
-    <li><a href="#这是标题">这是标题</a></li>
-    <li><a href="#biaoti-2">biaoti 2</a>
+    <li><a href="#hugo-plus-org-使用">Hugo + org 使用</a>
       <ul>
-        <li><a href="#biaot-22">biaot 22</a></li>
+        <li><a href="#把org文件导出成md">把org文件导出成md</a></li>
+        <li><a href="#编译hugo">编译hugo</a></li>
+        <li><a href="#把生成好的public目录通过git传到github">把生成好的public目录通过git传到github</a></li>
       </ul>
     </li>
   </ul>
@@ -303,10 +320,11 @@
         <h3>Table of Contents</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#这是标题">这是标题</a></li>
-    <li><a href="#biaoti-2">biaoti 2</a>
+    <li><a href="#hugo-plus-org-使用">Hugo + org 使用</a>
       <ul>
-        <li><a href="#biaot-22">biaot 22</a></li>
+        <li><a href="#把org文件导出成md">把org文件导出成md</a></li>
+        <li><a href="#编译hugo">编译hugo</a></li>
+        <li><a href="#把生成好的public目录通过git传到github">把生成好的public目录通过git传到github</a></li>
       </ul>
     </li>
   </ul>
