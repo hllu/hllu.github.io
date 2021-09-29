@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-09-24</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;508 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;541 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ssh">ssh</a>&nbsp;</span>
 
@@ -136,7 +136,7 @@ drwxr-xr-x  4 root         root        4096 Jul 26 10:21 ..
 <p>快捷键：</p>
 <pre><code class="language-shell">C-c c j
 </code></pre>
-<p>会记录保存的信息</p>
+<p>会记录保存的信息，可以定义关键字为ssh之类的tag方便后续根据tag查询。</p>
 <blockquote>
 <p>Entered on <span class="timestamp-wrapper"><span class="timestamp">[2021-09-24 Fri 17:20]</span></span></p>
 <p><a href="/ssh:share@10.164.16.20:/home/share">file:/ssh:share@10.164.16.20:/home/share</a></p>
@@ -147,11 +147,11 @@ journal文件找到这个ssh连接。</p>
 <p>快捷键：</p>
 <pre><code class="language-shell">C-u C-c j
 </code></pre>
-<p>然后通过vm等关键子查询到这个连接的信息，光标停留在ssh这一行的时候，点
+<p>然后通过tag定义的关键字查询到这个连接的信息，光标停留在ssh这一行的时候，点
 访问，就可以ssh到服务了。
 访问的快捷键
 快捷键：</p>
-<pre><code class="language-shell">C-c C-,
+<pre><code class="language-shell">C-c C-o
 </code></pre>
 <h2 id="ssh-模式下文件互相访问">ssh 模式下文件互相访问</h2>
 <p>在dirct模式下，通过C命令，即可实现文件相互copy</p>

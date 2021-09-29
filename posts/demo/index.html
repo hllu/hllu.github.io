@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>第一篇博客 - lhl&#39;s blog</title>
+<title>Org-mode&amp;Hugo&amp;ox-hugo写Blog - lhl&#39;s blog</title>
 
 
 <meta name="author" content="[luhailong]" />
@@ -34,11 +34,11 @@
 <meta name="keywords" content="Blog" />
 
 
-<meta property="og:title" content="第一篇博客" />
-<meta name="twitter:title" content="第一篇博客" />
+<meta property="og:title" content="Org-mode&amp;Hugo&amp;ox-hugo写Blog" />
+<meta name="twitter:title" content="Org-mode&amp;Hugo&amp;ox-hugo写Blog" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/demo/" /><meta property="og:description" content="Hugo &#43; org 使用 emacs的org mode 加上ox-hugo可以方便的生产blog。 把org文件导出成md 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&quot;content-org/&quot;" />
-<meta name="twitter:description" content="Hugo &#43; org 使用 emacs的org mode 加上ox-hugo可以方便的生产blog。 把org文件导出成md 使用 ox-hugo 把 org 文件导出为 md 文件 方式一：手动导出 C-c C-e H H 方式二：保存 org 文件时自动导出 在站点根目录新建 dir-locals.el 文件 vi .dir-locals.el ((&quot;content-org/&quot;" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/demo/" /><meta property="og:description" content="通过emacs的org-mode写文章 在Org mode下写Blog，有两种方式 直接在Blog所在的目录下写独立的org 在目录‘~/blog/gitblog/orgcontent/’下添加个demon." />
+<meta name="twitter:description" content="通过emacs的org-mode写文章 在Org mode下写Blog，有两种方式 直接在Blog所在的目录下写独立的org 在目录‘~/blog/gitblog/orgcontent/’下添加个demon." /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2019-10-19T00:00:00+08:00" /><meta property="article:modified_time" content="2019-10-19T00:00:00+08:00" />
 
@@ -98,23 +98,44 @@
 <article>
     
     <h2 class="post-item post-title">
-        <a href="https://hllu.github.io/posts/demo/">第一篇博客</a>
+        <a href="https://hllu.github.io/posts/demo/">Org-mode&amp;Hugo&amp;ox-hugo写Blog</a>
     </h2>
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-10-19</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;193 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;607 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/blog">Blog</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        <h2 id="hugo-plus-org-使用">Hugo + org 使用</h2>
-<p>emacs的org mode 加上ox-hugo可以方便的生产blog。</p>
+        <h2 id="通过emacs的org-mode写文章">通过emacs的org-mode写文章</h2>
+<p>在Org mode下写Blog，有两种方式</p>
+<h3 id="直接在blog所在的目录下写独立的org">直接在Blog所在的目录下写独立的org</h3>
+<p>在目录‘~/blog/gitblog/orgcontent/’下添加个demon.org文件，文件头中有如
+下信息</p>
+<pre><code class="language-text">#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: ./posts
+#+TITLE:       Org-mode&amp;Hugo&amp;ox-hugo写Blog
+#+DATE:        &lt;2019-10-19 Sat&gt;
+#+HUGO_CATEGORIES: Blog
+#+HUGO_TAGS: Blog
+#+OPTIONS: H:9
+</code></pre>
+<h3 id="在jonural中写">在jonural中写</h3>
+<p>通过如下命令，进入jonuarl中，填加一个分支</p>
+<pre><code class="language-text">C-c c j
+</code></pre>
+<p>会提示新建一个Blog目录，之后可以在这个目录下写一个主题的Blog。</p>
+<h2 id="ox-hugo导出md">ox-hugo导出md</h2>
+<p>emacs的org mode 加上ox-hugo可以方便的导出md文件。</p>
 <h3 id="把org文件导出成md">把org文件导出成md</h3>
 <p>使用 ox-hugo 把 org 文件导出为 md 文件</p>
-<p>方式一：手动导出</p>
+<p>方式一：手动导出整个文件</p>
+<pre><code class="language-text">C-c C-e H h
+</code></pre>
+<p>或者导出目录树中的一个分支</p>
 <pre><code class="language-text">C-c C-e H H
 </code></pre>
 <p>方式二：保存 org 文件时自动导出</p>
@@ -124,11 +145,21 @@
   . ((org-mode . ((eval . (org-hugo-auto-export-mode)))))))
 
 </code></pre>
-<p>启动 hugo server</p>
+<p>注意第二中方式写的内容，有个Todo标签，如果不改成Done，导出的时候，md文
+件上会标记为draft文件，hugo编译的时候，认为文章还没完成，如果不加-D参数，不会把这个md文
+件编译成web。</p>
+<p>完成的文件如下,需要把状态改为Done</p>
+<pre><code class="language-text">\** DONE test                                                      :@随笔:ssh:
+:PROPERTIES:
+:EXPORT_FILE_NAME: test
+:EXPORT_DATE: [2021-09-24 Fri 17:26]
+:END:
+</code></pre>
 <h3 id="编译hugo">编译hugo</h3>
 <p>在hugo的根目录下，执行以下命令</p>
 <pre><code class="language-text">hugo server -D
 </code></pre>
+<p>其中-D参数表示Draft文件也编译。</p>
 <h3 id="把生成好的public目录通过git传到github">把生成好的public目录通过git传到github</h3>
 <p>初始化git仓库</p>
 <pre><code class="language-text">cd public
@@ -228,7 +259,13 @@ git remote add origin git@github.com:vritser/vritser.github.io.git
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3><nav id="TableOfContents">
   <ul>
-    <li><a href="#hugo-plus-org-使用">Hugo + org 使用</a>
+    <li><a href="#通过emacs的org-mode写文章">通过emacs的org-mode写文章</a>
+      <ul>
+        <li><a href="#直接在blog所在的目录下写独立的org">直接在Blog所在的目录下写独立的org</a></li>
+        <li><a href="#在jonural中写">在jonural中写</a></li>
+      </ul>
+    </li>
+    <li><a href="#ox-hugo导出md">ox-hugo导出md</a>
       <ul>
         <li><a href="#把org文件导出成md">把org文件导出成md</a></li>
         <li><a href="#编译hugo">编译hugo</a></li>
@@ -328,7 +365,13 @@ git remote add origin git@github.com:vritser/vritser.github.io.git
         <h3>Table of Contents</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#hugo-plus-org-使用">Hugo + org 使用</a>
+    <li><a href="#通过emacs的org-mode写文章">通过emacs的org-mode写文章</a>
+      <ul>
+        <li><a href="#直接在blog所在的目录下写独立的org">直接在Blog所在的目录下写独立的org</a></li>
+        <li><a href="#在jonural中写">在jonural中写</a></li>
+      </ul>
+    </li>
+    <li><a href="#ox-hugo导出md">ox-hugo导出md</a>
       <ul>
         <li><a href="#把org文件导出成md">把org文件导出成md</a></li>
         <li><a href="#编译hugo">编译hugo</a></li>
