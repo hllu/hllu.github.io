@@ -22,23 +22,25 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Blog - lhl&#39;s blog</title>
+<title>use yasnippet - lhl&#39;s blog</title>
 
 
-<meta name="author" content="hllu" />
+<meta name="author" content="[luhailong]" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/blog/index.xml" title="lhl's blog" />
+<meta name="keywords" content="snippet" />
 
-<meta property="og:title" content="Blog" />
-<meta name="twitter:title" content="Blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hllu.github.io/tags/blog/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+
+<meta property="og:title" content="use yasnippet" />
+<meta name="twitter:title" content="use yasnippet" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/use-yasnippet/" /><meta property="og:description" content="介绍 yasnippet是emacs下一套高效的模版(代码块)系統，它允许自定义模版内容并通过tab自动展示，省去了很多重复编写复杂代码块的时间，提高了开发的效率。 官方描述 YASnippet is a template system for Emacs. It allows you to type an abbreviation and" />
+<meta name="twitter:description" content="介绍 yasnippet是emacs下一套高效的模版(代码块)系統，它允许自定义模版内容并通过tab自动展示，省去了很多重复编写复杂代码块的时间，提高了开发的效率。 官方描述 YASnippet is a template system for Emacs. It allows you to type an abbreviation and" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2019-10-19T00:00:00+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2021-10-09T15:32:00+08:00" /><meta property="article:modified_time" content="2021-10-09T15:32:00+08:00" />
 
 
 <style>
@@ -93,28 +95,67 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/use-yasnippet/">use yasnippet</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-09</span>
 
-<div class="page-info">
-  <span>Posts with the tag Blog: </span>
-</div>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;441 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/snippet">snippet</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="介绍">介绍</h2>
+<p>yasnippet是emacs下一套高效的模版(代码块)系統，它允许自定义模版内容并通过tab自动展示，省去了很多重复编写复杂代码块的时间，提高了开发的效率。</p>
+<p>官方描述</p>
+<blockquote>
+<p>YASnippet is a template system for Emacs. It allows you to type an
+abbreviation and automatically expand it into function templates.</p>
+</blockquote>
+<h2 id="安装">安装</h2>
+<p>使用emacs自带的包安装工具，搜寻yasnippet，安装即可。其他的配置尽量使用
+默认值，减少配置文件的大小。</p>
+<h2 id="使用">使用</h2>
+<p>第一次使用的时候，会让设置是小任务栏模式还是独立窗口，可以根据自己的喜
+好选择。</p>
+<p>之后用以下命令建立一个模版。</p>
+<pre><code class="language-text">M-x yas-new-sinippet
+</code></pre>
+<p>会新开一个窗口，让用户定义自己的模版，格式示例如下。</p>
+<pre><code class="language-text"># -*- mode: snippet -*-
+# name: hugo
+# key: h
+# --
+#+HUGO_BASE_DIR: ../
+#+TITLE: $1
+#+DATE: `(format-time-string &quot;%Y-%m-%d&quot;)`
+#+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_TAGS: $2
+#+HUGO_CATEGORIES: $3
+#+HUGO_DRAFT: false
+
+$0
+</code></pre>
+<p>snippet的语法变量是以$美元符开始的，根据变量$1 $2 $&hellip; 定义顺序光标移动位置，特殊的$0是最后光标停位置</p>
+<p>第1行是模板说明，也就是用鼠标点击yasnippet菜单里相应模式的模板的一些文字提示</p>
+<p>第2行是语法要求，声明模板内容开始</p>
+<p>第3行以后的，就是模板的内容了。</p>
+<p>使用的时候，只要打出key关键字后按Tab，就可以快速引入模版的内容。</p>
+
+    </div>
+</article>
 
 
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://hllu.github.io/posts/demo/">Org-mode&amp;Hugo&amp;ox-hugo写Blog</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-10-19</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;626 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/blog">Blog</a>&nbsp;</span>
-
-  </div>
-  <div class="post-item post-summary markdown-body">
-    通过emacs的org-mode写文章 在Org mode下写Blog，有两种方式 直接在Blog所在的目录下写独立的org 在目录‘~/blog/gitblog/orgcontent/’下添加个demon.
-  </div>
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
@@ -194,9 +235,14 @@
             
         </div>
     </div>
-    
-    
-    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#使用">使用</a></li>
+  </ul>
+</nav></div>
 </aside>
         </div>
         <div class="btn">
@@ -284,6 +330,19 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#使用">使用</a></li>
+  </ul>
+</nav>
     </div>
     
     

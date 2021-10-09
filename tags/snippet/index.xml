@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>snippet on lhl&#39;s blog</title>
+    <link>https://hllu.github.io/tags/snippet/</link>
+    <description>Recent content in snippet on lhl&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 09 Oct 2021 15:32:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/snippet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>use yasnippet</title>
+      <link>https://hllu.github.io/posts/use-yasnippet/</link>
+      <pubDate>Sat, 09 Oct 2021 15:32:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/use-yasnippet/</guid>
+      <description>介绍 yasnippet是emacs下一套高效的模版(代码块)系統，它允许自定义模版内容并通过tab自动展示，省去了很多重复编写复杂代码块的时间，提高了开发的效率。 官方描述 YASnippet is a template system for Emacs. It allows you to type an abbreviation and</description>
+    </item>
+    
+  </channel>
+</rss>
