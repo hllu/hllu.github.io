@@ -6,7 +6,16 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Oct 2021 15:32:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Apr 2023 10:30:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用qemu-nbd编辑qcow2镜像</title>
+      <link>https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8qemu-nbd%E7%BC%96%E8%BE%91qcow2%E9%95%9C%E5%83%8F/</link>
+      <pubDate>Thu, 20 Apr 2023 10:30:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8qemu-nbd%E7%BC%96%E8%BE%91qcow2%E9%95%9C%E5%83%8F/</guid>
+      <description>qemu-nbd NBD指的是Network Block Device，正如其名字的意思，NBD让用户可以通过网络访问到某个块设备，或者设备镜像。 NFS的方式只能管到文件系统层，而NBD的方式则不仅可以管到文件系统层，还可以管到</description>
+    </item>
+    
     <item>
       <title>use yasnippet</title>
       <link>https://hllu.github.io/posts/use-yasnippet/</link>
