@@ -17,6 +17,24 @@
     </item>
     
     <item>
+      <title>magit manue</title>
+      <link>https://hllu.github.io/posts/magit-manue/</link>
+      <pubDate>Wed, 15 Jun 2022 15:19:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/magit-manue/</guid>
+      <description>简介 magit 是emacs下对git 的封装,让你基本在emacs中即可完成对git仓库的管理,需要单独安装 帮助 可以在magit status 中 ? 键可提示magit命令绑定在哪些按键上 magit-status因为常用，可以</description>
+    </item>
+    
+    <item>
+      <title>iptables</title>
+      <link>https://hllu.github.io/posts/iptables/</link>
+      <pubDate>Fri, 11 Feb 2022 10:30:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/iptables/</guid>
+      <description>过滤规则 连接数限制 tcp 在转发forward链的时候,TCP连接数量大于80 就丢弃, 针对所有IP $ iptables -I FORWARD -p tcp -m connlimit --connlimit-above 80 -j DROP udp UDP无法控制连接数, 只能控制每秒多少个UDP包, 一般设置为每秒3~5个比较合理.</description>
+    </item>
+    
+    <item>
       <title>use yasnippet</title>
       <link>https://hllu.github.io/posts/use-yasnippet/</link>
       <pubDate>Sat, 09 Oct 2021 15:32:00 +0800</pubDate>
