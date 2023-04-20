@@ -6,7 +6,16 @@
     <description>Recent content in Posts on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 20 Apr 2023 10:30:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Apr 2023 15:10:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>send a post useing chrome consol</title>
+      <link>https://hllu.github.io/posts/send-a-post-useing-chrome-consol/</link>
+      <pubDate>Thu, 20 Apr 2023 15:10:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/send-a-post-useing-chrome-consol/</guid>
+      <description>send a message like this fetch(&#39;https://abb-king.cloud.cn:8080/service/cart/add&#39;, { method: &#39;POST&#39;, body: JSON.stringify({&amp;quot;useUnitId&amp;quot;:&amp;quot;000000000000000200,424242020198576128&amp;quot;,&amp;q</description>
+    </item>
+    
     <item>
       <title>使用qemu-nbd编辑qcow2镜像</title>
       <link>https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8qemu-nbd%E7%BC%96%E8%BE%91qcow2%E9%95%9C%E5%83%8F/</link>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>http on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/http/</link>
+    <description>Recent content in http on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 20 Apr 2023 15:10:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>send a post useing chrome consol</title>
+      <link>https://hllu.github.io/posts/send-a-post-useing-chrome-consol/</link>
+      <pubDate>Thu, 20 Apr 2023 15:10:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/send-a-post-useing-chrome-consol/</guid>
+      <description>send a message like this fetch(&#39;https://abb-king.cloud.cn:8080/service/cart/add&#39;, { method: &#39;POST&#39;, body: JSON.stringify({&amp;quot;useUnitId&amp;quot;:&amp;quot;000000000000000200,424242020198576128&amp;quot;,&amp;q</description>
+    </item>
+    
+  </channel>
+</rss>

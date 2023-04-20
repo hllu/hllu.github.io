@@ -22,23 +22,25 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>snippet - hllu&#39;s blog</title>
+<title>send a post useing chrome consol - hllu&#39;s blog</title>
 
 
-<meta name="author" content="hllu" />
+<meta name="author" content="[luhailong]" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/snippet/index.xml" title="hllu's blog" />
+<meta name="keywords" content="curl, http" />
 
-<meta property="og:title" content="snippet" />
-<meta name="twitter:title" content="snippet" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hllu.github.io/tags/snippet/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+
+<meta property="og:title" content="send a post useing chrome consol" />
+<meta name="twitter:title" content="send a post useing chrome consol" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/send-a-post-useing-chrome-consol/" /><meta property="og:description" content="send a message like this fetch(&#39;https://abb-king.cloud.cn:8080/service/cart/add&#39;, { method: &#39;POST&#39;, body: JSON.stringify({&quot;useUnitId&quot;:&quot;000000000000000200,424242020198576128&quot;,&q" />
+<meta name="twitter:description" content="send a message like this fetch(&#39;https://abb-king.cloud.cn:8080/service/cart/add&#39;, { method: &#39;POST&#39;, body: JSON.stringify({&quot;useUnitId&quot;:&quot;000000000000000200,424242020198576128&quot;,&q" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2021-10-09T15:32:00+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-20T15:10:00+08:00" /><meta property="article:modified_time" content="2023-04-20T15:10:00+08:00" />
 
 
 <style>
@@ -93,28 +95,48 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/send-a-post-useing-chrome-consol/">send a post useing chrome consol</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-20</span>
 
-<div class="page-info">
-  <span>Posts with the tag snippet: </span>
-</div>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1156 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/curl">curl</a>&nbsp;<a href="/tags/http">http</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="send-a-message-like-this">send a message like this</h2>
+<pre><code class="language-json">fetch('https://abb-king.cloud.cn:8080/service/cart/add', {
+  method: 'POST',
+  body: JSON.stringify({&quot;useUnitId&quot;:&quot;000000000000000200,424242020198576128&quot;,&quot;setCount&quot;:&quot;1&quot;,&quot;billType&quot;:&quot;dailySettlement&quot;,&quot;orderType&quot;:&quot;new&quot;,&quot;durationUnit&quot;:&quot;D&quot;,&quot;productTypeCode&quot;:&quot;IPv6_UL&quot;,&quot;consoleCustomization&quot;:{},&quot;productList&quot;:[{&quot;region&quot;:&quot;region-kunming-hlw&quot;,&quot;availableZone&quot;:&quot;&quot;,&quot;productLineCode&quot;:&quot;EIP&quot;,&quot;productTypeCode&quot;:&quot;IPv6_UL&quot;,&quot;productLineName&quot;:&quot;弹性公网IP&quot;,&quot;productTypeName&quot;:&quot;IPv6服务&quot;,&quot;instanceConfigure&quot;:&quot;产品类型:IPv6服务;计费方式：带宽计费;网络：EIP互联网;线路类型:电信;带宽:1000MBPS&quot;,&quot;instanceCount&quot;:&quot;1&quot;,&quot;instanceId&quot;:&quot;ada3bafe-590b-45d7-a18f-16ebf2a10999&quot;,&quot;instanceName&quot;:&quot;&quot;,&quot;itemList&quot;:[{&quot;code&quot;:&quot;instance&quot;,&quot;type&quot;:&quot;billingItem&quot;,&quot;unit&quot;:&quot;COUNT&quot;,&quot;value&quot;:&quot;&quot;,&quot;packageList&quot;:null}]}],&quot;recordOrder&quot;:1}),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8','Authorization': 'bearer eyOiJSUzI1NiIs'
+  }
+})
+.then(res =&gt; res.json())
+.then(console.log)
+</code></pre>
+<h2 id="ipv6-curl">ipv6 curl</h2>
+<pre><code class="language-shell">curl -6 -g --interface eth0 &quot;http://[e80::f85b:4256:ee76:24a4]:8080&quot; -vvv
+</code></pre>
+<h2 id="put">put</h2>
+<pre><code class="language-shell">curl -X PUT -H 'Content-Type: application/json' -H 'region: ly-dx-zx' -H 'Authorization:bearer token' -d '{&quot;eip&quot;: {&quot;serverId&quot;:&quot;48e95b16--9fff-9cda5f443b25&quot;,&quot;portId&quot;:&quot;c97a826a--ceb373aad4d5&quot;,&quot;fixedIp&quot;:&quot;172.16.1.17&quot;,&quot;type&quot;:&quot;11&quot;,&quot;availabilityZone&quot;:&quot;ab.cd.ed&quot;}}' http://100.105.50.1:8080/ecp/v1.1/esp/-4b95-954e-371ea947a0f0/action/bind
+</code></pre>
+
+    </div>
+</article>
 
 
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://hllu.github.io/posts/use-yasnippet/">use yasnippet</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-09</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;441 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/snippet">snippet</a>&nbsp;</span>
-
-  </div>
-  <div class="post-item post-summary markdown-body">
-    介绍 yasnippet是emacs下一套高效的模版(代码块)系統，它允许自定义模版内容并通过tab自动展示，省去了很多重复编写复杂代码块的时间，提高了开发的效率。 官方描述 YASnippet is a template system for Emacs. It allows you to type an abbreviation and
-  </div>
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
@@ -202,9 +224,14 @@
             
         </div>
     </div>
-    
-    
-    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#send-a-message-like-this">send a message like this</a></li>
+    <li><a href="#ipv6-curl">ipv6 curl</a></li>
+    <li><a href="#put">put</a></li>
+  </ul>
+</nav></div>
 </aside>
         </div>
         <div class="btn">
@@ -300,6 +327,19 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#send-a-message-like-this">send a message like this</a></li>
+    <li><a href="#ipv6-curl">ipv6 curl</a></li>
+    <li><a href="#put">put</a></li>
+  </ul>
+</nav>
     </div>
     
     
