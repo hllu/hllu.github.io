@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-10-19</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;673 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;833 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/blog">Blog</a>&nbsp;</span>
 
@@ -127,7 +127,42 @@
 <p>通过如下命令，进入jonuarl中，填加一个分支</p>
 <pre><code class="language-text">C-c c j
 </code></pre>
-<p>会提示新建一个Blog目录，之后可以在这个目录下写一个主题的Blog。</p>
+<p>选择h,会提示新建一个Blog目录，之后可以在这个目录下写一个主题的Blog。
+添加一个h选项，需要如下配置</p>
+<pre><code class="language-bash">
+;;---------------begin hugo------------------------
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+;; org-hugo capture
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    &quot;Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information.&quot;
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer &quot;Post Title: &quot;)) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat &quot;** TODO &quot; title &quot;     :@随笔:&quot;)
+                   &quot;:PROPERTIES:&quot;
+                   ,(concat &quot;:EXPORT_FILE_NAME: &quot; fname)
+                   ,(concat &quot;:EXPORT_DATE: &quot; date) ;Enter current date and time
+                   &quot;:END:&quot;
+                   &quot;%?\n&quot;)          ;Place the cursor here finally
+                 &quot;\n&quot;)))
+
+  (add-to-list 'org-capture-templates
+               '(&quot;h&quot;                ;`org-capture' binding + h
+                 &quot;Hugo post&quot;
+                 entry
+                 ;; It is assumed that below file is present in `org-directory'
+                 ;; and that it has a &quot;Blog Ideas&quot; heading. It can even be a
+                 ;; symlink pointing to the actual location of all-posts.org!
+                 (file+headline &quot;~/blog/gitblog//orgcontent/0000head.org&quot; &quot;INBOX&quot;)
+                 (function org-hugo-new-subtree-post-capture-template))))
+
+</code></pre>
 <h2 id="ox-hugo导出md">ox-hugo导出md</h2>
 <p>emacs的org mode 加上ox-hugo可以方便的导出md文件。</p>
 <h3 id="把org文件导出成md">把org文件导出成md</h3>
