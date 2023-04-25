@@ -6,7 +6,16 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 20 Apr 2023 15:10:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Apr 2023 15:08:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>org mode中插入和使用图片     :@随笔:picture:image:org-download:yasnippet:</title>
+      <link>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</link>
+      <pubDate>Tue, 25 Apr 2023 15:08:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</guid>
+      <description>orgmode有各种各样的好处，主要是文本折叠和缩进的功能实在太好用，gtd也功 能很强大。无论是用于hugo编辑工具还是作为笔记的主力，都是很好的实践。 但有一个问题，是emacs和org的弱项-图片处</description>
+    </item>
+    
     <item>
       <title>send a post using chrome consol</title>
       <link>https://hllu.github.io/posts/send-a-post-using-chrome-consol/</link>
@@ -67,7 +76,7 @@
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
       
       <guid>https://hllu.github.io/posts/emacs/</guid>
-      <description>这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下 Ctrl-h t 或者F1 t即可打开自带的此文档 .org-center</description>
+      <description>这篇文章记录平时使用emacs的一些技巧和插件，基本的操作可以参考emacs自带 的教程TUTORIAL。emacs 自带的教程有英文版和繁体中文版，在emacs 中按下 Ctrl-h t 或者F1 t即可打开自带的此文档 基</description>
     </item>
     
     <item>
@@ -76,7 +85,7 @@
       <pubDate>Thu, 18 Mar 2021 00:00:00 +0800</pubDate>
       
       <guid>https://hllu.github.io/posts/picture/</guid>
-      <description>图片测试-尺寸控制 指定像素显示 .org-center { margin-left: auto; margin-right: auto; text-align: center; } 图片测试-按比例显示-left Neural network representationFigure 1: pic left 图片测试-按比例显示 Neural network representationFigure 2: pic align right 图片测试-按比例显示-central pp representationFigure 3: pic centre 图片测试-原始尺寸</description>
+      <description>图片测试-尺寸控制 指定像素显示 图片测试-按比例显示-left Neural network representationFigure 1: pic left 图片测试-按比例显示 Neural network representationFigure 2: pic align right 图片测试-按比例显示-central pp representationFigure 3: pic centre 图片测试-原始尺寸 图片显示 在包含图片的org文件</description>
     </item>
     
     <item>
@@ -87,7 +96,7 @@
       <guid>https://hllu.github.io/about/</guid>
       <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 Hugo makes use of a variety of open source projects including:
- https://github.com/yuin/goldmark https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper  Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+https://github.com/yuin/goldmark https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
 Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.</description>
     </item>
     
