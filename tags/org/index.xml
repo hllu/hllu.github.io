@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>org on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/org/</link>
+    <description>Recent content in org on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Apr 2023 15:08:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>org mode中插入和使用图片</title>
+      <link>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</link>
+      <pubDate>Tue, 25 Apr 2023 15:08:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</guid>
+      <description>orgmode有各种各样的好处，主要是文本折叠和缩进的功能实在太好用，gtd也功 能很强大。无论是用于hugo编辑工具还是作为笔记的主力，都是很好的实践。 但有一个问题，是emacs和org的弱项-图片处</description>
+    </item>
+    
+  </channel>
+</rss>
