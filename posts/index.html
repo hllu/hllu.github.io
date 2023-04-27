@@ -38,7 +38,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hllu.github.io/posts/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-04-27T14:15:49+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-04-27T16:19:09+08:00" />
 
 
 <style>
@@ -103,13 +103,13 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1680 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1596 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/odl">odl</a>&nbsp;<a href="/tags/rpc">rpc</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的
+        简介 在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务， 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是
     </div>
 </div>
 
@@ -120,13 +120,13 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1914 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1605 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/odl">odl</a>&nbsp;<a href="/tags/rpc">rpc</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        Table of Contents 1 安装 1.1 git安装略过 1.2 安装git-review 1.3 安装gitweb 1.4 安装gerrit 2 安装OpenLDAP 2.1 安装并启动 2.2 生成一个 ldap 的 “root” 密码 2.3 正式修改 dn 和 “root” 用户密码 2.4 在同一个文
+        安装 git安装略过 安装git-review [root@master ~]# yum install git-review Loaded plugins: fastestmirror, langpacks Loading mirror speeds from cached hostfile epel: mirrors.aliyun.com Resolving Dependencies &ndash;&gt; Running transaction check &mdash;&gt; Package git-review.noarch 0:1.24-5.el7 will be installed &ndash;&gt; Finished Dependency Resolution Dependencies Resolved =============================================================================================================================================================================================== Package Arch Version Repository Size =============================================================================================================================================================================================== Installing: git-review noarch 1.24-5.el7 epel 57 k Transaction Summary =============================================================================================================================================================================================== Install 1 Package 安装gitweb 1）# yum install gitweb 2）修改git.c
     </div>
 </div>
 
@@ -137,13 +137,13 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;9234 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;9011 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/openstack">openstack</a>&nbsp;<a href="/tags/">[, rpc]</a>&nbsp;</span>
 
     </div>
     <div class="post-item post-summary markdown-body">
-        Table of Contents 1 WSGI(Web Server Gateway Interface) 2 past 2.1 api-paste.ini 2.2 解释 2.3 composite 3 setup and pbr 3.1 setup.py 3.2 pbr 3.3 setup.cfg 3.3.1 段落 files 3.3.2 段落entry_points 4 eventlet 4.1 介绍 4.2 API 4.3 pecan 5 oslo 6 python代码中各种注释装饰器的用法 6.1 @abc.abstractmethod 6.2 @six 6.3 @ 6.4 @profiler.trace_cls(&ldquo;l3-agent&rdquo;) 7 rabbitmq 8 FloatingIp 8.1 neutron FloatingI
+        WSGI(Web Server Gateway Interface) WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”： def application(environ, start_response): start_response('200 OK', [('Content-Type', 'text/html')]) return [b'&lt;h1&gt;Hello, web!&lt;/h1&gt;'] 上面的application(
     </div>
 </div>
 
@@ -348,6 +348,14 @@
             </span>
             
             <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org/">org</a>
             </span>
             
@@ -357,6 +365,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
             </span>
             
             <span>
@@ -463,6 +475,14 @@
             </span>
             
             <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org/">org</a>
             </span>
             
@@ -472,6 +492,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
             </span>
             
             <span>

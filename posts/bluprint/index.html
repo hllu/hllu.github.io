@@ -25,20 +25,22 @@
 <title>Blueprint - hllu&#39;s blog</title>
 
 
-<meta name="author" content="[luhailong]" />
+<meta name="author" content="hllu" />
 
 
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
+<meta name="keywords" content="odl, rpc" />
+
 
 <meta property="og:title" content="Blueprint" />
 <meta name="twitter:title" content="Blueprint" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/bluprint/" /><meta property="og:description" content="Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的" />
-<meta name="twitter:description" content="Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/bluprint/" /><meta property="og:description" content="简介 在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务， 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是" />
+<meta name="twitter:description" content="简介 在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务， 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T14:10:07+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T16:19:09+08:00" />
 
 
 <style>
@@ -101,39 +103,14 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1680 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1596 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/odl">odl</a>&nbsp;<a href="/tags/rpc">rpc</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        <div class="ox-hugo-toc toc has-section-numbers">
-<div class="heading">Table of Contents</div>
-<ul>
-<li><span class="section-num">1</span> <a href="#%e7%ae%80%e4%bb%8b">简介</a></li>
-<li><span class="section-num">2</span> <a href="#service">service</a>
-<ul>
-<li><span class="section-num">2.1</span> <a href="#%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa%e6%9c%8d%e5%8a%a1">发布一个服务</a></li>
-<li><span class="section-num">2.2</span> <a href="#%e5%bc%95%e7%94%a8%e4%b8%80%e4%b8%aa%e6%9c%8d%e5%8a%a1">引用一个服务</a></li>
-</ul>
-</li>
-<li><span class="section-num">3</span> <a href="#rpc">RPC</a>
-<ul>
-<li><span class="section-num">3.1</span> <a href="#global-rpc%e6%b3%a8%e5%86%8c">Global RPC注册</a></li>
-<li><span class="section-num">3.2</span> <a href="#global-rpc%e7%9a%84%e8%8e%b7%e5%8f%96">Global RPC的获取</a></li>
-<li><span class="section-num">3.3</span> <a href="#routed-rpc%e7%9a%84%e6%b3%a8%e5%86%8c">Routed RPC的注册</a></li>
-</ul>
-</li>
-<li><span class="section-num">4</span> <a href="#notificationlistenser">NotificationListenser</a>
-<ul>
-<li><span class="section-num">4.1</span> <a href="#notificationlistenser%e7%9a%84%e6%b3%a8%e5%86%8c">NotificationListenser的注册</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<!--endtoc-->
-<h2 id="简介"><span class="section-num">1</span> 简介</h2>
+        <h2 id="简介">简介</h2>
 <p>在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务，
 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是blueprint，说到blueprint，务必需要提及一下spring，在个人印象中，
 spring框架几乎成为了java这么多框架中最为有名的一个，传统上提出的ssh，几乎就只剩下spring一个还非常强力的存活着，而且本身
@@ -142,8 +119,8 @@ blueprint产生的规范便是起源于spring dm，随后好像spring dm没有�
 有两个实现：Aries blueprint和Gemini blueprint，它们分别来自Apache和Eclipse两个开源组织。我们日后讲的基本都是Apache官网
 中的blueprint，具体的地址如下：apache blueprint,讲的时候基本不会单独讲解blueprint，会将其他一些东西串起来讲出来，具体到
 日后讲解其他的时候再说。</p>
-<h2 id="service"><span class="section-num">2</span> service</h2>
-<h3 id="发布一个服务"><span class="section-num">2.1</span> 发布一个服务</h3>
+<h2 id="service">service</h2>
+<h3 id="发布一个服务">发布一个服务</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd&quot; default-timeout=&quot;0&quot;&gt;
     &lt;!--最简单的osgi服务注册 --&gt;
@@ -184,7 +161,7 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
 在Blueprint往OSGI framework里注册这个服务时，以map的形式附带上这些service-property。这些service-property可以在服务被引用
 时，作为filter的条件。</p>
 <p>    服务被发布后，在Blueprint里，可以用reference节点来引用用这些服务。</p>
-<h3 id="引用一个服务"><span class="section-num">2.2</span> 引用一个服务</h3>
+<h3 id="引用一个服务">引用一个服务</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd&quot; default-timeout=&quot;0&quot;&gt;
 
@@ -202,8 +179,8 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
 </code></pre>
 <p>请留意上例reference节点中的filter:OSGI framework里可以有多个实现相同interface的服务，这里的filter就限定了这个reference节
 点只引用包含一个名为param01,而且值为val01的service-property的那个服务。</p>
-<h2 id="rpc"><span class="section-num">3</span> RPC</h2>
-<h3 id="global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</h3>
+<h2 id="rpc">RPC</h2>
+<h3 id="global-rpc注册">Global RPC注册</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
                  xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
@@ -215,7 +192,7 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
   &lt;odl:rpc-implementation ref=&quot;fooRpcService&quot;/&gt;
 &lt;/blueprint&gt;
 </code></pre>
-<h3 id="global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</h3>
+<h3 id="global-rpc的获取">Global RPC的获取</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
                  xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
@@ -228,7 +205,7 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
 
 &lt;/blueprint&gt;
 </code></pre>
-<h3 id="routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</h3>
+<h3 id="routed-rpc的注册">Routed RPC的注册</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
                  xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
@@ -245,8 +222,8 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
 
 &lt;/blueprint&gt;
 </code></pre>
-<h2 id="notificationlistenser"><span class="section-num">4</span> NotificationListenser</h2>
-<h3 id="notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</h3>
+<h2 id="notificationlistenser">NotificationListenser</h2>
+<h3 id="notificationlistenser的注册">NotificationListenser的注册</h3>
 <pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
                  xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
@@ -347,6 +324,14 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
             </span>
             
             <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org/">org</a>
             </span>
             
@@ -356,6 +341,10 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
             </span>
             
             <span>
@@ -375,23 +364,23 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3><nav id="TableOfContents">
   <ul>
-    <li><a href="#简介"><span class="section-num">1</span> 简介</a></li>
-    <li><a href="#service"><span class="section-num">2</span> service</a>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#service">service</a>
       <ul>
-        <li><a href="#发布一个服务"><span class="section-num">2.1</span> 发布一个服务</a></li>
-        <li><a href="#引用一个服务"><span class="section-num">2.2</span> 引用一个服务</a></li>
+        <li><a href="#发布一个服务">发布一个服务</a></li>
+        <li><a href="#引用一个服务">引用一个服务</a></li>
       </ul>
     </li>
-    <li><a href="#rpc"><span class="section-num">3</span> RPC</a>
+    <li><a href="#rpc">RPC</a>
       <ul>
-        <li><a href="#global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</a></li>
-        <li><a href="#global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</a></li>
-        <li><a href="#routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</a></li>
+        <li><a href="#global-rpc注册">Global RPC注册</a></li>
+        <li><a href="#global-rpc的获取">Global RPC的获取</a></li>
+        <li><a href="#routed-rpc的注册">Routed RPC的注册</a></li>
       </ul>
     </li>
-    <li><a href="#notificationlistenser"><span class="section-num">4</span> NotificationListenser</a>
+    <li><a href="#notificationlistenser">NotificationListenser</a>
       <ul>
-        <li><a href="#notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</a></li>
+        <li><a href="#notificationlistenser的注册">NotificationListenser的注册</a></li>
       </ul>
     </li>
   </ul>
@@ -483,6 +472,14 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
             </span>
             
             <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org/">org</a>
             </span>
             
@@ -492,6 +489,10 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
             </span>
             
             <span>
@@ -515,23 +516,23 @@ container就可以往OSGI framework里注册发布这个服务了。</p>
         <h3>Table of Contents</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#简介"><span class="section-num">1</span> 简介</a></li>
-    <li><a href="#service"><span class="section-num">2</span> service</a>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#service">service</a>
       <ul>
-        <li><a href="#发布一个服务"><span class="section-num">2.1</span> 发布一个服务</a></li>
-        <li><a href="#引用一个服务"><span class="section-num">2.2</span> 引用一个服务</a></li>
+        <li><a href="#发布一个服务">发布一个服务</a></li>
+        <li><a href="#引用一个服务">引用一个服务</a></li>
       </ul>
     </li>
-    <li><a href="#rpc"><span class="section-num">3</span> RPC</a>
+    <li><a href="#rpc">RPC</a>
       <ul>
-        <li><a href="#global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</a></li>
-        <li><a href="#global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</a></li>
-        <li><a href="#routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</a></li>
+        <li><a href="#global-rpc注册">Global RPC注册</a></li>
+        <li><a href="#global-rpc的获取">Global RPC的获取</a></li>
+        <li><a href="#routed-rpc的注册">Routed RPC的注册</a></li>
       </ul>
     </li>
-    <li><a href="#notificationlistenser"><span class="section-num">4</span> NotificationListenser</a>
+    <li><a href="#notificationlistenser">NotificationListenser</a>
       <ul>
-        <li><a href="#notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</a></li>
+        <li><a href="#notificationlistenser的注册">NotificationListenser的注册</a></li>
       </ul>
     </li>
   </ul>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openstack on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/openstack/</link>
+    <description>Recent content in openstack on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 27 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenStack基础</title>
+      <link>https://hllu.github.io/posts/openstack/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/openstack/</guid>
+      <description>WSGI(Web Server Gateway Interface) WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”： def application(environ, start_response): start_response(&#39;200 OK&#39;, [(&#39;Content-Type&#39;, &#39;text/html&#39;)]) return [b&#39;&amp;lt;h1&amp;gt;Hello, web!&amp;lt;/h1&amp;gt;&#39;] 上面的application(</description>
+    </item>
+    
+  </channel>
+</rss>

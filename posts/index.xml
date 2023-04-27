@@ -13,7 +13,7 @@
       <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://hllu.github.io/posts/bluprint/</guid>
-      <description>Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的</description>
+      <description>简介 在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务， 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://hllu.github.io/posts/gitreview/</guid>
-      <description>Table of Contents 1 安装 1.1 git安装略过 1.2 安装git-review 1.3 安装gitweb 1.4 安装gerrit 2 安装OpenLDAP 2.1 安装并启动 2.2 生成一个 ldap 的 “root” 密码 2.3 正式修改 dn 和 “root” 用户密码 2.4 在同一个文</description>
+      <description>安装 git安装略过 安装git-review [root@master ~]# yum install git-review Loaded plugins: fastestmirror, langpacks Loading mirror speeds from cached hostfile epel: mirrors.aliyun.com Resolving Dependencies &amp;ndash;&amp;gt; Running transaction check &amp;mdash;&amp;gt; Package git-review.noarch 0:1.24-5.el7 will be installed &amp;ndash;&amp;gt; Finished Dependency Resolution Dependencies Resolved =============================================================================================================================================================================================== Package Arch Version Repository Size =============================================================================================================================================================================================== Installing: git-review noarch 1.24-5.el7 epel 57 k Transaction Summary =============================================================================================================================================================================================== Install 1 Package 安装gitweb 1）# yum install gitweb 2）修改git.c</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://hllu.github.io/posts/openstack/</guid>
-      <description>Table of Contents 1 WSGI(Web Server Gateway Interface) 2 past 2.1 api-paste.ini 2.2 解释 2.3 composite 3 setup and pbr 3.1 setup.py 3.2 pbr 3.3 setup.cfg 3.3.1 段落 files 3.3.2 段落entry_points 4 eventlet 4.1 介绍 4.2 API 4.3 pecan 5 oslo 6 python代码中各种注释装饰器的用法 6.1 @abc.abstractmethod 6.2 @six 6.3 @ 6.4 @profiler.trace_cls(&amp;ldquo;l3-agent&amp;rdquo;) 7 rabbitmq 8 FloatingIp 8.1 neutron FloatingI</description>
+      <description>WSGI(Web Server Gateway Interface) WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”： def application(environ, start_response): start_response(&#39;200 OK&#39;, [(&#39;Content-Type&#39;, &#39;text/html&#39;)]) return [b&#39;&amp;lt;h1&amp;gt;Hello, web!&amp;lt;/h1&amp;gt;&#39;] 上面的application(</description>
     </item>
     
     <item>
