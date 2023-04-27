@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Git review安装使用说明 - hllu&#39;s blog</title>
+
+
+<meta name="author" content="[luhailong]" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+
+<meta property="og:title" content="Git review安装使用说明" />
+<meta name="twitter:title" content="Git review安装使用说明" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/gitreview/" /><meta property="og:description" content="Table of Contents 1 安装 1.1 git安装略过 1.2 安装git-review 1.3 安装gitweb 1.4 安装gerrit 2 安装OpenLDAP 2.1 安装并启动 2.2 生成一个 ldap 的 “root” 密码 2.3 正式修改 dn 和 “root” 用户密码 2.4 在同一个文" />
+<meta name="twitter:description" content="Table of Contents 1 安装 1.1 git安装略过 1.2 安装git-review 1.3 安装gitweb 1.4 安装gerrit 2 安装OpenLDAP 2.1 安装并启动 2.2 生成一个 ldap 的 “root” 密码 2.3 正式修改 dn 和 “root” 用户密码 2.4 在同一个文" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T14:14:41+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/gitreview/">Git review安装使用说明</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1914 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <div class="ox-hugo-toc toc has-section-numbers">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><span class="section-num">1</span> <a href="#%e5%ae%89%e8%a3%85">安装</a>
+<ul>
+<li><span class="section-num">1.1</span> <a href="#git%e5%ae%89%e8%a3%85%e7%95%a5%e8%bf%87">git安装略过</a></li>
+<li><span class="section-num">1.2</span> <a href="#%e5%ae%89%e8%a3%85git-review">安装git-review</a></li>
+<li><span class="section-num">1.3</span> <a href="#%e5%ae%89%e8%a3%85gitweb">安装gitweb</a></li>
+<li><span class="section-num">1.4</span> <a href="#%e5%ae%89%e8%a3%85gerrit">安装gerrit</a></li>
+</ul>
+</li>
+<li><span class="section-num">2</span> <a href="#%e5%ae%89%e8%a3%85openldap">安装OpenLDAP</a>
+<ul>
+<li><span class="section-num">2.1</span> <a href="#%e5%ae%89%e8%a3%85%e5%b9%b6%e5%90%af%e5%8a%a8">安装并启动</a></li>
+<li><span class="section-num">2.2</span> <a href="#%e7%94%9f%e6%88%90%e4%b8%80%e4%b8%aa-ldap-%e7%9a%84-root-%e5%af%86%e7%a0%81">生成一个 ldap 的 “root” 密码</a></li>
+<li><span class="section-num">2.3</span> <a href="#%e6%ad%a3%e5%bc%8f%e4%bf%ae%e6%94%b9-dn-%e5%92%8c-root-%e7%94%a8%e6%88%b7%e5%af%86%e7%a0%81">正式修改 dn 和 “root” 用户密码</a></li>
+<li><span class="section-num">2.4</span> <a href="#%e5%9c%a8%e5%90%8c%e4%b8%80%e4%b8%aa%e6%96%87%e4%bb%b6%e4%b8%ad%e6%96%b0%e5%8a%a0%e4%b8%80%e8%a1%8c%e5%86%99%e6%98%8e-manager-%e7%94%a8%e6%88%b7%e7%9a%84%e5%af%86%e7%a0%81">在同一个文件中新加一行写明 Manager 用户的密码</a></li>
+<li><span class="section-num">2.5</span> <a href="#%e4%bf%ae%e6%94%b9-etc-openldap-slapd-dot-d-cn-config-olcdatabase-1-monitor-dot-ldif-%e6%96%87%e4%bb%b6%e4%b8%ad%e7%9a%84-olcaccess-%e5%86%85%e5%ae%b9">修改 /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif 文件中的 olcAccess 内容</a></li>
+<li><span class="section-num">2.6</span> <a href="#%e7%a1%ae%e8%ae%a4%e9%85%8d%e7%bd%ae%e5%85%a8%e9%83%a8%e6%ad%a3%e7%a1%ae">确认配置全部正确</a></li>
+<li><span class="section-num">2.7</span> <a href="#%e5%a4%8d%e5%88%b6%e9%bb%98%e8%ae%a4%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%93%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">复制默认的数据库配置文件</a></li>
+<li><span class="section-num">2.8</span> <a href="#%e6%96%b0%e5%a2%9e%e9%bb%98%e8%ae%a4%e7%9a%84-schema">新增默认的 schema</a></li>
+<li><span class="section-num">2.9</span> <a href="#%e7%94%9f%e6%88%90%e5%88%9d%e5%a7%8b%e5%8c%96%e7%9a%84-ldap-%e6%95%b0%e6%8d%ae-root-base-dot-ldif">生成初始化的 ldap 数据: /root/base.ldif</a></li>
+<li><span class="section-num">2.10</span> <a href="#%e6%96%b0%e5%a2%9e%e4%b8%80%e4%b8%aa%e7%94%a8%e6%88%b7%e4%bd%9c%e4%b8%ba-gerrit-%e7%9a%84%e7%ae%a1%e7%90%86%e5%91%98-root-user-dot-ldif">新增一个用户作为 gerrit 的管理员 /root/user.ldif</a></li>
+<li><span class="section-num">2.11</span> <a href="#%e4%bd%bf%e7%94%a8%e4%b9%8b%e5%89%8d%e8%ae%be%e7%bd%ae%e7%9a%84-root-%e7%94%a8%e6%88%b7%e6%9d%83%e9%99%90%e6%8f%92%e5%85%a5-base-dot-ldif-%e5%92%8c-user-dot-ldif">使用之前设置的 “root” 用户权限插入 base.ldif 和 user.ldif</a></li>
+<li><span class="section-num">2.12</span> <a href="#%e6%b5%8b%e8%af%95%e6%95%b0%e6%8d%ae%e6%98%af%e5%90%a6%e6%8f%92%e5%85%a5%e6%88%90%e5%8a%9f-%e5%a6%82%e6%9e%9c%e6%90%9c%e7%b4%a2%e5%88%b0%e5%af%b9%e5%ba%94%e7%94%a8%e6%88%b7-%e8%af%b4%e6%98%8e-ldap-%e5%ae%89%e8%a3%85%e6%88%90%e5%8a%9f">测试数据是否插入成功，如果搜索到对应用户，说明 ldap 安装成功。</a></li>
+</ul>
+</li>
+<li><span class="section-num">3</span> <a href="#%e9%87%8d%e6%96%b0%e5%90%af%e5%8a%a8%e6%9c%8d%e5%8a%a1">重新启动服务</a>
+<ul>
+<li><span class="section-num">3.1</span> <a href="#nginx">nginx</a></li>
+<li><span class="section-num">3.2</span> <a href="#gerrit">gerrit</a></li>
+<li><span class="section-num">3.3</span> <a href="#%e6%96%b0%e5%a2%9e%e4%b8%80%e4%b8%aa%e7%94%a8%e6%88%b7">新增一个用户</a></li>
+</ul>
+</li>
+<li><span class="section-num">4</span> <a href="#gerrit%e8%bf%90%e7%bb%b4">gerrit运维</a>
+<ul>
+<li><span class="section-num">4.1</span> <a href="#%e9%80%9a%e8%bf%87gerrit-set-account%e4%bf%ae%e6%94%b9%e7%94%a8%e6%88%b7">通过gerrit set-account修改用户</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+<h2 id="安装"><span class="section-num">1</span> 安装</h2>
+<h3 id="git安装略过"><span class="section-num">1.1</span> git安装略过</h3>
+<h3 id="安装git-review"><span class="section-num">1.2</span> 安装git-review</h3>
+<p>[root@master ~]# yum install git-review
+Loaded plugins: fastestmirror, langpacks
+Loading mirror speeds from cached hostfile</p>
+<ul>
+<li>epel: mirrors.aliyun.com</li>
+</ul>
+<p>Resolving Dependencies
+&ndash;&gt; Running transaction check
+&mdash;&gt; Package git-review.noarch 0:1.24-5.el7 will be installed
+&ndash;&gt; Finished Dependency Resolution</p>
+<p>Dependencies Resolved</p>
+<p><code>===============================================================================================================================================================================================</code>
+Package                                          Arch                                         Version                                          Repository                                  Size
+<code>===============================================================================================================================================================================================</code>
+Installing:
+git-review                                       noarch                                       1.24-5.el7                                       epel                                        57 k</p>
+<p>Transaction Summary
+<code>===============================================================================================================================================================================================</code>
+Install  1 Package</p>
+<h3 id="安装gitweb"><span class="section-num">1.3</span> 安装gitweb</h3>
+<p>1）# yum install gitweb
+2）修改git.conf</p>
+<p>将 &ldquo;Alias /git /var/www/git&rdquo; 改为 &ldquo;Alias /gitweb /var/www/git&rdquo;
+3）修改gitweb.conf</p>
+<p>将$projectroot = &ldquo;/home/xxx&rdquo; 设置为git代码库所在的文件夹，这里我们设置为gerrit配置的代码库路径/data1/gerrit2.8.4/git</p>
+<h3 id="安装gerrit"><span class="section-num">1.4</span> 安装gerrit</h3>
+<p>下载gerrit安装包
+gerrit的下载地址:
+<a href="https://www.gerritcodereview.com/releases/README.md" target="_blank">https://www.gerritcodereview.com/releases/README.md</a>
+我使用的gerrit版本是2.15.1。 下载完成之后会发现是一个war的包，所以我们的Java环境一定要安装正确。
+新建gerrit专用用户
+新建一个用户用来专门管理gerrit相关的内容。
+在root用户（或者使用 sudo 命令）下面输入下面的命令:</p>
+<pre><code class="language-bash">$ adduser gerrit
+$ su gerrit
+
+</code></pre>
+<p>建好用户以后，我们可以把之前下载好的gerrit安装包拷贝到/home/gerrit/目录下，一会方便gerrit用户来安装。
+安装gerrit
+在gerrit用户的目录(<em>home/gerrit</em>)下面，执行下面的命令：</p>
+<pre><code class="language-bash">$ java -jar gerrit-2.13.4.war init -d ~/gerrit_site
+</code></pre>
+<p>这个命令的意思是执行安装gerrit，会在当前目录下新建一个文件夹gerrit_site用来作为gerrit的根目录，在这个目录中，会安装git仓库，以及gerrit的web页面，还有gerrit的bin，etc等文件夹。
+然后就开始安装过程了，安装的过程会询问很多问题，有一些判断性的问题会用[y/N]这样的形式，大写的字母表示默认，我们直接敲回车就表示采用默认的安装选项。
+注意：
+我们安装的时候，可以只在 Authentication method 时输入 http ，其他全部回车用默认值，因为其他配置我们待会可以通过 etc/gerrit.config 文件进行修改
+期间可能会下载两个文件，这两个文件虽然都很小(不到3M)，但是可能是因为GFW的原因，下载速度很慢。你可以到 /lib 文件夹下面查看他们是不是已经下载完了，或者你手动把那两个文件下载完之后，scp到 /lib 下面。
+如果你发现已经下完了，但是安装过程卡主了，没有关系，直接 ctrl+c 然后重新安装就可以了。</p>
+<h2 id="安装openldap"><span class="section-num">2</span> 安装OpenLDAP</h2>
+<p>安装 openldap 是一个比较独立的工作，一般公司都已经部署了 ldap，那么可以直接跳过这一步。由于 gtt 在的公司还没有，为了方便
+内部使用，决定自行安装一个，未来用户修改密码也方便。</p>
+<h3 id="安装并启动"><span class="section-num">2.1</span> 安装并启动</h3>
+<pre><code class="language-bash">yum -y install *openldap*
+
+systemctl enable slapd
+systemctl status slapd
+
+# 确认 389 端口开启
+ ss -antp|grep 389
+LISTEN     0      128                       *:389                      *:*      users:((&quot;slapd&quot;,14846,8))
+
+</code></pre>
+<h3 id="生成一个-ldap-的-root-密码"><span class="section-num">2.2</span> 生成一个 ldap 的 “root” 密码</h3>
+<p>这里只是生成，还没有设置到系统中，建议开一个记事本记住备用。如果你的密码和我不一样，最后的 {SSHA} 内容肯定不一样，这里主意不要直接复制。</p>
+<pre><code class="language-bash"># slappasswd
+New password:
+Re-enter new password:
+{SSHA}bHSiwuPJEypHS6zHSE2Uy7M69sQjmkPL
+</code></pre>
+<h3 id="正式修改-dn-和-root-用户密码"><span class="section-num">2.3</span> 正式修改 dn 和 “root” 用户密码</h3>
+<pre><code class="language-bash"># vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{2\}hdb.ldif
+将 olcSuffix 和 olcRootDN 修改成我们需要的数据
+olcSuffix: dc=gaott,dc=info
+olcRootDN: cn=Manager,dc=gaott,dc=info
+</code></pre>
+<h3 id="在同一个文件中新加一行写明-manager-用户的密码"><span class="section-num">2.4</span> 在同一个文件中新加一行写明 Manager 用户的密码</h3>
+<p>这里的 Manager 就是 ldap 系统中 gaott.info 目录的 root 用户，所以上文一直使用引号的 root。内容写记事本中记录的 {SSHA} 那
+串。</p>
+<pre><code class="language-bash">olcRootPW: {SSHA}bHSiwuPJEypHS6zHSE2Uy7M69sQjmkPL
+</code></pre>
+<h3 id="修改-etc-openldap-slapd-dot-d-cn-config-olcdatabase-1-monitor-dot-ldif-文件中的-olcaccess-内容"><span class="section-num">2.5</span> 修改 /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif 文件中的 olcAccess 内容</h3>
+<p>将所有 dc=my-domain,dc=com 替换成 dc=gaott,dc=info</p>
+<pre><code class="language-bash">olcAccess: {0}to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern
+ al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=gaott,dc=info&quot; read by * none
+</code></pre>
+<h3 id="确认配置全部正确"><span class="section-num">2.6</span> 确认配置全部正确</h3>
+<pre><code class="language-bash"># slaptest -u
+578ce784 ldif_read_file: checksum error on &quot;/etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif&quot;
+578ce784 ldif_read_file: checksum error on &quot;/etc/openldap/slapd.d/cn=config/olcDatabase={2}hdb.ldif&quot;
+config file testing succeeded
+</code></pre>
+<h3 id="复制默认的数据库配置文件"><span class="section-num">2.7</span> 复制默认的数据库配置文件</h3>
+<pre><code class="language-bash">[root@linux1 cn=config]# cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+[root@linux1 cn=config]# chown -R ldap:ldap /var/lib/ldap/
+</code></pre>
+<h3 id="新增默认的-schema"><span class="section-num">2.8</span> 新增默认的 schema</h3>
+<pre><code class="language-bash">
+
+[root@linux1 cn=config]# ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+[root@linux1 cn=config]# ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+[root@linux1 cn=config]# ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+</code></pre>
+<h3 id="生成初始化的-ldap-数据-root-base-dot-ldif"><span class="section-num">2.9</span> 生成初始化的 ldap 数据: /root/base.ldif</h3>
+<pre><code class="language-bash">dn: dc=gaott,dc=info
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: gaott.info
+dc: gaott
+
+dn: cn=Manager,dc=gaott,dc=info
+objectClass: organizationalRole
+cn: Manager
+description: Directory Manager
+
+dn: ou=people,dc=gaott,dc=info
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=group,dc=gaott,dc=info
+objectClass: organizationalUnit
+ou: group
+</code></pre>
+<h3 id="新增一个用户作为-gerrit-的管理员-root-user-dot-ldif"><span class="section-num">2.10</span> 新增一个用户作为 gerrit 的管理员 /root/user.ldif</h3>
+<pre><code class="language-bash">dn: cn=test,ou=people,dc=gaott,dc=info
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: test
+displayName: test user
+userPassword: test@superpassword!
+mail: test@gaott.info
+sn: test
+</code></pre>
+<h3 id="使用之前设置的-root-用户权限插入-base-dot-ldif-和-user-dot-ldif"><span class="section-num">2.11</span> 使用之前设置的 “root” 用户权限插入 base.ldif 和 user.ldif</h3>
+<p>会提示让你输入密码，密码就是之前 slappasswd 时输入的。</p>
+<pre><code class="language-bash">ldapadd -x -W -D &quot;cn=Manager,dc=gaott,dc=info&quot; -f /root/base.ldif
+ldapadd -x -W -D &quot;cn=Manager,dc=gaott,dc=info&quot; -f /root/user.ldif
+</code></pre>
+<h3 id="测试数据是否插入成功-如果搜索到对应用户-说明-ldap-安装成功"><span class="section-num">2.12</span> 测试数据是否插入成功，如果搜索到对应用户，说明 ldap 安装成功。</h3>
+<pre><code class="language-bash">ldapsearch -x cn=test -b dc=gaott,dc=info
+</code></pre>
+<p>在本文中 ldap 作为 gerrit 的用户认证中心，所以只有 LDAP 系统中有的用户才能登陆 gerrit，换言之，老用户修改密码只能通过
+LDAP 修改，新增用户也只能通过 LDAP 系统新增，gerrit 中是不能做相应操作的。</p>
+<h2 id="重新启动服务"><span class="section-num">3</span> 重新启动服务</h2>
+<h3 id="nginx"><span class="section-num">3.1</span> nginx</h3>
+<p>service nginx restart</p>
+<h3 id="gerrit"><span class="section-num">3.2</span> gerrit</h3>
+<p>/home/gerrit/gerrit_site/bin/gerrit.sh restart</p>
+<h3 id="新增一个用户"><span class="section-num">3.3</span> 新增一个用户</h3>
+<p>htpasswd -m /home/gerrit/gerrit.password master</p>
+<h2 id="gerrit运维"><span class="section-num">4</span> gerrit运维</h2>
+<h3 id="通过gerrit-set-account修改用户"><span class="section-num">4.1</span> 通过gerrit set-account修改用户</h3>
+<pre><code class="language-bash">ssh ha gerrit set_account --add-email user99@163.com user99
+</code></pre>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装"><span class="section-num">1</span> 安装</a>
+      <ul>
+        <li><a href="#git安装略过"><span class="section-num">1.1</span> git安装略过</a></li>
+        <li><a href="#安装git-review"><span class="section-num">1.2</span> 安装git-review</a></li>
+        <li><a href="#安装gitweb"><span class="section-num">1.3</span> 安装gitweb</a></li>
+        <li><a href="#安装gerrit"><span class="section-num">1.4</span> 安装gerrit</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装openldap"><span class="section-num">2</span> 安装OpenLDAP</a>
+      <ul>
+        <li><a href="#安装并启动"><span class="section-num">2.1</span> 安装并启动</a></li>
+        <li><a href="#生成一个-ldap-的-root-密码"><span class="section-num">2.2</span> 生成一个 ldap 的 “root” 密码</a></li>
+        <li><a href="#正式修改-dn-和-root-用户密码"><span class="section-num">2.3</span> 正式修改 dn 和 “root” 用户密码</a></li>
+        <li><a href="#在同一个文件中新加一行写明-manager-用户的密码"><span class="section-num">2.4</span> 在同一个文件中新加一行写明 Manager 用户的密码</a></li>
+        <li><a href="#修改-etc-openldap-slapd-dot-d-cn-config-olcdatabase-1-monitor-dot-ldif-文件中的-olcaccess-内容"><span class="section-num">2.5</span> 修改 /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif 文件中的 olcAccess 内容</a></li>
+        <li><a href="#确认配置全部正确"><span class="section-num">2.6</span> 确认配置全部正确</a></li>
+        <li><a href="#复制默认的数据库配置文件"><span class="section-num">2.7</span> 复制默认的数据库配置文件</a></li>
+        <li><a href="#新增默认的-schema"><span class="section-num">2.8</span> 新增默认的 schema</a></li>
+        <li><a href="#生成初始化的-ldap-数据-root-base-dot-ldif"><span class="section-num">2.9</span> 生成初始化的 ldap 数据: /root/base.ldif</a></li>
+        <li><a href="#新增一个用户作为-gerrit-的管理员-root-user-dot-ldif"><span class="section-num">2.10</span> 新增一个用户作为 gerrit 的管理员 /root/user.ldif</a></li>
+        <li><a href="#使用之前设置的-root-用户权限插入-base-dot-ldif-和-user-dot-ldif"><span class="section-num">2.11</span> 使用之前设置的 “root” 用户权限插入 base.ldif 和 user.ldif</a></li>
+        <li><a href="#测试数据是否插入成功-如果搜索到对应用户-说明-ldap-安装成功"><span class="section-num">2.12</span> 测试数据是否插入成功，如果搜索到对应用户，说明 ldap 安装成功。</a></li>
+      </ul>
+    </li>
+    <li><a href="#重新启动服务"><span class="section-num">3</span> 重新启动服务</a>
+      <ul>
+        <li><a href="#nginx"><span class="section-num">3.1</span> nginx</a></li>
+        <li><a href="#gerrit"><span class="section-num">3.2</span> gerrit</a></li>
+        <li><a href="#新增一个用户"><span class="section-num">3.3</span> 新增一个用户</a></li>
+      </ul>
+    </li>
+    <li><a href="#gerrit运维"><span class="section-num">4</span> gerrit运维</a>
+      <ul>
+        <li><a href="#通过gerrit-set-account修改用户"><span class="section-num">4.1</span> 通过gerrit set-account修改用户</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装"><span class="section-num">1</span> 安装</a>
+      <ul>
+        <li><a href="#git安装略过"><span class="section-num">1.1</span> git安装略过</a></li>
+        <li><a href="#安装git-review"><span class="section-num">1.2</span> 安装git-review</a></li>
+        <li><a href="#安装gitweb"><span class="section-num">1.3</span> 安装gitweb</a></li>
+        <li><a href="#安装gerrit"><span class="section-num">1.4</span> 安装gerrit</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装openldap"><span class="section-num">2</span> 安装OpenLDAP</a>
+      <ul>
+        <li><a href="#安装并启动"><span class="section-num">2.1</span> 安装并启动</a></li>
+        <li><a href="#生成一个-ldap-的-root-密码"><span class="section-num">2.2</span> 生成一个 ldap 的 “root” 密码</a></li>
+        <li><a href="#正式修改-dn-和-root-用户密码"><span class="section-num">2.3</span> 正式修改 dn 和 “root” 用户密码</a></li>
+        <li><a href="#在同一个文件中新加一行写明-manager-用户的密码"><span class="section-num">2.4</span> 在同一个文件中新加一行写明 Manager 用户的密码</a></li>
+        <li><a href="#修改-etc-openldap-slapd-dot-d-cn-config-olcdatabase-1-monitor-dot-ldif-文件中的-olcaccess-内容"><span class="section-num">2.5</span> 修改 /etc/openldap/slapd.d/cn=config/olcDatabase={1}monitor.ldif 文件中的 olcAccess 内容</a></li>
+        <li><a href="#确认配置全部正确"><span class="section-num">2.6</span> 确认配置全部正确</a></li>
+        <li><a href="#复制默认的数据库配置文件"><span class="section-num">2.7</span> 复制默认的数据库配置文件</a></li>
+        <li><a href="#新增默认的-schema"><span class="section-num">2.8</span> 新增默认的 schema</a></li>
+        <li><a href="#生成初始化的-ldap-数据-root-base-dot-ldif"><span class="section-num">2.9</span> 生成初始化的 ldap 数据: /root/base.ldif</a></li>
+        <li><a href="#新增一个用户作为-gerrit-的管理员-root-user-dot-ldif"><span class="section-num">2.10</span> 新增一个用户作为 gerrit 的管理员 /root/user.ldif</a></li>
+        <li><a href="#使用之前设置的-root-用户权限插入-base-dot-ldif-和-user-dot-ldif"><span class="section-num">2.11</span> 使用之前设置的 “root” 用户权限插入 base.ldif 和 user.ldif</a></li>
+        <li><a href="#测试数据是否插入成功-如果搜索到对应用户-说明-ldap-安装成功"><span class="section-num">2.12</span> 测试数据是否插入成功，如果搜索到对应用户，说明 ldap 安装成功。</a></li>
+      </ul>
+    </li>
+    <li><a href="#重新启动服务"><span class="section-num">3</span> 重新启动服务</a>
+      <ul>
+        <li><a href="#nginx"><span class="section-num">3.1</span> nginx</a></li>
+        <li><a href="#gerrit"><span class="section-num">3.2</span> gerrit</a></li>
+        <li><a href="#新增一个用户"><span class="section-num">3.3</span> 新增一个用户</a></li>
+      </ul>
+    </li>
+    <li><a href="#gerrit运维"><span class="section-num">4</span> gerrit运维</a>
+      <ul>
+        <li><a href="#通过gerrit-set-account修改用户"><span class="section-num">4.1</span> 通过gerrit set-account修改用户</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>OpenStack基础 - hllu&#39;s blog</title>
+
+
+<meta name="author" content="[luhailong]" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+
+<meta property="og:title" content="OpenStack基础" />
+<meta name="twitter:title" content="OpenStack基础" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/openstack/" /><meta property="og:description" content="Table of Contents 1 WSGI(Web Server Gateway Interface) 2 past 2.1 api-paste.ini 2.2 解释 2.3 composite 3 setup and pbr 3.1 setup.py 3.2 pbr 3.3 setup.cfg 3.3.1 段落 files 3.3.2 段落entry_points 4 eventlet 4.1 介绍 4.2 API 4.3 pecan 5 oslo 6 python代码中各种注释装饰器的用法 6.1 @abc.abstractmethod 6.2 @six 6.3 @ 6.4 @profiler.trace_cls(&ldquo;l3-agent&rdquo;) 7 rabbitmq 8 FloatingIp 8.1 neutron FloatingI" />
+<meta name="twitter:description" content="Table of Contents 1 WSGI(Web Server Gateway Interface) 2 past 2.1 api-paste.ini 2.2 解释 2.3 composite 3 setup and pbr 3.1 setup.py 3.2 pbr 3.3 setup.cfg 3.3.1 段落 files 3.3.2 段落entry_points 4 eventlet 4.1 介绍 4.2 API 4.3 pecan 5 oslo 6 python代码中各种注释装饰器的用法 6.1 @abc.abstractmethod 6.2 @six 6.3 @ 6.4 @profiler.trace_cls(&ldquo;l3-agent&rdquo;) 7 rabbitmq 8 FloatingIp 8.1 neutron FloatingI" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T14:15:22+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/openstack/">OpenStack基础</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;9234 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <div class="ox-hugo-toc toc has-section-numbers">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><span class="section-num">1</span> <a href="#wsgi--web-server-gateway-interface">WSGI(Web Server Gateway Interface)</a></li>
+<li><span class="section-num">2</span> <a href="#past">past</a>
+<ul>
+<li><span class="section-num">2.1</span> <a href="#api-paste-dot-ini">api-paste.ini</a></li>
+<li><span class="section-num">2.2</span> <a href="#%e8%a7%a3%e9%87%8a">解释</a></li>
+<li><span class="section-num">2.3</span> <a href="#composite">composite</a></li>
+</ul>
+</li>
+<li><span class="section-num">3</span> <a href="#setup-and-pbr">setup and pbr</a>
+<ul>
+<li><span class="section-num">3.1</span> <a href="#setup-dot-py">setup.py</a></li>
+<li><span class="section-num">3.2</span> <a href="#pbr">pbr</a></li>
+<li><span class="section-num">3.3</span> <a href="#setup-dot-cfg">setup.cfg</a>
+<ul>
+<li><span class="section-num">3.3.1</span> <a href="#%e6%ae%b5%e8%90%bd-files">段落 files</a></li>
+<li><span class="section-num">3.3.2</span> <a href="#%e6%ae%b5%e8%90%bdentry-points">段落entry_points</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="section-num">4</span> <a href="#eventlet">eventlet</a>
+<ul>
+<li><span class="section-num">4.1</span> <a href="#%e4%bb%8b%e7%bb%8d">介绍</a></li>
+<li><span class="section-num">4.2</span> <a href="#api">API</a></li>
+<li><span class="section-num">4.3</span> <a href="#pecan">pecan</a></li>
+</ul>
+</li>
+<li><span class="section-num">5</span> <a href="#oslo">oslo</a></li>
+<li><span class="section-num">6</span> <a href="#python%e4%bb%a3%e7%a0%81%e4%b8%ad%e5%90%84%e7%a7%8d%e6%b3%a8%e9%87%8a%e8%a3%85%e9%a5%b0%e5%99%a8%e7%9a%84%e7%94%a8%e6%b3%95">python代码中各种注释装饰器的用法</a>
+<ul>
+<li><span class="section-num">6.1</span> <a href="#abc-dot-abstractmethod">@abc.abstractmethod</a></li>
+<li><span class="section-num">6.2</span> <a href="#six">@six</a></li>
+<li><span class="section-num">6.3</span> <a href="#518ed2">@</a></li>
+<li><span class="section-num">6.4</span> <a href="#profiler-dot-trace-cls--l3-agent">@profiler.trace_cls(&ldquo;l3-agent&rdquo;)</a></li>
+</ul>
+</li>
+<li><span class="section-num">7</span> <a href="#rabbitmq">rabbitmq</a></li>
+<li><span class="section-num">8</span> <a href="#floatingip">FloatingIp</a>
+<ul>
+<li><span class="section-num">8.1</span> <a href="#neutron-floatingip%e5%ae%9e%e7%8e%b0">neutron FloatingIP实现</a>
+<ul>
+<li><span class="section-num">8.1.1</span> <a href="#router%e5%a4%96%e7%bd%91%e6%8e%a5%e5%8f%a3ip">router外网接口IP</a></li>
+<li><span class="section-num">8.1.2</span> <a href="#iptables%e5%a4%84%e7%90%86">iptables处理</a></li>
+</ul>
+</li>
+<li><span class="section-num">8.2</span> <a href="#floatingip%e5%8a%9f%e8%83%bd%e4%bb%a3%e7%a0%81">FloatingIP功能代码</a>
+<ul>
+<li><span class="section-num">8.2.1</span> <a href="#%e5%85%a5%e5%8f%a3">入口</a></li>
+<li><span class="section-num">8.2.2</span> <a href="#floatingip%e7%94%b3%e8%af%b7">FloatingIp申请</a></li>
+<li><span class="section-num">8.2.3</span> <a href="#floatingip%e5%88%86%e9%85%8d">FloatingIp分配</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="section-num">9</span> <a href="#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aaopenstack%e9%a1%b9%e7%9b%ae">创建一个Openstack项目</a></li>
+<li><span class="section-num">10</span> <a href="#listalltheipof-a-subnet">listalltheipof a subnet</a></li>
+</ul>
+</div>
+<!--endtoc-->
+<h2 id="wsgi--web-server-gateway-interface"><span class="section-num">1</span> WSGI(Web Server Gateway Interface)</h2>
+<p>WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”：</p>
+<pre><code class="language-python">def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return [b'&lt;h1&gt;Hello, web!&lt;/h1&gt;']
+</code></pre>
+<p>上面的application()函数就是符合WSGI标准的一个HTTP处理函数，它接收两个参数：</p>
+<ul>
+<li>environ：一个包含所有HTTP请求信息的dict对象；</li>
+<li>start_response：一个发送HTTP响应的函数。</li>
+</ul>
+<p>在application()函数中，调用：</p>
+<pre><code class="language-python">start_response('200 OK', [('Content-Type', 'text/html')])
+</code></pre>
+<p>就发送了HTTP响应的Header，注意Header只能发送一次，也就是只能调用一次start_response()函数。start_response()函数接收两个参
+数，一个是HTTP响应码，一个是一组list表示的HTTP Header，每个Header用一个包含两个str的tuple表示。</p>
+<h2 id="past"><span class="section-num">2</span> past</h2>
+<h3 id="api-paste-dot-ini"><span class="section-num">2.1</span> api-paste.ini</h3>
+<pre><code class="language-java">[composite:neutron]
+use = egg:Paste#urlmap
+/: neutronversions_composite
+/v2.0: neutronapi_v2_0
+
+[composite:neutronapi_v2_0]
+use = call:neutron.auth:pipeline_factory
+noauth = cors http_proxy_to_wsgi request_id catch_errors extensions neutronapiapp_v2_0
+keystone = cors http_proxy_to_wsgi request_id catch_errors authtoken keystonecontext extensions neutronapiapp_v2_0
+
+[composite:neutronversions_composite]
+use = call:neutron.auth:pipeline_factory
+noauth = cors http_proxy_to_wsgi neutronversions
+keystone = cors http_proxy_to_wsgi neutronversions
+
+[filter:request_id]
+paste.filter_factory = oslo_middleware:RequestId.factory
+
+[filter:catch_errors]
+paste.filter_factory = oslo_middleware:CatchErrors.factory
+
+[filter:cors]
+paste.filter_factory = oslo_middleware.cors:filter_factory
+oslo_config_project = neutron
+
+[filter:http_proxy_to_wsgi]
+paste.filter_factory = oslo_middleware.http_proxy_to_wsgi:HTTPProxyToWSGI.factory
+
+[filter:keystonecontext]
+paste.filter_factory = neutron.auth:NeutronKeystoneContext.factory
+
+[filter:authtoken]
+paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+
+[filter:extensions]
+paste.filter_factory = neutron.api.extensions:plugin_aware_extension_middleware_factory
+
+[app:neutronversions]
+paste.app_factory = neutron.pecan_wsgi.app:versions_factory
+
+[app:neutronapiapp_v2_0]
+paste.app_factory = neutron.api.v2.router:APIRouter.factory
+
+[filter:osprofiler]
+paste.filter_factory = osprofiler.web:WsgiMiddleware.factory
+
+</code></pre>
+<h3 id="解释"><span class="section-num">2.2</span> 解释</h3>
+<p>The api-paste.ini file contains configuration for the web services gateway interface (WSGI).</p>
+<ul>
+<li>针对composite、app、filter或者pipeline这种带有[]的，我们称之为section；</li>
+<li>composite：request进来后通过的第一个section，表示需要将一个http url request调度到一个或者多个application上；</li>
+<li>filter：是一个实现了过滤功能的中间件(将application进行进一步的封装)，用于过滤request和response；</li>
+<li>pipeline：最后一个名字对应的一定是app类型，非最后一个名字对应的是filter；</li>
+<li>app：一个app就是一个实现主要功能的具体application。所以，app必须是callable object类型，接受的参数(environ,start_response)，这是WSGI server交给application的符合WSGI规范的参数。</li>
+</ul>
+<h3 id="composite"><span class="section-num">2.3</span> composite</h3>
+<p>app_name为该配置文件的入口，在NeutronApiService.create函数中传入了app_name为neutron。这里neutron的composite用Paste.urlmap来构造wsgi app：</p>
+<p>针对于标志osapi_volume，这里使用composite的分解机制，实现XXXX/XXXX形式的API交给apiversions来处理，XXXX/V1/XXXX形式的API
+交给openstack_volume_api_v1来处理，XXXX/V2/XXXX形式的API交给openstack_volume_api_v2来处理。</p>
+<p>这里使用composite section实现了多个Application的集合应用，neutronapi_v2_0具体映射到的Application为
+use =call:neutron.auth:pipeline_factory，这个Application对应了两个参数：noauth，keystone。</p>
+<h2 id="setup-and-pbr"><span class="section-num">3</span> setup and pbr</h2>
+<p>在安装python的相关模块和库时，我们一般使用“pip install 模块名”或者“python setup.py install”，前者是在线安装，会安装
+该包的相关依赖包；后者是下载源码包然后在本地安装，不会安装该包的相关依赖包。所以在安装普通的python包时，利用pip工具相当
+简单。</p>
+<p>python 如何实现连同依赖包一起打包发布？
+假如我在本机开发一个程序，需要用到python的redis、mysql模块以及自己编写的redis_run.py模块。我怎么实现在服务器上去发布该系
+统，如何实现依赖模块和自己编写的模块redis_run.py一起打包，实现一键安装呢？同时将自己编写的redis_run.py模块以exe文件格式
+安装到python的全局执行路径C:\Python27\Scripts下呢？</p>
+<p>在这种应用场景下，pip工具似乎派不上了用场，只能使用python的构建工具setup.py了，使用此构建工具可以实现上述应用场景需求，
+只需在 setup.py 文件中写明依赖的库和版本，然后到目标机器上使用python setup.py install安装。</p>
+<h3 id="setup-dot-py"><span class="section-num">3.1</span> setup.py</h3>
+<p>pbr只需要最小化的setup.py 文件，跟普通的使用setuptools的项目相比。这是因为设置都在setup.cfg里面。setup.py文件如下。</p>
+<pre><code class="language-python">import setuptools
+
+try:
+    import multiprocessing  # noqa
+except ImportError:
+    pass
+
+setuptools.setup(
+    setup_requires=['pbr&gt;=2.0.0'],
+    pbr=True)
+</code></pre>
+<p>这个是setup.py文件，从中看到只是使用了setuptools这个库</p>
+<ul>
+<li>setuptools是什么和能做什么</li>
+</ul>
+<p>它 是一组Python的 distutilsde工具的增强工具（适用于 Python 2.3.5 以上的版本，64 位平台则适用于 Python 2.4 以上的版本），可以让程序员更方便的创建和发布 Python 包，特别是那些对其它包具有依赖性的状况。</p>
+<ul>
+<li>setuptools怎么使用</li>
+</ul>
+<p><a href="http://guoyunsky.iteye.com/blog/1659824" target="_blank">http://guoyunsky.iteye.com/blog/1659824</a>
+请参考该作者的实例，谢谢作者提供的例子</p>
+<ul>
+<li>setuptools中的pbr是用来做什么的</li>
+</ul>
+<p>setup.py会使用pbr从setup.cfg文件读取参数，执行命令
+<a href="http://lingxiankong.github.io/blog/2013/12/23/python-setup/" target="_blank">http://lingxiankong.github.io/blog/2013/12/23/python-setup/</a></p>
+<h3 id="pbr"><span class="section-num">3.2</span> pbr</h3>
+<p>pbr是setuptools的辅助工具，最初是为OpenStack开发(<a href="https://launchpad.net/pbr" target="_blank">https://launchpad.net/pbr</a>)，基于d2to1。
+pbr会读取和过滤setup.cfg中的数据，然后将解析后的数据提供给setup.py作为参数。包含如下功能：</p>
+<ul>
+<li>从git中获取Version、AUTHORS and ChangeLog信息</li>
+<li>Sphinx Autodoc。pbr会扫描project，找到所有模块，生成stub files</li>
+<li>Requirements。pbr会读取requirements.txt，生成setup函数需要的install_requires/tests_require/dependency_links</li>
+</ul>
+<p>这里需要注意，在requirements.txt文件的头部可以使用：&ndash;index <a href="https://pypi.python.org/simple/%EF%BC%8C%E8%BF%99%E4%B8%80%E8%A1%8C%E6%8A%8A%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E5%A3%B0%E6%98%8E" target="_blank">https://pypi.python.org/simple/%EF%BC%8C%E8%BF%99%E4%B8%80%E8%A1%8C%E6%8A%8A%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E5%A3%B0%E6%98%8E</a>
+如 requests==1.2.0 转变为一个具体的依赖声明 requests 1.2.0 from pypi.python.org/simple/</p>
+<ul>
+<li>long_description。从README.rst, README.txt or README file中生成long_description参数</li>
+</ul>
+<h3 id="setup-dot-cfg"><span class="section-num">3.3</span> setup.cfg</h3>
+<h4 id="段落-files"><span class="section-num">3.3.1</span> 段落 files</h4>
+<p>files段落定义了包中的文件位置，有三个基本的设置键：packages,namespace_packages,以及data_files.
+packages指定了必须安装的数个最高级别的包的列表。这个像setuptools中的函数find_packages.这里面它进入python的包体系中，在最
+高的级别路径下安装它。如果packages没有被指明，则默认为metadata段落中的name键值。</p>
+<pre><code class="language-java">[files]
+packages =
+    neutron
+data_files =
+    etc/neutron =
+        etc/api-paste.ini
+        etc/policy.json
+        etc/rootwrap.conf
+    etc/neutron/rootwrap.d =
+        etc/neutron/rootwrap.d/debug.filters
+        etc/neutron/rootwrap.d/dhcp.filters
+        etc/neutron/rootwrap.d/dibbler.filters
+        etc/neutron/rootwrap.d/iptables-firewall.filters
+        etc/neutron/rootwrap.d/ebtables.filters
+        etc/neutron/rootwrap.d/ipset-firewall.filters
+        etc/neutron/rootwrap.d/l3.filters
+        etc/neutron/rootwrap.d/linuxbridge-plugin.filters
+        etc/neutron/rootwrap.d/netns-cleanup.filters
+        etc/neutron/rootwrap.d/openvswitch-plugin.filters
+scripts =
+    bin/neutron-rootwrap-xen-dom0
+</code></pre>
+<h4 id="段落entry-points"><span class="section-num">3.3.2</span> 段落entry_points</h4>
+<p>这个段落定义了命令行命令以及python的库lib的进入点。
+里面的内容分成子段落，子段落的头行设置了一组进入点的最高级目录的名称，里面定义了键值对，描述了会被安装的进入点。</p>
+<pre><code class="language-java">[entry_points]
+wsgi_scripts =
+    neutron-api = neutron.server:get_application
+console_scripts =
+    neutron-db-manage = neutron.db.migration.cli:main
+    neutron-debug = neutron.debug.shell:main
+    neutron-dhcp-agent = neutron.cmd.eventlet.agents.dhcp:main
+    neutron-keepalived-state-change = neutron.cmd.keepalived_state_change:main
+
+neutron.core_plugins =
+    ml2 = neutron.plugins.ml2.plugin:Ml2Plugin
+neutron.service_plugins =
+    router = neutron.services.l3_router.l3_router_plugin:L3RouterPlugin
+    metering = neutron.services.metering.metering_plugin:MeteringPlugin
+    tag = neutron.services.tag.tag_plugin:TagPlugin
+
+neutron.ml2.type_drivers =
+    flat = neutron.plugins.ml2.drivers.type_flat:FlatTypeDriver
+    local = neutron.plugins.ml2.drivers.type_local:LocalTypeDriver
+
+</code></pre>
+<h2 id="eventlet"><span class="section-num">4</span> eventlet</h2>
+<h3 id="介绍"><span class="section-num">4.1</span> 介绍</h3>
+<p>协程，又称微线程，纤程。英文名Coroutine。
+协程的概念很早就提出来了，但直到最近几年才在某些语言（如Lua）中得到广泛应用。
+子程序，或者称为函数，在所有语言中都是层级调用，比如A调用B，B在执行过程中又调用了C，C执行完毕返回，B执行完毕返回，最后是A执行完毕。
+所以子程序调用是通过栈实现的，一个线程就是执行一个子程序。
+子程序调用总是一个入口，一次返回，调用顺序是明确的。而协程的调用和子程序不同。
+协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。
+注意，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断。</p>
+<p>Python对协程的支持是通过generator实现的。
+在generator中，我们不但可以通过for循环来迭代，还可以不断调用next()函数获取由yield语句返回的下一个值。
+但是Python的yield不但可以返回一个值，它还可以接收调用者发出的参数。</p>
+<p>协程有什么好处呢？</p>
+<ul>
+<li>每个coroutine有自己私有的stack及局部变量。</li>
+<li>同一时间只有一个coroutine在执行，无需对全局变量加锁。</li>
+<li>顺序可控，完全由程序控制执行的顺序。而通常的多线程一旦启动，它的运行时序是没法预测的，因此通常会给测试所有的情况带来困难。所以能用coroutine解决的场合应当优先使用coroutine。</li>
+</ul>
+<h3 id="api"><span class="section-num">4.2</span> API</h3>
+<h3 id="pecan"><span class="section-num">4.3</span> pecan</h3>
+<p>Pecan是一个路由对象分发的oython web框架。本质上可以将url通过分割为每一部分，然后对每一部分查找对应处理该URL部分的处理类，处理后，继续交给后面部分的URL处理，直到所有URL部分都被处理后，调用最后分割的URL对应的处理函数处理.
+参考文档：<a href="https://pecan.readthedocs.org/en/latest/index.html" target="_blank">https://pecan.readthedocs.org/en/latest/index.html</a>。</p>
+<h2 id="oslo"><span class="section-num">5</span> oslo</h2>
+<p>oslo是OpenStack通用库，包括了众多不需要重复发明的“轮子”。主要的作用就是把OpenStack里面通用的架构抽象提取出来形成一个代码库，和其他的第三方Python库一样，只需要在项目中import对应的库就行了。Oslo库包括很多的子项目，下面列举一些进行简单的介绍：
+Cliff(Command Line Formulation Framework)：可以用来帮助构建命令行程序。主程序只负责基本的命令行参数的解析，然后调用各个子命令去执行不同的操作。
+oslo.config：用于接续命令行和配置文件中的配置选项，是oslo的第一个项目。
+oslo.db：针对SQLAlchemy访问的抽象。
+oslo.i18n：对Python gettext模块的封装，主要用于字符串的翻译和国际化。
+oslo.messaging：为OpenStack各个项目使用RPC和事件通知提供一套统一的接口。
+stevedore：运行时动态载入代码。
+oslo.policy：负责policy的验证和rules的管理。
+oslo.rootwrap：让其他OpenStack服务以root身份执行shell命令。一般来说OpenStack的服务都是以非特权用户的身份运行的。
+oslo.test：提供单元测试的基础框架。</p>
+<h2 id="python代码中各种注释装饰器的用法"><span class="section-num">6</span> python代码中各种注释装饰器的用法</h2>
+<h3 id="abc-dot-abstractmethod"><span class="section-num">6.1</span> @abc.abstractmethod</h3>
+<h3 id="six"><span class="section-num">6.2</span> @six</h3>
+<h3 id="518ed2"><span class="section-num">6.3</span> @</h3>
+<h3 id="profiler-dot-trace-cls--l3-agent"><span class="section-num">6.4</span> @profiler.trace_cls(&ldquo;l3-agent&rdquo;)</h3>
+<p>一些API请求的处理会经过多个不同的服务（例如，虚拟机的创建过程）。如果有些请求处理过程太慢，分析其中的处理细节会非常的困难和复杂。osprofiler项目由此产生。
+osprofiler项目精简但是功能强大，即将被所有的OpenStack服务项目及其客户端项目所采用。使用osprofiler会对每个请求生成一条痕
+迹（trace），不管该请求会经过多少服务处理，最终生成请求处理过程的“树”，方便开发测试人员分析请求处理过程和调优。</p>
+<pre><code class="language-python">@profiler.trace_cls(&quot;point_name&quot;, info={}, hide_args=False,
+                trace_private=False)
+class TracedClass(object):
+
+    def traced_method(self):
+        pass
+
+    def _traced_only_if_trace_private_true(self):
+        pass
+1
+</code></pre>
+<h2 id="rabbitmq"><span class="section-num">7</span> rabbitmq</h2>
+<p>RabbitMQ常用的Exchange Type有三种：fanout、direct、topic。</p>
+<ul>
+<li>fanout:把所有发送到该Exchange的消息投递到所有与它绑定的队列中。</li>
+<li>direct:把消息投递到那些binding key与routing key完全匹配的队列中。</li>
+<li>topic:将消息路由到binding key与routing key模式匹配的队列中。</li>
+</ul>
+<figure><img src="/ox-hugo/amq.jpg"/>
+</figure>
+
+<h2 id="floatingip"><span class="section-num">8</span> FloatingIp</h2>
+<h3 id="neutron-floatingip实现"><span class="section-num">8.1</span> neutron FloatingIP实现</h3>
+<figure><img src="/ox-hugo/fip.jpg"/>
+</figure>
+
+<h4 id="router外网接口ip"><span class="section-num">8.1.1</span> router外网接口IP</h4>
+<pre><code class="language-java">neutron router-gateway-set $ROUTER_ID $EXTERNAL_NETWORK_ID
+</code></pre>
+<h4 id="iptables处理"><span class="section-num">8.1.2</span> iptables处理</h4>
+<pre><code class="language-java">
+-A PREROUTING -j neutron-l3-agent-PREROUTING
+
+-A POSTROUTING -j neutron-l3-agent-POSTROUTING
+
+-A POSTROUTING -j neutron-postrouting-bottom
+
+-A OUTPUT -j neutron-l3-agent-OUTPUT
+
+-A neutron-l3-agent-snat -j neutron-l3-agent-float-snat
+
+-A neutron-l3-agent-snat -s 70.0.0.0/24 -j SNAT --to-source 192.168.12.10
+
+-A neutron-postrouting-bottom -j neutron-l3-agent-snat
+
+</code></pre>
+<pre><code class="language-java">-A neutron-l3-agent-OUTPUT -d 192.168.12.11/32 -j DNAT --to-destination 70.0.0.3
+
+-A neutron-l3-agent-PREROUTING -d 192.168.12.11/32 -j DNAT --to-destination 70.0.0.3
+
+-A neutron-l3-agent-float-snat -s 70.0.0.3/32 -j SNAT --to-source 192.168.12.11
+</code></pre>
+<h3 id="floatingip功能代码"><span class="section-num">8.2</span> FloatingIP功能代码</h3>
+<h4 id="入口"><span class="section-num">8.2.1</span> 入口</h4>
+<ul>
+<li>agent由rpc接口接收到消息，然后处理，交给对应的函数</li>
+</ul>
+<p>注册rpc接口</p>
+<pre><code class="language-python">neutron/agent/l3/agent.py
+
+ self.plugin_rpc = L3PluginApi(topics.L3PLUGIN, host)
+</code></pre>
+<h4 id="floatingip申请"><span class="section-num">8.2.2</span> FloatingIp申请</h4>
+<pre><code class="language-python">services.l3_router_plugin.py
+
+ def create_floatingip(self, context, floatingip):
+        &quot;&quot;&quot;Create floating IP.
+
+        :param context: Neutron request context
+        :param floatingip: data for the floating IP being created
+        :returns: A floating IP object on success
+
+        As the l3 router plugin asynchronously creates floating IPs
+        leveraging the l3 agent, the initial status for the floating
+        IP object will be DOWN.
+        &quot;&quot;&quot;
+        return super(L3RouterPlugin, self).create_floatingip(
+            context, floatingip,
+            initial_status=n_const.FLOATINGIP_STATUS_DOWN)
+</code></pre>
+<pre><code class="language-python">neutron/agent/l3/agent.py
+
+    def routers_updated(self, context, routers):
+        &quot;&quot;&quot;Deal with routers modification and creation RPC message.&quot;&quot;&quot;
+        LOG.debug('Got routers updated notification :%s', routers)
+        if routers:
+            # This is needed for backward compatibility
+            if isinstance(routers[0], dict):
+                routers = [router['id'] for router in routers]
+            for id in routers:
+                update = queue.RouterUpdate(id, queue.PRIORITY_RPC)
+                self._queue.add(update)
+
+</code></pre>
+<h4 id="floatingip分配"><span class="section-num">8.2.3</span> FloatingIp分配</h4>
+<p>process_floating_ip_nat_rules</p>
+<h2 id="创建一个openstack项目"><span class="section-num">9</span> 创建一个Openstack项目</h2>
+<p><a href="https://docs.openstack.org/infra/manual/creators.html" target="_blank">https://docs.openstack.org/infra/manual/creators.html</a></p>
+<ul>
+<li>当你的项目逻辑架构定了之后，首先是提供 CLI 启动服务，我一般把启动脚本放在cmd文件夹下，并在 setup.cfg 中注册。</li>
+<li>在写代码时，引用到的 python lib，可以直接从openstack global requirments文件中拷贝到自己的 requirements.txt 中。</li>
+<li>想好 API 框架用啥，我比较常用的是 Pecan+WSME</li>
+<li>如果你的 project 有两个或以上的 components，就要创建 rpc 通信层，还有 context 该怎么传递。</li>
+<li>数据库的 model 设计以及 sqlalchemy api 的实现，还有就是 db migration</li>
+</ul>
+<h2 id="listalltheipof-a-subnet"><span class="section-num">10</span> listalltheipof a subnet</h2>
+<pre><code class="language-java">[root@compute ~(keystone_admin)]# neutron port-list --fixed-ips subnet_id=bc7baee2-67bc-480b-a18d-62e397af6963
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| id                                   | name | tenant_id                        | mac_address       | fixed_ips                                                                        |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| 03fc096c-9879-4839-9aa2-b3cc8a55c3e1 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:f3:af:cb | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.3&quot;} |
+| 494f80a2-62fa-44a5-96c3-350ccee3c2f8 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:3e:4d:78 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.5&quot;} |
+| 71aa5579-03bf-49b4-91e2-a47648df8e32 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:0f:b8:3e | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.2&quot;} |
+| c34dd570-2b1a-45ab-a996-f19c60da7958 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:c5:02:50 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.7&quot;} |
+| dc2830a3-8a97-47e7-a6ae-1964cfb3c0cd |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:da:d6:af | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.1&quot;} |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+
+
+http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963
+
+
+DEBUG: keystoneauth.session GET call to network for http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963 used request id req-926c8aba-cdd5-4889-b52f-ffe44bfc9ca7
+DEBUG: neutronclient.v2_0.client GET call to neutron for http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963 used request id req-926c8aba-cdd5-4889-b52f-ffe44bfc9ca7
+DEBUG: keystoneauth.identity.v3.base Making authentication request to http://192.168.100.10:5000/v3/auth/tokens
+DEBUG: keystoneauth.identity.v3.base {&quot;token&quot;: {&quot;is_domain&quot;: false, &quot;methods&quot;: [&quot;password&quot;], &quot;roles&quot;: [{&quot;id&quot;: &quot;d06e0e9a8d13440d95d7b780f8c891f1&quot;, &quot;name&quot;: &quot;admin&quot;}], &quot;expires_at&quot;: &quot;2018-08-02T13:38:16.000000Z&quot;, &quot;project&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;name&quot;: &quot;admin&quot;}, &quot;catalog&quot;: [{&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b46466b9f4fc43eeaf0ae45372b2a532&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ccb61f5ac6da4ffb9e03813f8f402239&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;e5892a85b01d4ec5b29eca4d076b965e&quot;}], &quot;type&quot;: &quot;image&quot;, &quot;id&quot;: &quot;01280807c5aa49ed989f07deb5f55518&quot;, &quot;name&quot;: &quot;glance&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;04bebd1e162d419fbad07317888207cd&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:35357/v3&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2bb533e49040463ab0a5d322be09248f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b09edd5ccae04403810924f013d18df2&quot;}], &quot;type&quot;: &quot;identity&quot;, &quot;id&quot;: &quot;08865962aadb453185ec221a580e1ded&quot;, &quot;name&quot;: &quot;keystone&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;3d07d09d93404ea3b0777dc43f8d0709&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6c707542b3f443ec81d18695ce1e6460&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;710c3eb09e7743e6b19a747c631168d7&quot;}], &quot;type&quot;: &quot;placement&quot;, &quot;id&quot;: &quot;342e938a948741e38f8e8b1953f2e4c8&quot;, &quot;name&quot;: &quot;placement&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4b896c6cb0c840639c04025e08f94621&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a4d1a1ff1a7d41f885bca76c34c43268&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f49c5f74fbcf43a09e95e708c4683e2e&quot;}], &quot;type&quot;: &quot;volume&quot;, &quot;id&quot;: &quot;58e00d6fe1bd488f914e8affd18b9a07&quot;, &quot;name&quot;: &quot;cinder&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;27d4819e010a49e08c6a4de6f5d67b14&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4016aefecc3441659aac514a617323da&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;97970f9b54a34bee8627defbb04637d4&quot;}], &quot;type&quot;: &quot;metric&quot;, &quot;id&quot;: &quot;593e971d95864f49ad9960b490735f9d&quot;, &quot;name&quot;: &quot;gnocchi&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;769869c4988a4f9382887101b8c23e36&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;abbda3c2f79b46b186978bf4ba238c88&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ff6d9514ce504a62bd2aab221b3013e8&quot;}], &quot;type&quot;: &quot;alarming&quot;, &quot;id&quot;: &quot;5cdc78392c1743df9990a690bec7dc1f&quot;, &quot;name&quot;: &quot;aodh&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;658167d5a9934fcc9096d8ce2956a330&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bb225c56c3484403998f119f63f84fe3&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f208a028b1bc4e848004bf8ba82bfcd5&quot;}], &quot;type&quot;: &quot;volumev3&quot;, &quot;id&quot;: &quot;66f0f32bc45d44ac8cc91480b83f24a3&quot;, &quot;name&quot;: &quot;cinderv3&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;45a1725e0adf420d83f6ecbd90f4659f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;914e41d1025645628cc7784e60ef2d25&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a7a9cde8807f465e8dc6af4a4d756246&quot;}], &quot;type&quot;: &quot;compute&quot;, &quot;id&quot;: &quot;85d923fff4a14561b5c7ff4b4d91733b&quot;, &quot;name&quot;: &quot;nova&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;5df9c155ab57482d84b1dbbd8fc16ad5&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;7422056798b14fcab49c9aec63d2c90a&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f8ea7fa01a0c46449f505544c4660d07&quot;}], &quot;type&quot;: &quot;network&quot;, &quot;id&quot;: &quot;95c32dc6a2604bc580a19dd63a47da5a&quot;, &quot;name&quot;: &quot;neutron&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;19b02ce9eb19446f89c77896f789c1c7&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a0d73116f23145f190f213110454229c&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bcc11e309fad48ce9ded52c7c60a371f&quot;}], &quot;type&quot;: &quot;volumev2&quot;, &quot;id&quot;: &quot;b478aa70b28e47859c9f32c4ec9846bf&quot;, &quot;name&quot;: &quot;cinderv2&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2225ebde2c284ae1a95ed114f4b6f441&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2879617206a741fab6883e7f297640fc&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;afae36eebbca4a14b1f952510b4bf2b9&quot;}], &quot;type&quot;: &quot;metering&quot;, &quot;id&quot;: &quot;ba8371dd918b4f61a1c41c8e6eb4c1c0&quot;, &quot;name&quot;: &quot;ceilometer&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6abb0dd21b1c42f4b92e85cff4ff8833&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b7646fb787f54002844f690e7939ab97&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ef10e298258442878e23a1fa841e5e23&quot;}], &quot;type&quot;: &quot;object-store&quot;, &quot;id&quot;: &quot;f7bf8bf3f21b44eba51edf2068633b79&quot;, &quot;name&quot;: &quot;swift&quot;}], &quot;user&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;password_expires_at&quot;: null, &quot;name&quot;: &quot;admin&quot;, &quot;id&quot;: &quot;489353600c5347b0852497074a4a1bce&quot;}, &quot;audit_ids&quot;: [&quot;iXIDEEbzTeGK3BEasG56Kw&quot;], &quot;issued_at&quot;: &quot;2018-08-02T12:38:16.000000Z&quot;}}
+
+</code></pre>
+<pre><code class="language-java">[root@compute ~(keystone_admin)]# neutron --debug port-list
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+DEBUG: stevedore.extension found extension EntryPoint.parse('v2token = keystoneauth1.loading._plugins.identity.v2:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oauth1 = keystoneauth1.extras.oauth1._loading:V3OAuth1')
+DEBUG: stevedore.extension found extension EntryPoint.parse('admin_token = keystoneauth1.loading._plugins.admin_token:AdminToken')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcauthcode = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAuthorizationCode')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v2password = keystoneauth1.loading._plugins.identity.v2:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3samlpassword = keystoneauth1.extras._saml2._loading:Saml2Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3password = keystoneauth1.loading._plugins.identity.v3:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcaccesstoken = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAccessToken')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcpassword = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectPassword')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3kerberos = keystoneauth1.extras.kerberos._loading:Kerberos')
+DEBUG: stevedore.extension found extension EntryPoint.parse('token = keystoneauth1.loading._plugins.identity.generic:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcclientcredentials = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectClientCredentials')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3tokenlessauth = keystoneauth1.loading._plugins.identity.v3:TokenlessAuth')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3token = keystoneauth1.loading._plugins.identity.v3:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3totp = keystoneauth1.loading._plugins.identity.v3:TOTP')
+DEBUG: stevedore.extension found extension EntryPoint.parse('password = keystoneauth1.loading._plugins.identity.generic:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3fedkerb = keystoneauth1.extras.kerberos._loading:MappedKerberos')
+DEBUG: stevedore.extension found extension EntryPoint.parse('table = cliff.formatters.table:TableFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('json = cliff.formatters.json_format:JSONFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('csv = cliff.formatters.commaseparated:CSVLister')
+DEBUG: stevedore.extension found extension EntryPoint.parse('value = cliff.formatters.value:ValueFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('yaml = cliff.formatters.yaml_format:YAMLFormatter')
+DEBUG: neutronclient.neutron.v2_0.port.ListPort run(Namespace(columns=[], fields=[], formatter='table', max_width=0, noindent=False, page_size=None, print_empty=False, quote_mode='nonnumeric', request_format='json', show_details=False, sort_dir=[], sort_key=[]))
+DEBUG: keystoneauth.session REQ: curl -g -i -X GET http://192.168.100.10:5000/v3 -H &quot;Accept: application/json&quot; -H &quot;User-Agent: neutron keystoneauth1/2.18.0 python-requests/2.11.1 CPython/2.7.5&quot;
+DEBUG: keystoneauth.session RESP: [200] Date: Thu, 02 Aug 2018 12:37:34 GMT Server: Apache/2.4.6 (CentOS) Vary: X-Auth-Token,Accept-Encoding x-openstack-request-id: req-7592e086-34e3-42dd-b4ca-050e7c71a00a Content-Encoding: gzip Content-Length: 196 Connection: close Content-Type: application/json
+RESP BODY: {&quot;version&quot;: {&quot;status&quot;: &quot;stable&quot;, &quot;updated&quot;: &quot;2017-02-22T00:00:00Z&quot;, &quot;media-types&quot;: [{&quot;base&quot;: &quot;application/json&quot;, &quot;type&quot;: &quot;application/vnd.openstack.identity-v3+json&quot;}], &quot;id&quot;: &quot;v3.8&quot;, &quot;links&quot;: [{&quot;href&quot;: &quot;http://192.168.100.10:5000/v3/&quot;, &quot;rel&quot;: &quot;self&quot;}]}}
+
+DEBUG: keystoneauth.session GET call to None for http://192.168.100.10:5000/v3 used request id req-7592e086-34e3-42dd-b4ca-050e7c71a00a
+DEBUG: keystoneauth.identity.v3.base Making authentication request to http://192.168.100.10:5000/v3/auth/tokens
+DEBUG: keystoneauth.identity.v3.base {&quot;token&quot;: {&quot;is_domain&quot;: false, &quot;methods&quot;: [&quot;password&quot;], &quot;roles&quot;: [{&quot;id&quot;: &quot;d06e0e9a8d13440d95d7b780f8c891f1&quot;, &quot;name&quot;: &quot;admin&quot;}], &quot;expires_at&quot;: &quot;2018-08-02T13:37:34.000000Z&quot;, &quot;project&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;name&quot;: &quot;admin&quot;}, &quot;catalog&quot;: [{&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b46466b9f4fc43eeaf0ae45372b2a532&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ccb61f5ac6da4ffb9e03813f8f402239&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;e5892a85b01d4ec5b29eca4d076b965e&quot;}], &quot;type&quot;: &quot;image&quot;, &quot;id&quot;: &quot;01280807c5aa49ed989f07deb5f55518&quot;, &quot;name&quot;: &quot;glance&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;04bebd1e162d419fbad07317888207cd&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:35357/v3&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2bb533e49040463ab0a5d322be09248f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b09edd5ccae04403810924f013d18df2&quot;}], &quot;type&quot;: &quot;identity&quot;, &quot;id&quot;: &quot;08865962aadb453185ec221a580e1ded&quot;, &quot;name&quot;: &quot;keystone&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;3d07d09d93404ea3b0777dc43f8d0709&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6c707542b3f443ec81d18695ce1e6460&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;710c3eb09e7743e6b19a747c631168d7&quot;}], &quot;type&quot;: &quot;placement&quot;, &quot;id&quot;: &quot;342e938a948741e38f8e8b1953f2e4c8&quot;, &quot;name&quot;: &quot;placement&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4b896c6cb0c840639c04025e08f94621&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a4d1a1ff1a7d41f885bca76c34c43268&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f49c5f74fbcf43a09e95e708c4683e2e&quot;}], &quot;type&quot;: &quot;volume&quot;, &quot;id&quot;: &quot;58e00d6fe1bd488f914e8affd18b9a07&quot;, &quot;name&quot;: &quot;cinder&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;27d4819e010a49e08c6a4de6f5d67b14&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4016aefecc3441659aac514a617323da&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;97970f9b54a34bee8627defbb04637d4&quot;}], &quot;type&quot;: &quot;metric&quot;, &quot;id&quot;: &quot;593e971d95864f49ad9960b490735f9d&quot;, &quot;name&quot;: &quot;gnocchi&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;769869c4988a4f9382887101b8c23e36&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;abbda3c2f79b46b186978bf4ba238c88&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ff6d9514ce504a62bd2aab221b3013e8&quot;}], &quot;type&quot;: &quot;alarming&quot;, &quot;id&quot;: &quot;5cdc78392c1743df9990a690bec7dc1f&quot;, &quot;name&quot;: &quot;aodh&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;658167d5a9934fcc9096d8ce2956a330&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bb225c56c3484403998f119f63f84fe3&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f208a028b1bc4e848004bf8ba82bfcd5&quot;}], &quot;type&quot;: &quot;volumev3&quot;, &quot;id&quot;: &quot;66f0f32bc45d44ac8cc91480b83f24a3&quot;, &quot;name&quot;: &quot;cinderv3&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;45a1725e0adf420d83f6ecbd90f4659f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;914e41d1025645628cc7784e60ef2d25&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a7a9cde8807f465e8dc6af4a4d756246&quot;}], &quot;type&quot;: &quot;compute&quot;, &quot;id&quot;: &quot;85d923fff4a14561b5c7ff4b4d91733b&quot;, &quot;name&quot;: &quot;nova&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;5df9c155ab57482d84b1dbbd8fc16ad5&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;7422056798b14fcab49c9aec63d2c90a&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f8ea7fa01a0c46449f505544c4660d07&quot;}], &quot;type&quot;: &quot;network&quot;, &quot;id&quot;: &quot;95c32dc6a2604bc580a19dd63a47da5a&quot;, &quot;name&quot;: &quot;neutron&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;19b02ce9eb19446f89c77896f789c1c7&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a0d73116f23145f190f213110454229c&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bcc11e309fad48ce9ded52c7c60a371f&quot;}], &quot;type&quot;: &quot;volumev2&quot;, &quot;id&quot;: &quot;b478aa70b28e47859c9f32c4ec9846bf&quot;, &quot;name&quot;: &quot;cinderv2&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2225ebde2c284ae1a95ed114f4b6f441&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2879617206a741fab6883e7f297640fc&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;afae36eebbca4a14b1f952510b4bf2b9&quot;}], &quot;type&quot;: &quot;metering&quot;, &quot;id&quot;: &quot;ba8371dd918b4f61a1c41c8e6eb4c1c0&quot;, &quot;name&quot;: &quot;ceilometer&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6abb0dd21b1c42f4b92e85cff4ff8833&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b7646fb787f54002844f690e7939ab97&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ef10e298258442878e23a1fa841e5e23&quot;}], &quot;type&quot;: &quot;object-store&quot;, &quot;id&quot;: &quot;f7bf8bf3f21b44eba51edf2068633b79&quot;, &quot;name&quot;: &quot;swift&quot;}], &quot;user&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;password_expires_at&quot;: null, &quot;name&quot;: &quot;admin&quot;, &quot;id&quot;: &quot;489353600c5347b0852497074a4a1bce&quot;}, &quot;audit_ids&quot;: [&quot;8R2aZNGJSu-eKmCoM0Os3g&quot;], &quot;issued_at&quot;: &quot;2018-08-02T12:37:34.000000Z&quot;}}
+DEBUG: keystoneauth.session REQ: curl -g -i -X GET http://192.168.100.10:9696/v2.0/ports.json -H &quot;User-Agent: python-neutronclient&quot; -H &quot;Accept: application/json&quot; -H &quot;X-Auth-Token: {SHA1}5653cfddcd0cb39cc8f20b81e26c79780c6320a8&quot;
+DEBUG: keystoneauth.session RESP: [200] Content-Type: application/json Content-Length: 4997 X-Openstack-Request-Id: req-f7601c55-f95e-40b8-b5d0-334ce0971bd2 Date: Thu, 02 Aug 2018 12:37:35 GMT Connection: keep-alive
+RESP BODY: {&quot;ports&quot;: [{&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer1&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:19:36Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.3&quot;}], &quot;id&quot;: &quot;03fc096c-9879-4839-9aa2-b3cc8a55c3e1&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;d7f2cf20-ed2c-41ce-94e4-cf9bffc03db3&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;ce306591-fdbd-4c53-bc5d-f89f6cf6abcb&quot;, &quot;host_addresses&quot;: [&quot;computer1&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:f3:af:cb&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:19:33Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer2&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:20:24Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.5&quot;}], &quot;id&quot;: &quot;494f80a2-62fa-44a5-96c3-350ccee3c2f8&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;9b352f01-cd62-48d7-bc1b-dc679b3fbfc7&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;b8468845-4dc8-424c-8204-76e2a5700169&quot;, &quot;host_addresses&quot;: [&quot;computer2&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:3e:4d:78&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:20:17Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;controller&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:17:30Z&quot;, &quot;device_owner&quot;: &quot;network:dhcp&quot;, &quot;revision_number&quot;: 6, &quot;port_security_enabled&quot;: false, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.2&quot;}], &quot;id&quot;: &quot;71aa5579-03bf-49b4-91e2-a47648df8e32&quot;, &quot;security_groups&quot;: [], &quot;device_id&quot;: &quot;dhcpd3377d3c-a0d1-5d71-9947-f17125c357bb-17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;b166222e-09c7-42c6-a08a-11b4460a4dbc&quot;, &quot;host_addresses&quot;: [&quot;controller&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:0f:b8:3e&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:17:26Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer1&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:19:20Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.7&quot;}], &quot;id&quot;: &quot;c34dd570-2b1a-45ab-a996-f19c60da7958&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;b3e67cfb-f381-4a5b-92fc-2d019af88400&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;ce306591-fdbd-4c53-bc5d-f89f6cf6abcb&quot;, &quot;host_addresses&quot;: [&quot;computer1&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:c5:02:50&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:19:17Z&quot;}, {&quot;status&quot;: &quot;DOWN&quot;, &quot;binding:host_id&quot;: &quot;&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:17:38Z&quot;, &quot;device_owner&quot;: &quot;network:router_interface&quot;, &quot;revision_number&quot;: 5, &quot;port_security_enabled&quot;: false, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.1&quot;}], &quot;id&quot;: &quot;dc2830a3-8a97-47e7-a6ae-1964cfb3c0cd&quot;, &quot;security_groups&quot;: [], &quot;device_id&quot;: &quot;fb73b983-70a1-4264-9ef3-347041e99a45&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;unbound&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:da:d6:af&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:17:35Z&quot;}]}
+
+DEBUG: keystoneauth.session GET call to network for http://192.168.100.10:9696/v2.0/ports.json used request id req-f7601c55-f95e-40b8-b5d0-334ce0971bd2
+DEBUG: neutronclient.v2_0.client GET call to neutron for http://192.168.100.10:9696/v2.0/ports.json used request id req-f7601c55-f95e-40b8-b5d0-334ce0971bd2
+DEBUG: keystoneauth.identity.v3.base Making authentication request to http://192.168.100.10:5000/v3/auth/tokens
+DEBUG: keystoneauth.identity.v3.base {&quot;token&quot;: {&quot;is_domain&quot;: false, &quot;methods&quot;: [&quot;password&quot;], &quot;roles&quot;: [{&quot;id&quot;: &quot;d06e0e9a8d13440d95d7b780f8c891f1&quot;, &quot;name&quot;: &quot;admin&quot;}], &quot;expires_at&quot;: &quot;2018-08-02T13:37:35.000000Z&quot;, &quot;project&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;name&quot;: &quot;admin&quot;}, &quot;catalog&quot;: [{&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b46466b9f4fc43eeaf0ae45372b2a532&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ccb61f5ac6da4ffb9e03813f8f402239&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;e5892a85b01d4ec5b29eca4d076b965e&quot;}], &quot;type&quot;: &quot;image&quot;, &quot;id&quot;: &quot;01280807c5aa49ed989f07deb5f55518&quot;, &quot;name&quot;: &quot;glance&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;04bebd1e162d419fbad07317888207cd&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:35357/v3&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2bb533e49040463ab0a5d322be09248f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b09edd5ccae04403810924f013d18df2&quot;}], &quot;type&quot;: &quot;identity&quot;, &quot;id&quot;: &quot;08865962aadb453185ec221a580e1ded&quot;, &quot;name&quot;: &quot;keystone&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;3d07d09d93404ea3b0777dc43f8d0709&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6c707542b3f443ec81d18695ce1e6460&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;710c3eb09e7743e6b19a747c631168d7&quot;}], &quot;type&quot;: &quot;placement&quot;, &quot;id&quot;: &quot;342e938a948741e38f8e8b1953f2e4c8&quot;, &quot;name&quot;: &quot;placement&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4b896c6cb0c840639c04025e08f94621&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a4d1a1ff1a7d41f885bca76c34c43268&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f49c5f74fbcf43a09e95e708c4683e2e&quot;}], &quot;type&quot;: &quot;volume&quot;, &quot;id&quot;: &quot;58e00d6fe1bd488f914e8affd18b9a07&quot;, &quot;name&quot;: &quot;cinder&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;27d4819e010a49e08c6a4de6f5d67b14&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4016aefecc3441659aac514a617323da&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;97970f9b54a34bee8627defbb04637d4&quot;}], &quot;type&quot;: &quot;metric&quot;, &quot;id&quot;: &quot;593e971d95864f49ad9960b490735f9d&quot;, &quot;name&quot;: &quot;gnocchi&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;769869c4988a4f9382887101b8c23e36&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;abbda3c2f79b46b186978bf4ba238c88&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ff6d9514ce504a62bd2aab221b3013e8&quot;}], &quot;type&quot;: &quot;alarming&quot;, &quot;id&quot;: &quot;5cdc78392c1743df9990a690bec7dc1f&quot;, &quot;name&quot;: &quot;aodh&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;658167d5a9934fcc9096d8ce2956a330&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bb225c56c3484403998f119f63f84fe3&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f208a028b1bc4e848004bf8ba82bfcd5&quot;}], &quot;type&quot;: &quot;volumev3&quot;, &quot;id&quot;: &quot;66f0f32bc45d44ac8cc91480b83f24a3&quot;, &quot;name&quot;: &quot;cinderv3&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;45a1725e0adf420d83f6ecbd90f4659f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;914e41d1025645628cc7784e60ef2d25&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a7a9cde8807f465e8dc6af4a4d756246&quot;}], &quot;type&quot;: &quot;compute&quot;, &quot;id&quot;: &quot;85d923fff4a14561b5c7ff4b4d91733b&quot;, &quot;name&quot;: &quot;nova&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;5df9c155ab57482d84b1dbbd8fc16ad5&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;7422056798b14fcab49c9aec63d2c90a&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f8ea7fa01a0c46449f505544c4660d07&quot;}], &quot;type&quot;: &quot;network&quot;, &quot;id&quot;: &quot;95c32dc6a2604bc580a19dd63a47da5a&quot;, &quot;name&quot;: &quot;neutron&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;19b02ce9eb19446f89c77896f789c1c7&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a0d73116f23145f190f213110454229c&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bcc11e309fad48ce9ded52c7c60a371f&quot;}], &quot;type&quot;: &quot;volumev2&quot;, &quot;id&quot;: &quot;b478aa70b28e47859c9f32c4ec9846bf&quot;, &quot;name&quot;: &quot;cinderv2&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2225ebde2c284ae1a95ed114f4b6f441&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2879617206a741fab6883e7f297640fc&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;afae36eebbca4a14b1f952510b4bf2b9&quot;}], &quot;type&quot;: &quot;metering&quot;, &quot;id&quot;: &quot;ba8371dd918b4f61a1c41c8e6eb4c1c0&quot;, &quot;name&quot;: &quot;ceilometer&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6abb0dd21b1c42f4b92e85cff4ff8833&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b7646fb787f54002844f690e7939ab97&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ef10e298258442878e23a1fa841e5e23&quot;}], &quot;type&quot;: &quot;object-store&quot;, &quot;id&quot;: &quot;f7bf8bf3f21b44eba51edf2068633b79&quot;, &quot;name&quot;: &quot;swift&quot;}], &quot;user&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;password_expires_at&quot;: null, &quot;name&quot;: &quot;admin&quot;, &quot;id&quot;: &quot;489353600c5347b0852497074a4a1bce&quot;}, &quot;audit_ids&quot;: [&quot;aDtvhYq_SHG1ebIixJbETQ&quot;], &quot;issued_at&quot;: &quot;2018-08-02T12:37:35.000000Z&quot;}}
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| id                                   | name | tenant_id                        | mac_address       | fixed_ips                                                                        |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| 03fc096c-9879-4839-9aa2-b3cc8a55c3e1 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:f3:af:cb | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.3&quot;} |
+| 494f80a2-62fa-44a5-96c3-350ccee3c2f8 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:3e:4d:78 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.5&quot;} |
+| 71aa5579-03bf-49b4-91e2-a47648df8e32 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:0f:b8:3e | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.2&quot;} |
+| c34dd570-2b1a-45ab-a996-f19c60da7958 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:c5:02:50 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.7&quot;} |
+| dc2830a3-8a97-47e7-a6ae-1964cfb3c0cd |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:da:d6:af | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.1&quot;} |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+</code></pre>
+<pre><code class="language-java">[root@compute ~(keystone_admin)]# neutron --debug port-list --fixed-ips subnet_id=bc7baee2-67bc-480b-a18d-62e397af6963
+neutron CLI is deprecated and will be removed in the future. Use openstack CLI instead.
+DEBUG: stevedore.extension found extension EntryPoint.parse('v2token = keystoneauth1.loading._plugins.identity.v2:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oauth1 = keystoneauth1.extras.oauth1._loading:V3OAuth1')
+DEBUG: stevedore.extension found extension EntryPoint.parse('admin_token = keystoneauth1.loading._plugins.admin_token:AdminToken')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcauthcode = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAuthorizationCode')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v2password = keystoneauth1.loading._plugins.identity.v2:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3samlpassword = keystoneauth1.extras._saml2._loading:Saml2Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3password = keystoneauth1.loading._plugins.identity.v3:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcaccesstoken = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectAccessToken')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcpassword = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectPassword')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3kerberos = keystoneauth1.extras.kerberos._loading:Kerberos')
+DEBUG: stevedore.extension found extension EntryPoint.parse('token = keystoneauth1.loading._plugins.identity.generic:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3oidcclientcredentials = keystoneauth1.loading._plugins.identity.v3:OpenIDConnectClientCredentials')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3tokenlessauth = keystoneauth1.loading._plugins.identity.v3:TokenlessAuth')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3token = keystoneauth1.loading._plugins.identity.v3:Token')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3totp = keystoneauth1.loading._plugins.identity.v3:TOTP')
+DEBUG: stevedore.extension found extension EntryPoint.parse('password = keystoneauth1.loading._plugins.identity.generic:Password')
+DEBUG: stevedore.extension found extension EntryPoint.parse('v3fedkerb = keystoneauth1.extras.kerberos._loading:MappedKerberos')
+DEBUG: stevedore.extension found extension EntryPoint.parse('table = cliff.formatters.table:TableFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('json = cliff.formatters.json_format:JSONFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('csv = cliff.formatters.commaseparated:CSVLister')
+DEBUG: stevedore.extension found extension EntryPoint.parse('value = cliff.formatters.value:ValueFormatter')
+DEBUG: stevedore.extension found extension EntryPoint.parse('yaml = cliff.formatters.yaml_format:YAMLFormatter')
+
+DEBUG: neutronclient.neutron.v2_0.port.ListPort run(Namespace(columns=[], fields=[], formatter='table', max_width=0, noindent=False, page_size=None, print_empty=False, quote_mode='nonnumeric', request_format='json', show_details=False, sort_dir=[], sort_key=[]))
+DEBUG: keystoneauth.session REQ: curl -g -i -X GET http://192.168.100.10:5000/v3 -H &quot;Accept: application/json&quot; -H &quot;User-Agent: neutron keystoneauth1/2.18.0 python-requests/2.11.1 CPython/2.7.5&quot;
+DEBUG: keystoneauth.session RESP: [200] Date: Thu, 02 Aug 2018 12:38:14 GMT Server: Apache/2.4.6 (CentOS) Vary: X-Auth-Token,Accept-Encoding x-openstack-request-id: req-e53be530-fbb7-42bc-a4bd-9a2dde2b0766 Content-Encoding: gzip Content-Length: 196 Connection: close Content-Type: application/json
+RESP BODY: {&quot;version&quot;: {&quot;status&quot;: &quot;stable&quot;, &quot;updated&quot;: &quot;2017-02-22T00:00:00Z&quot;, &quot;media-types&quot;: [{&quot;base&quot;: &quot;application/json&quot;, &quot;type&quot;: &quot;application/vnd.openstack.identity-v3+json&quot;}], &quot;id&quot;: &quot;v3.8&quot;, &quot;links&quot;: [{&quot;href&quot;: &quot;http://192.168.100.10:5000/v3/&quot;, &quot;rel&quot;: &quot;self&quot;}]}}
+
+DEBUG: keystoneauth.session GET call to None for http://192.168.100.10:5000/v3 used request id req-e53be530-fbb7-42bc-a4bd-9a2dde2b0766
+DEBUG: keystoneauth.identity.v3.base Making authentication request to http://192.168.100.10:5000/v3/auth/tokens
+DEBUG: keystoneauth.identity.v3.base {&quot;token&quot;: {&quot;is_domain&quot;: false, &quot;methods&quot;: [&quot;password&quot;], &quot;roles&quot;: [{&quot;id&quot;: &quot;d06e0e9a8d13440d95d7b780f8c891f1&quot;, &quot;name&quot;: &quot;admin&quot;}], &quot;expires_at&quot;: &quot;2018-08-02T13:38:15.000000Z&quot;, &quot;project&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;name&quot;: &quot;admin&quot;}, &quot;catalog&quot;: [{&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b46466b9f4fc43eeaf0ae45372b2a532&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ccb61f5ac6da4ffb9e03813f8f402239&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;e5892a85b01d4ec5b29eca4d076b965e&quot;}], &quot;type&quot;: &quot;image&quot;, &quot;id&quot;: &quot;01280807c5aa49ed989f07deb5f55518&quot;, &quot;name&quot;: &quot;glance&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;04bebd1e162d419fbad07317888207cd&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:35357/v3&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2bb533e49040463ab0a5d322be09248f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b09edd5ccae04403810924f013d18df2&quot;}], &quot;type&quot;: &quot;identity&quot;, &quot;id&quot;: &quot;08865962aadb453185ec221a580e1ded&quot;, &quot;name&quot;: &quot;keystone&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;3d07d09d93404ea3b0777dc43f8d0709&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6c707542b3f443ec81d18695ce1e6460&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;710c3eb09e7743e6b19a747c631168d7&quot;}], &quot;type&quot;: &quot;placement&quot;, &quot;id&quot;: &quot;342e938a948741e38f8e8b1953f2e4c8&quot;, &quot;name&quot;: &quot;placement&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4b896c6cb0c840639c04025e08f94621&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a4d1a1ff1a7d41f885bca76c34c43268&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f49c5f74fbcf43a09e95e708c4683e2e&quot;}], &quot;type&quot;: &quot;volume&quot;, &quot;id&quot;: &quot;58e00d6fe1bd488f914e8affd18b9a07&quot;, &quot;name&quot;: &quot;cinder&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;27d4819e010a49e08c6a4de6f5d67b14&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4016aefecc3441659aac514a617323da&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;97970f9b54a34bee8627defbb04637d4&quot;}], &quot;type&quot;: &quot;metric&quot;, &quot;id&quot;: &quot;593e971d95864f49ad9960b490735f9d&quot;, &quot;name&quot;: &quot;gnocchi&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;769869c4988a4f9382887101b8c23e36&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;abbda3c2f79b46b186978bf4ba238c88&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ff6d9514ce504a62bd2aab221b3013e8&quot;}], &quot;type&quot;: &quot;alarming&quot;, &quot;id&quot;: &quot;5cdc78392c1743df9990a690bec7dc1f&quot;, &quot;name&quot;: &quot;aodh&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;658167d5a9934fcc9096d8ce2956a330&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bb225c56c3484403998f119f63f84fe3&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f208a028b1bc4e848004bf8ba82bfcd5&quot;}], &quot;type&quot;: &quot;volumev3&quot;, &quot;id&quot;: &quot;66f0f32bc45d44ac8cc91480b83f24a3&quot;, &quot;name&quot;: &quot;cinderv3&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;45a1725e0adf420d83f6ecbd90f4659f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;914e41d1025645628cc7784e60ef2d25&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a7a9cde8807f465e8dc6af4a4d756246&quot;}], &quot;type&quot;: &quot;compute&quot;, &quot;id&quot;: &quot;85d923fff4a14561b5c7ff4b4d91733b&quot;, &quot;name&quot;: &quot;nova&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;5df9c155ab57482d84b1dbbd8fc16ad5&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;7422056798b14fcab49c9aec63d2c90a&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f8ea7fa01a0c46449f505544c4660d07&quot;}], &quot;type&quot;: &quot;network&quot;, &quot;id&quot;: &quot;95c32dc6a2604bc580a19dd63a47da5a&quot;, &quot;name&quot;: &quot;neutron&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;19b02ce9eb19446f89c77896f789c1c7&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a0d73116f23145f190f213110454229c&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bcc11e309fad48ce9ded52c7c60a371f&quot;}], &quot;type&quot;: &quot;volumev2&quot;, &quot;id&quot;: &quot;b478aa70b28e47859c9f32c4ec9846bf&quot;, &quot;name&quot;: &quot;cinderv2&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2225ebde2c284ae1a95ed114f4b6f441&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2879617206a741fab6883e7f297640fc&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;afae36eebbca4a14b1f952510b4bf2b9&quot;}], &quot;type&quot;: &quot;metering&quot;, &quot;id&quot;: &quot;ba8371dd918b4f61a1c41c8e6eb4c1c0&quot;, &quot;name&quot;: &quot;ceilometer&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6abb0dd21b1c42f4b92e85cff4ff8833&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b7646fb787f54002844f690e7939ab97&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ef10e298258442878e23a1fa841e5e23&quot;}], &quot;type&quot;: &quot;object-store&quot;, &quot;id&quot;: &quot;f7bf8bf3f21b44eba51edf2068633b79&quot;, &quot;name&quot;: &quot;swift&quot;}], &quot;user&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;password_expires_at&quot;: null, &quot;name&quot;: &quot;admin&quot;, &quot;id&quot;: &quot;489353600c5347b0852497074a4a1bce&quot;}, &quot;audit_ids&quot;: [&quot;gJVovLpWQHyExpz_R6FAgw&quot;], &quot;issued_at&quot;: &quot;2018-08-02T12:38:15.000000Z&quot;}}
+DEBUG: keystoneauth.session REQ: curl -g -i -X GET http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963 -H &quot;User-Agent: python-neutronclient&quot; -H &quot;Accept: application/json&quot; -H &quot;X-Auth-Token: {SHA1}6ace437ba5f374e1edfba31750fed9e601810c46&quot;
+DEBUG: keystoneauth.session RESP: [200] Content-Type: application/json Content-Length: 4997 X-Openstack-Request-Id: req-926c8aba-cdd5-4889-b52f-ffe44bfc9ca7 Date: Thu, 02 Aug 2018 12:38:15 GMT Connection: keep-alive
+RESP BODY: {&quot;ports&quot;: [{&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer1&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:19:36Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.3&quot;}], &quot;id&quot;: &quot;03fc096c-9879-4839-9aa2-b3cc8a55c3e1&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;d7f2cf20-ed2c-41ce-94e4-cf9bffc03db3&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;ce306591-fdbd-4c53-bc5d-f89f6cf6abcb&quot;, &quot;host_addresses&quot;: [&quot;computer1&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:f3:af:cb&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:19:33Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer2&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:20:24Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.5&quot;}], &quot;id&quot;: &quot;494f80a2-62fa-44a5-96c3-350ccee3c2f8&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;9b352f01-cd62-48d7-bc1b-dc679b3fbfc7&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;b8468845-4dc8-424c-8204-76e2a5700169&quot;, &quot;host_addresses&quot;: [&quot;computer2&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:3e:4d:78&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:20:17Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;controller&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:17:30Z&quot;, &quot;device_owner&quot;: &quot;network:dhcp&quot;, &quot;revision_number&quot;: 6, &quot;port_security_enabled&quot;: false, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.2&quot;}], &quot;id&quot;: &quot;71aa5579-03bf-49b4-91e2-a47648df8e32&quot;, &quot;security_groups&quot;: [], &quot;device_id&quot;: &quot;dhcpd3377d3c-a0d1-5d71-9947-f17125c357bb-17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;b166222e-09c7-42c6-a08a-11b4460a4dbc&quot;, &quot;host_addresses&quot;: [&quot;controller&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:0f:b8:3e&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:17:26Z&quot;}, {&quot;status&quot;: &quot;ACTIVE&quot;, &quot;binding:host_id&quot;: &quot;computer1&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:19:20Z&quot;, &quot;device_owner&quot;: &quot;compute:nova&quot;, &quot;revision_number&quot;: 8, &quot;port_security_enabled&quot;: true, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.7&quot;}], &quot;id&quot;: &quot;c34dd570-2b1a-45ab-a996-f19c60da7958&quot;, &quot;security_groups&quot;: [&quot;4aa7d663-d9e2-4af3-aa92-6513ab97e51c&quot;], &quot;device_id&quot;: &quot;b3e67cfb-f381-4a5b-92fc-2d019af88400&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {&quot;support_vhost_user&quot;: false, &quot;has_datapath_type_netdev&quot;: false, &quot;uuid&quot;: &quot;ce306591-fdbd-4c53-bc5d-f89f6cf6abcb&quot;, &quot;host_addresses&quot;: [&quot;computer1&quot;]}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;ovs&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:c5:02:50&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:19:17Z&quot;}, {&quot;status&quot;: &quot;DOWN&quot;, &quot;binding:host_id&quot;: &quot;&quot;, &quot;description&quot;: &quot;&quot;, &quot;allowed_address_pairs&quot;: [], &quot;tags&quot;: [], &quot;extra_dhcp_opts&quot;: [], &quot;updated_at&quot;: &quot;2018-05-28T11:17:38Z&quot;, &quot;device_owner&quot;: &quot;network:router_interface&quot;, &quot;revision_number&quot;: 5, &quot;port_security_enabled&quot;: false, &quot;binding:profile&quot;: {}, &quot;fixed_ips&quot;: [{&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.1&quot;}], &quot;id&quot;: &quot;dc2830a3-8a97-47e7-a6ae-1964cfb3c0cd&quot;, &quot;security_groups&quot;: [], &quot;device_id&quot;: &quot;fb73b983-70a1-4264-9ef3-347041e99a45&quot;, &quot;name&quot;: &quot;&quot;, &quot;admin_state_up&quot;: true, &quot;network_id&quot;: &quot;17a30725-7cde-497b-9862-3d95af779eeb&quot;, &quot;tenant_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;binding:vif_details&quot;: {}, &quot;binding:vnic_type&quot;: &quot;normal&quot;, &quot;binding:vif_type&quot;: &quot;unbound&quot;, &quot;mac_address&quot;: &quot;fa:16:3e:da:d6:af&quot;, &quot;project_id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;created_at&quot;: &quot;2018-05-28T11:17:35Z&quot;}]}
+
+
+DEBUG: keystoneauth.session GET call to network for http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963 used request id req-926c8aba-cdd5-4889-b52f-ffe44bfc9ca7
+DEBUG: neutronclient.v2_0.client GET call to neutron for http://192.168.100.10:9696/v2.0/ports.json?fixed_ips=subnet_id%3Dbc7baee2-67bc-480b-a18d-62e397af6963 used request id req-926c8aba-cdd5-4889-b52f-ffe44bfc9ca7
+DEBUG: keystoneauth.identity.v3.base Making authentication request to http://192.168.100.10:5000/v3/auth/tokens
+DEBUG: keystoneauth.identity.v3.base {&quot;token&quot;: {&quot;is_domain&quot;: false, &quot;methods&quot;: [&quot;password&quot;], &quot;roles&quot;: [{&quot;id&quot;: &quot;d06e0e9a8d13440d95d7b780f8c891f1&quot;, &quot;name&quot;: &quot;admin&quot;}], &quot;expires_at&quot;: &quot;2018-08-02T13:38:16.000000Z&quot;, &quot;project&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;id&quot;: &quot;c0bb6b415e474e3598c8565229952028&quot;, &quot;name&quot;: &quot;admin&quot;}, &quot;catalog&quot;: [{&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b46466b9f4fc43eeaf0ae45372b2a532&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ccb61f5ac6da4ffb9e03813f8f402239&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9292&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;e5892a85b01d4ec5b29eca4d076b965e&quot;}], &quot;type&quot;: &quot;image&quot;, &quot;id&quot;: &quot;01280807c5aa49ed989f07deb5f55518&quot;, &quot;name&quot;: &quot;glance&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;04bebd1e162d419fbad07317888207cd&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:35357/v3&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2bb533e49040463ab0a5d322be09248f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:5000/v3&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b09edd5ccae04403810924f013d18df2&quot;}], &quot;type&quot;: &quot;identity&quot;, &quot;id&quot;: &quot;08865962aadb453185ec221a580e1ded&quot;, &quot;name&quot;: &quot;keystone&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;3d07d09d93404ea3b0777dc43f8d0709&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6c707542b3f443ec81d18695ce1e6460&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8778/placement&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;710c3eb09e7743e6b19a747c631168d7&quot;}], &quot;type&quot;: &quot;placement&quot;, &quot;id&quot;: &quot;342e938a948741e38f8e8b1953f2e4c8&quot;, &quot;name&quot;: &quot;placement&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4b896c6cb0c840639c04025e08f94621&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a4d1a1ff1a7d41f885bca76c34c43268&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f49c5f74fbcf43a09e95e708c4683e2e&quot;}], &quot;type&quot;: &quot;volume&quot;, &quot;id&quot;: &quot;58e00d6fe1bd488f914e8affd18b9a07&quot;, &quot;name&quot;: &quot;cinder&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;27d4819e010a49e08c6a4de6f5d67b14&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;4016aefecc3441659aac514a617323da&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8041&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;97970f9b54a34bee8627defbb04637d4&quot;}], &quot;type&quot;: &quot;metric&quot;, &quot;id&quot;: &quot;593e971d95864f49ad9960b490735f9d&quot;, &quot;name&quot;: &quot;gnocchi&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;769869c4988a4f9382887101b8c23e36&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;abbda3c2f79b46b186978bf4ba238c88&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8042&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ff6d9514ce504a62bd2aab221b3013e8&quot;}], &quot;type&quot;: &quot;alarming&quot;, &quot;id&quot;: &quot;5cdc78392c1743df9990a690bec7dc1f&quot;, &quot;name&quot;: &quot;aodh&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;658167d5a9934fcc9096d8ce2956a330&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bb225c56c3484403998f119f63f84fe3&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v3/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f208a028b1bc4e848004bf8ba82bfcd5&quot;}], &quot;type&quot;: &quot;volumev3&quot;, &quot;id&quot;: &quot;66f0f32bc45d44ac8cc91480b83f24a3&quot;, &quot;name&quot;: &quot;cinderv3&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;45a1725e0adf420d83f6ecbd90f4659f&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;914e41d1025645628cc7784e60ef2d25&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8774/v2.1/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a7a9cde8807f465e8dc6af4a4d756246&quot;}], &quot;type&quot;: &quot;compute&quot;, &quot;id&quot;: &quot;85d923fff4a14561b5c7ff4b4d91733b&quot;, &quot;name&quot;: &quot;nova&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;5df9c155ab57482d84b1dbbd8fc16ad5&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;7422056798b14fcab49c9aec63d2c90a&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:9696&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;f8ea7fa01a0c46449f505544c4660d07&quot;}], &quot;type&quot;: &quot;network&quot;, &quot;id&quot;: &quot;95c32dc6a2604bc580a19dd63a47da5a&quot;, &quot;name&quot;: &quot;neutron&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;19b02ce9eb19446f89c77896f789c1c7&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;a0d73116f23145f190f213110454229c&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8776/v2/c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;bcc11e309fad48ce9ded52c7c60a371f&quot;}], &quot;type&quot;: &quot;volumev2&quot;, &quot;id&quot;: &quot;b478aa70b28e47859c9f32c4ec9846bf&quot;, &quot;name&quot;: &quot;cinderv2&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2225ebde2c284ae1a95ed114f4b6f441&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;2879617206a741fab6883e7f297640fc&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8777&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;afae36eebbca4a14b1f952510b4bf2b9&quot;}], &quot;type&quot;: &quot;metering&quot;, &quot;id&quot;: &quot;ba8371dd918b4f61a1c41c8e6eb4c1c0&quot;, &quot;name&quot;: &quot;ceilometer&quot;}, {&quot;endpoints&quot;: [{&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;admin&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;6abb0dd21b1c42f4b92e85cff4ff8833&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;public&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;b7646fb787f54002844f690e7939ab97&quot;}, {&quot;url&quot;: &quot;http://192.168.100.10:8080/v1/AUTH_c0bb6b415e474e3598c8565229952028&quot;, &quot;interface&quot;: &quot;internal&quot;, &quot;region&quot;: &quot;RegionOne&quot;, &quot;region_id&quot;: &quot;RegionOne&quot;, &quot;id&quot;: &quot;ef10e298258442878e23a1fa841e5e23&quot;}], &quot;type&quot;: &quot;object-store&quot;, &quot;id&quot;: &quot;f7bf8bf3f21b44eba51edf2068633b79&quot;, &quot;name&quot;: &quot;swift&quot;}], &quot;user&quot;: {&quot;domain&quot;: {&quot;id&quot;: &quot;default&quot;, &quot;name&quot;: &quot;Default&quot;}, &quot;password_expires_at&quot;: null, &quot;name&quot;: &quot;admin&quot;, &quot;id&quot;: &quot;489353600c5347b0852497074a4a1bce&quot;}, &quot;audit_ids&quot;: [&quot;iXIDEEbzTeGK3BEasG56Kw&quot;], &quot;issued_at&quot;: &quot;2018-08-02T12:38:16.000000Z&quot;}}
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| id                                   | name | tenant_id                        | mac_address       | fixed_ips                                                                        |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+| 03fc096c-9879-4839-9aa2-b3cc8a55c3e1 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:f3:af:cb | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.3&quot;} |
+| 494f80a2-62fa-44a5-96c3-350ccee3c2f8 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:3e:4d:78 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.5&quot;} |
+| 71aa5579-03bf-49b4-91e2-a47648df8e32 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:0f:b8:3e | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.2&quot;} |
+| c34dd570-2b1a-45ab-a996-f19c60da7958 |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:c5:02:50 | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.7&quot;} |
+| dc2830a3-8a97-47e7-a6ae-1964cfb3c0cd |      | c0bb6b415e474e3598c8565229952028 | fa:16:3e:da:d6:af | {&quot;subnet_id&quot;: &quot;bc7baee2-67bc-480b-a18d-62e397af6963&quot;, &quot;ip_address&quot;: &quot;10.10.5.1&quot;} |
++--------------------------------------+------+----------------------------------+-------------------+----------------------------------------------------------------------------------+
+</code></pre>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#wsgi--web-server-gateway-interface"><span class="section-num">1</span> WSGI(Web Server Gateway Interface)</a></li>
+    <li><a href="#past"><span class="section-num">2</span> past</a>
+      <ul>
+        <li><a href="#api-paste-dot-ini"><span class="section-num">2.1</span> api-paste.ini</a></li>
+        <li><a href="#解释"><span class="section-num">2.2</span> 解释</a></li>
+        <li><a href="#composite"><span class="section-num">2.3</span> composite</a></li>
+      </ul>
+    </li>
+    <li><a href="#setup-and-pbr"><span class="section-num">3</span> setup and pbr</a>
+      <ul>
+        <li><a href="#setup-dot-py"><span class="section-num">3.1</span> setup.py</a></li>
+        <li><a href="#pbr"><span class="section-num">3.2</span> pbr</a></li>
+        <li><a href="#setup-dot-cfg"><span class="section-num">3.3</span> setup.cfg</a></li>
+      </ul>
+    </li>
+    <li><a href="#eventlet"><span class="section-num">4</span> eventlet</a>
+      <ul>
+        <li><a href="#介绍"><span class="section-num">4.1</span> 介绍</a></li>
+        <li><a href="#api"><span class="section-num">4.2</span> API</a></li>
+        <li><a href="#pecan"><span class="section-num">4.3</span> pecan</a></li>
+      </ul>
+    </li>
+    <li><a href="#oslo"><span class="section-num">5</span> oslo</a></li>
+    <li><a href="#python代码中各种注释装饰器的用法"><span class="section-num">6</span> python代码中各种注释装饰器的用法</a>
+      <ul>
+        <li><a href="#abc-dot-abstractmethod"><span class="section-num">6.1</span> @abc.abstractmethod</a></li>
+        <li><a href="#six"><span class="section-num">6.2</span> @six</a></li>
+        <li><a href="#518ed2"><span class="section-num">6.3</span> @</a></li>
+        <li><a href="#profiler-dot-trace-cls--l3-agent"><span class="section-num">6.4</span> @profiler.trace_cls(&ldquo;l3-agent&rdquo;)</a></li>
+      </ul>
+    </li>
+    <li><a href="#rabbitmq"><span class="section-num">7</span> rabbitmq</a></li>
+    <li><a href="#floatingip"><span class="section-num">8</span> FloatingIp</a>
+      <ul>
+        <li><a href="#neutron-floatingip实现"><span class="section-num">8.1</span> neutron FloatingIP实现</a></li>
+        <li><a href="#floatingip功能代码"><span class="section-num">8.2</span> FloatingIP功能代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建一个openstack项目"><span class="section-num">9</span> 创建一个Openstack项目</a></li>
+    <li><a href="#listalltheipof-a-subnet"><span class="section-num">10</span> listalltheipof a subnet</a></li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#wsgi--web-server-gateway-interface"><span class="section-num">1</span> WSGI(Web Server Gateway Interface)</a></li>
+    <li><a href="#past"><span class="section-num">2</span> past</a>
+      <ul>
+        <li><a href="#api-paste-dot-ini"><span class="section-num">2.1</span> api-paste.ini</a></li>
+        <li><a href="#解释"><span class="section-num">2.2</span> 解释</a></li>
+        <li><a href="#composite"><span class="section-num">2.3</span> composite</a></li>
+      </ul>
+    </li>
+    <li><a href="#setup-and-pbr"><span class="section-num">3</span> setup and pbr</a>
+      <ul>
+        <li><a href="#setup-dot-py"><span class="section-num">3.1</span> setup.py</a></li>
+        <li><a href="#pbr"><span class="section-num">3.2</span> pbr</a></li>
+        <li><a href="#setup-dot-cfg"><span class="section-num">3.3</span> setup.cfg</a></li>
+      </ul>
+    </li>
+    <li><a href="#eventlet"><span class="section-num">4</span> eventlet</a>
+      <ul>
+        <li><a href="#介绍"><span class="section-num">4.1</span> 介绍</a></li>
+        <li><a href="#api"><span class="section-num">4.2</span> API</a></li>
+        <li><a href="#pecan"><span class="section-num">4.3</span> pecan</a></li>
+      </ul>
+    </li>
+    <li><a href="#oslo"><span class="section-num">5</span> oslo</a></li>
+    <li><a href="#python代码中各种注释装饰器的用法"><span class="section-num">6</span> python代码中各种注释装饰器的用法</a>
+      <ul>
+        <li><a href="#abc-dot-abstractmethod"><span class="section-num">6.1</span> @abc.abstractmethod</a></li>
+        <li><a href="#six"><span class="section-num">6.2</span> @six</a></li>
+        <li><a href="#518ed2"><span class="section-num">6.3</span> @</a></li>
+        <li><a href="#profiler-dot-trace-cls--l3-agent"><span class="section-num">6.4</span> @profiler.trace_cls(&ldquo;l3-agent&rdquo;)</a></li>
+      </ul>
+    </li>
+    <li><a href="#rabbitmq"><span class="section-num">7</span> rabbitmq</a></li>
+    <li><a href="#floatingip"><span class="section-num">8</span> FloatingIp</a>
+      <ul>
+        <li><a href="#neutron-floatingip实现"><span class="section-num">8.1</span> neutron FloatingIP实现</a></li>
+        <li><a href="#floatingip功能代码"><span class="section-num">8.2</span> FloatingIP功能代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建一个openstack项目"><span class="section-num">9</span> 创建一个Openstack项目</a></li>
+    <li><a href="#listalltheipof-a-subnet"><span class="section-num">10</span> listalltheipof a subnet</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

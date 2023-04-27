@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>OVS 常用命令 - hllu&#39;s blog</title>
+
+
+<meta name="author" content="[luhailong]" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+
+<meta property="og:title" content="OVS 常用命令" />
+<meta name="twitter:title" content="OVS 常用命令" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/ovs/" /><meta property="og:description" content="如何添加OVS和PORT; ovs-vsctl add-br br0 ovs-vsctl del-br br0 ovs-vsctl list-br ovs-vsctl add-port br0 eth0 ovs-vsctl set port eth0 tag=1//vlan id ovs-vsctl del-port br0 eth0 ovs-vsctl list-ports br0 ovs-vsctl show //显示所有端口的vlan属性 如何配置QOS，比如队列和限速; sudo ovs-vsctl -- set Port eth2 qos=@newqos -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 -- --id=@q0 create Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 -- --id=@q1 create Queue other-config:min-rate=500000000 ovs-vsctl clear" />
+<meta name="twitter:description" content="如何添加OVS和PORT; ovs-vsctl add-br br0 ovs-vsctl del-br br0 ovs-vsctl list-br ovs-vsctl add-port br0 eth0 ovs-vsctl set port eth0 tag=1//vlan id ovs-vsctl del-port br0 eth0 ovs-vsctl list-ports br0 ovs-vsctl show //显示所有端口的vlan属性 如何配置QOS，比如队列和限速; sudo ovs-vsctl -- set Port eth2 qos=@newqos -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 -- --id=@q0 create Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 -- --id=@q1 create Queue other-config:min-rate=500000000 ovs-vsctl clear" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T14:15:49+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/ovs/">OVS 常用命令</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;654 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="如何添加ovs和port">如何添加OVS和PORT;</h2>
+<pre><code class="language-bash">
+ovs-vsctl add-br br0
+ovs-vsctl del-br br0
+ovs-vsctl list-br
+ovs-vsctl add-port br0 eth0
+ovs-vsctl set port eth0 tag=1//vlan id
+ovs-vsctl del-port br0 eth0
+ovs-vsctl list-ports br0
+ovs-vsctl show //显示所有端口的vlan属性
+</code></pre>
+<h2 id="如何配置qos-比如队列和限速">如何配置QOS，比如队列和限速;</h2>
+<pre><code class="language-bash">sudo ovs-vsctl -- set Port eth2 qos=@newqos  -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 -- --id=@q0 create  Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 -- --id=@q1 create Queue other-config:min-rate=500000000
+ovs-vsctl clear Port eth2 qos
+
+sudo ovs-vsctl list qos
+sudo ovs-vsctl destroy qos _uuid
+sudo ovs-vsctl list qos
+sudo ovs-vsctl destroy queue _uuid
+</code></pre>
+<h2 id="如何配置流镜像">如何配置流镜像;</h2>
+<pre><code class="language-bash">sudo ovs-vsctl -- set Bridge br-int mirrors=@m -- --id=@tap6a094914-cd get Port tap6a094914-cd -- --id=@tap73e945b4-79 get Port tap73e945b4-79 -- --id=@tapa6cd1168-a2 get Port tapa6cd1168-a2 -- --id=@m create Mirror name=mymirror select-dst-port=@tap6a094914-cd,@tap73e945b4-79 select-src-port=@tap6a094914-cd,@tap73e945b4-79 output-port=@tapa6cd1168-a2
+
+
+sudo ovs-vsctl remove Bridge br0 mirrors mymirror
+sudo ovs-vsctl clear Bridge br-int mirrors
+</code></pre>
+<h2 id="如何配置流监控sflow">如何配置流监控sflow;</h2>
+<pre><code class="language-bash">sudo ovs-vsctl -- --id=@s create sFlow agent=eth2 target=\&quot;10.0.0.1:6343\&quot; header=128 sampling=64 polling=10  -- set Bridge br-int sflow=@s
+sudo ovs-vsctl -- clear Bridge br-int sflow
+
+</code></pre>
+<h2 id="如何配置流规则">如何配置流规则</h2>
+<pre><code class="language-bash；">sudo ovs-ofctl add-flow br-int idle_timeout=0,in_port=2,dl_type=0x0800,dl_src=00:88:77:66:55:44,dl_dst=11:22:33:44:55:66,nw_src=1.2.3.4,nw_dst=5.6.7.8,nw_proto=1,tp_src=1,tp_dst=2,actions=drop
+sudo ovs-ofctl del-flows br-int in_port=2 //in_port=2的所有流规则被删除
+sudo ovs-ofctl  dump-ports br-int
+sudo ovs-ofctl  dump-flows br-int
+sudo ovs-ofctl show br-int //查看端口号
+支持字段还有nw_tos,nw_ecn,nw_ttl,dl_vlan,dl_vlan_pcp,ip_frag，arp_sha,arp_tha,ipv6_src,ipv6_dst等;
+支持流动作还有output：port，mod_dl_src/mod_dl_dst,set field等;
+</code></pre>
+<h2 id="如何查看ovs的配置">如何查看OVS的配置</h2>
+<pre><code class="language-bash">ovs-vsctl list/set/get/add/remove/clear/destroy table record column [VALUE]
+
+TABLE名有bridge,controller,interface,mirror,netflow,open_vswitch,port,qos,queue,ssl,sflow
+</code></pre>
+<h2 id="配置vxlan-gre和ip-address">配置vxlan gre和ip address</h2>
+<pre><code class="language-bash">ovs-vsctl add-port br-ex port -- set interface port type=vxlan options:remote_ip=192.168.100.3
+
+ovs−vsctladd−port br-ex port −− set Interface port type=greoptions:remote_ip=192.168.100.3
+
+ovs−vsctladd−port br-ex port tag=10 −− set Interface port type=internal//默认为access
+
+ifconfig port 192.168.100.1
+</code></pre>
+<h2 id="显示并学习mac">显示并学习MAC</h2>
+<pre><code class="language-bash">ovs-appctl fdb/show br-ex
+</code></pre>
+<h2 id="设置控制器地址">设置控制器地址</h2>
+<pre><code class="language-bash">ovs-vsctl set-controller br-ex tcp:192.168.100.1:6633
+
+ovs-vsctl get-controller br0
+
+ovs-controller ptcp:6633:192.100.100.1
+</code></pre>
+<h2 id="其他更多信息请参见man-ovs-vsctl-和man-ovs-ofctl">其他更多信息请参见man ovs-vsctl 和man ovs-ofctl</h2>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#如何添加ovs和port">如何添加OVS和PORT;</a></li>
+    <li><a href="#如何配置qos-比如队列和限速">如何配置QOS，比如队列和限速;</a></li>
+    <li><a href="#如何配置流镜像">如何配置流镜像;</a></li>
+    <li><a href="#如何配置流监控sflow">如何配置流监控sflow;</a></li>
+    <li><a href="#如何配置流规则">如何配置流规则</a></li>
+    <li><a href="#如何查看ovs的配置">如何查看OVS的配置</a></li>
+    <li><a href="#配置vxlan-gre和ip-address">配置vxlan gre和ip address</a></li>
+    <li><a href="#显示并学习mac">显示并学习MAC</a></li>
+    <li><a href="#设置控制器地址">设置控制器地址</a></li>
+    <li><a href="#其他更多信息请参见man-ovs-vsctl-和man-ovs-ofctl">其他更多信息请参见man ovs-vsctl 和man ovs-ofctl</a></li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#如何添加ovs和port">如何添加OVS和PORT;</a></li>
+    <li><a href="#如何配置qos-比如队列和限速">如何配置QOS，比如队列和限速;</a></li>
+    <li><a href="#如何配置流镜像">如何配置流镜像;</a></li>
+    <li><a href="#如何配置流监控sflow">如何配置流监控sflow;</a></li>
+    <li><a href="#如何配置流规则">如何配置流规则</a></li>
+    <li><a href="#如何查看ovs的配置">如何查看OVS的配置</a></li>
+    <li><a href="#配置vxlan-gre和ip-address">配置vxlan gre和ip address</a></li>
+    <li><a href="#显示并学习mac">显示并学习MAC</a></li>
+    <li><a href="#设置控制器地址">设置控制器地址</a></li>
+    <li><a href="#其他更多信息请参见man-ovs-vsctl-和man-ovs-ofctl">其他更多信息请参见man ovs-vsctl 和man ovs-ofctl</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

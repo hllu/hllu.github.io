@@ -6,7 +6,43 @@
     <description>Recent content in Posts on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 25 Apr 2023 15:08:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blueprint</title>
+      <link>https://hllu.github.io/posts/bluprint/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/bluprint/</guid>
+      <description>Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的</description>
+    </item>
+    
+    <item>
+      <title>Git review安装使用说明</title>
+      <link>https://hllu.github.io/posts/gitreview/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/gitreview/</guid>
+      <description>Table of Contents 1 安装 1.1 git安装略过 1.2 安装git-review 1.3 安装gitweb 1.4 安装gerrit 2 安装OpenLDAP 2.1 安装并启动 2.2 生成一个 ldap 的 “root” 密码 2.3 正式修改 dn 和 “root” 用户密码 2.4 在同一个文</description>
+    </item>
+    
+    <item>
+      <title>OpenStack基础</title>
+      <link>https://hllu.github.io/posts/openstack/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/openstack/</guid>
+      <description>Table of Contents 1 WSGI(Web Server Gateway Interface) 2 past 2.1 api-paste.ini 2.2 解释 2.3 composite 3 setup and pbr 3.1 setup.py 3.2 pbr 3.3 setup.cfg 3.3.1 段落 files 3.3.2 段落entry_points 4 eventlet 4.1 介绍 4.2 API 4.3 pecan 5 oslo 6 python代码中各种注释装饰器的用法 6.1 @abc.abstractmethod 6.2 @six 6.3 @ 6.4 @profiler.trace_cls(&amp;ldquo;l3-agent&amp;rdquo;) 7 rabbitmq 8 FloatingIp 8.1 neutron FloatingI</description>
+    </item>
+    
+    <item>
+      <title>OVS 常用命令</title>
+      <link>https://hllu.github.io/posts/ovs/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/ovs/</guid>
+      <description>如何添加OVS和PORT; ovs-vsctl add-br br0 ovs-vsctl del-br br0 ovs-vsctl list-br ovs-vsctl add-port br0 eth0 ovs-vsctl set port eth0 tag=1//vlan id ovs-vsctl del-port br0 eth0 ovs-vsctl list-ports br0 ovs-vsctl show //显示所有端口的vlan属性 如何配置QOS，比如队列和限速; sudo ovs-vsctl -- set Port eth2 qos=@newqos -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 -- --id=@q0 create Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 -- --id=@q1 create Queue other-config:min-rate=500000000 ovs-vsctl clear</description>
+    </item>
+    
     <item>
       <title>org mode中插入和使用图片</title>
       <link>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</link>

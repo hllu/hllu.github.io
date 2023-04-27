@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>Blueprint - hllu&#39;s blog</title>
+
+
+<meta name="author" content="[luhailong]" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+
+<meta property="og:title" content="Blueprint" />
+<meta name="twitter:title" content="Blueprint" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/bluprint/" /><meta property="og:description" content="Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的" />
+<meta name="twitter:description" content="Table of Contents 1 简介 2 service 2.1 发布一个服务 2.2 引用一个服务 3 RPC 3.1 Global RPC注册 3.2 Global RPC的获取 3.3 Routed RPC的注册 4 NotificationListenser 4.1 NotificationListenser的注册 1 简介 在osgi中服务的使用有多种方式，如使用传统的" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-04-27T00:00:00+00:00" /><meta property="article:modified_time" content="2023-04-27T14:10:07+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/bluprint/">Blueprint</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1680 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <div class="ox-hugo-toc toc has-section-numbers">
+<div class="heading">Table of Contents</div>
+<ul>
+<li><span class="section-num">1</span> <a href="#%e7%ae%80%e4%bb%8b">简介</a></li>
+<li><span class="section-num">2</span> <a href="#service">service</a>
+<ul>
+<li><span class="section-num">2.1</span> <a href="#%e5%8f%91%e5%b8%83%e4%b8%80%e4%b8%aa%e6%9c%8d%e5%8a%a1">发布一个服务</a></li>
+<li><span class="section-num">2.2</span> <a href="#%e5%bc%95%e7%94%a8%e4%b8%80%e4%b8%aa%e6%9c%8d%e5%8a%a1">引用一个服务</a></li>
+</ul>
+</li>
+<li><span class="section-num">3</span> <a href="#rpc">RPC</a>
+<ul>
+<li><span class="section-num">3.1</span> <a href="#global-rpc%e6%b3%a8%e5%86%8c">Global RPC注册</a></li>
+<li><span class="section-num">3.2</span> <a href="#global-rpc%e7%9a%84%e8%8e%b7%e5%8f%96">Global RPC的获取</a></li>
+<li><span class="section-num">3.3</span> <a href="#routed-rpc%e7%9a%84%e6%b3%a8%e5%86%8c">Routed RPC的注册</a></li>
+</ul>
+</li>
+<li><span class="section-num">4</span> <a href="#notificationlistenser">NotificationListenser</a>
+<ul>
+<li><span class="section-num">4.1</span> <a href="#notificationlistenser%e7%9a%84%e6%b3%a8%e5%86%8c">NotificationListenser的注册</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!--endtoc-->
+<h2 id="简介"><span class="section-num">1</span> 简介</h2>
+<p>在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务，
+还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是blueprint，说到blueprint，务必需要提及一下spring，在个人印象中，
+spring框架几乎成为了java这么多框架中最为有名的一个，传统上提出的ssh，几乎就只剩下spring一个还非常强力的存活着，而且本身
+提供的功能也越来越丰富，子项目中springboot也快成为业界微服务一大选择，而在osgi中，spring最初也有所涉及，为spring dm，
+blueprint产生的规范便是起源于spring dm，随后好像spring dm没有继续发展，但是blueprint却是一直存在目前，Blueprint规范主要
+有两个实现：Aries blueprint和Gemini blueprint，它们分别来自Apache和Eclipse两个开源组织。我们日后讲的基本都是Apache官网
+中的blueprint，具体的地址如下：apache blueprint,讲的时候基本不会单独讲解blueprint，会将其他一些东西串起来讲出来，具体到
+日后讲解其他的时候再说。</p>
+<h2 id="service"><span class="section-num">2</span> service</h2>
+<h3 id="发布一个服务"><span class="section-num">2.1</span> 发布一个服务</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd&quot; default-timeout=&quot;0&quot;&gt;
+    &lt;!--最简单的osgi服务注册 --&gt;
+    &lt;bean id=&quot;coder&quot; class=&quot;com.ponder.CoderImpl&quot;/&gt;
+    &lt;service id=&quot;CoderService&quot; ref=&quot;coder&quot; interface=&quot;com.ponder.ICoder&quot;/&gt;
+    &lt;!--Embeded bean的osgi服务注册 --&gt;
+    &lt;service id=&quot;CoderService2&quot; interface=&quot;com.ponder.ICoder&quot;&gt;
+        &lt;bean class=&quot;com.ponder.CoderImpl&quot;/&gt;
+    &lt;/service&gt;
+
+    &lt;!--带osgi服务属性的服务--&gt;
+    &lt;service id=&quot;CoderService3&quot; interface=&quot;com.ponder.ICoder&quot;&gt;
+        &lt;service-properties&gt;
+            &lt;entry key=&quot;param01&quot; value=&quot;val01&quot;/&gt;
+            &lt;entry key=&quot;param02&quot; value=&quot;val02&quot;/&gt;
+            &lt;entry key=&quot;param03&quot;&gt;
+            &lt;array value-type=&quot;java.lang.String&quot;&gt;
+            &lt;value&gt;val03-1&lt;/value&gt;
+            &lt;value&gt;val03-2&lt;/value&gt;
+            &lt;value&gt;val03-3&lt;/value&gt;
+            &lt;/array&gt;
+        &lt;/entry&gt;
+        &lt;/service-properties&gt;
+        &lt;bean class=&quot;com.ponder.CoderImpl&quot;/&gt;
+    &lt;/service&gt;
+
+    &lt;!-- 没将接口抽离出来的osgi服务,会将com.ponder.CoderImpl里的所有public方法都作为服务的方法 --&gt;
+    &lt;service id=&quot;CoderService3&quot;  interface=&quot;com.ponder.CoderImpl&quot;&gt;
+        &lt;bean class=&quot;com.ponder.CoderImpl&quot;/&gt;
+    &lt;/service&gt;
+&lt;/blueprint&gt;
+</code></pre>
+<p>在上例中，我们举了三个发布OSGI service的例子，最简单的例子就先用bean节点定义那个服务的实现类，并给这个bean定义一个
+id（“coder”），然后在service节点用interface属性指明对应的接口，并用ref属性来引用刚才定义的那个bean。这样Blueprint
+container就可以往OSGI framework里注册发布这个服务了。</p>
+<p>    第二个例子中，则是将bean节点直接嵌入service节点中，而不需用bean的id和service节点属性ref了。</p>
+<p>    第三个例子则给service添加了service-property,这个service-property和bean节点的property不同，它不出现在java代码里，只是
+在Blueprint往OSGI framework里注册这个服务时，以map的形式附带上这些service-property。这些service-property可以在服务被引用
+时，作为filter的条件。</p>
+<p>    服务被发布后，在Blueprint里，可以用reference节点来引用用这些服务。</p>
+<h3 id="引用一个服务"><span class="section-num">2.2</span> 引用一个服务</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd&quot; default-timeout=&quot;0&quot;&gt;
+
+    &lt;!--引用osgi服务,并注入bean(com.ponder.Processor)里 --&gt;
+    &lt;reference id=&quot;coderService&quot; filter=”（param01=val02）” interface=&quot;com.ponder.ICoder&quot; timeout=&quot;0&quot;/&gt;
+    &lt;bean id=&quot;processor&quot; class=&quot;com.ponder.Processor&quot;&gt;
+        &lt;!--与这里对应，类com.ponder.Processor里应定义有以下属性：
+        private com.ponder.ICoder coder;
+        并包含其setter。
+        --&gt;
+        &lt;property name=&quot;coder&quot; ref=&quot;coderService&quot;/&gt;
+    &lt;/bean&gt;
+
+&lt;/blueprint&gt;
+</code></pre>
+<p>请留意上例reference节点中的filter:OSGI framework里可以有多个实现相同interface的服务，这里的filter就限定了这个reference节
+点只引用包含一个名为param01,而且值为val01的service-property的那个服务。</p>
+<h2 id="rpc"><span class="section-num">3</span> RPC</h2>
+<h3 id="global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
+                 xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
+
+  &lt;bean id=&quot;fooRpcService&quot; class=&quot;org.opendaylight.app.FooRpcServiceImpl&quot;&gt;
+    &lt;!-- constructor args --&gt;
+  &lt;/bean&gt;
+
+  &lt;odl:rpc-implementation ref=&quot;fooRpcService&quot;/&gt;
+&lt;/blueprint&gt;
+</code></pre>
+<h3 id="global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
+                 xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
+
+  &lt;odl:rpc-service id=&quot;fooRpcService&quot; interface=&quot;org.opendaylight.app.FooRpcService&quot;/&gt;
+
+  &lt;bean id=&quot;bar&quot; class=&quot;org.opendaylight.app.Bar&quot;&gt;
+    &lt;argument ref=&quot;fooRpcService&quot;/&gt;
+  &lt;/bean&gt;
+
+&lt;/blueprint&gt;
+</code></pre>
+<h3 id="routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
+                 xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
+
+  &lt;bean id=&quot;fooRoutedRpcService&quot; class=&quot;org.opendaylight.app.FooRoutedRpcServiceImpl&quot;&gt;
+    &lt;!-- constructor args --&gt;
+  &lt;/bean&gt;
+
+  &lt;odl:routed-rpc-implementation id=&quot;fooRoutedRpcServiceReg&quot; ref=&quot;fooRoutedRpcService&quot;/&gt;
+
+  &lt;bean id=&quot;bar&quot; class=&quot;org.opendaylight.app.Bar&quot;&gt;
+    &lt;argument ref=&quot;fooRoutedRpcServiceReg&quot;/&gt;
+  &lt;/bean&gt;
+
+&lt;/blueprint&gt;
+</code></pre>
+<h2 id="notificationlistenser"><span class="section-num">4</span> NotificationListenser</h2>
+<h3 id="notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</h3>
+<pre><code class="language-json">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;blueprint xmlns=&quot;http://www.osgi.org/xmlns/blueprint/v1.0.0&quot;
+                 xmlns:odl=&quot;http://opendaylight.org/xmlns/blueprint/v1.0.0&quot;&gt;
+
+  &lt;bean id=&quot;fooListener&quot; class=&quot;org.opendaylight.app.FooNotificationListener&quot;&gt;
+    &lt;!-- constructor args --&gt;
+  &lt;/bean&gt;
+
+  &lt;odl:notification-listener ref=&quot;fooListener&quot;/&gt;
+
+&lt;/blueprint&gt;
+</code></pre>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介"><span class="section-num">1</span> 简介</a></li>
+    <li><a href="#service"><span class="section-num">2</span> service</a>
+      <ul>
+        <li><a href="#发布一个服务"><span class="section-num">2.1</span> 发布一个服务</a></li>
+        <li><a href="#引用一个服务"><span class="section-num">2.2</span> 引用一个服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#rpc"><span class="section-num">3</span> RPC</a>
+      <ul>
+        <li><a href="#global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</a></li>
+        <li><a href="#global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</a></li>
+        <li><a href="#routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</a></li>
+      </ul>
+    </li>
+    <li><a href="#notificationlistenser"><span class="section-num">4</span> NotificationListenser</a>
+      <ul>
+        <li><a href="#notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介"><span class="section-num">1</span> 简介</a></li>
+    <li><a href="#service"><span class="section-num">2</span> service</a>
+      <ul>
+        <li><a href="#发布一个服务"><span class="section-num">2.1</span> 发布一个服务</a></li>
+        <li><a href="#引用一个服务"><span class="section-num">2.2</span> 引用一个服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#rpc"><span class="section-num">3</span> RPC</a>
+      <ul>
+        <li><a href="#global-rpc注册"><span class="section-num">3.1</span> Global RPC注册</a></li>
+        <li><a href="#global-rpc的获取"><span class="section-num">3.2</span> Global RPC的获取</a></li>
+        <li><a href="#routed-rpc的注册"><span class="section-num">3.3</span> Routed RPC的注册</a></li>
+      </ul>
+    </li>
+    <li><a href="#notificationlistenser"><span class="section-num">4</span> NotificationListenser</a>
+      <ul>
+        <li><a href="#notificationlistenser的注册"><span class="section-num">4.1</span> NotificationListenser的注册</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
