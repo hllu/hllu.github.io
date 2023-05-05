@@ -101,7 +101,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2022-06-15</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1242 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1469 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
 
@@ -258,7 +258,17 @@ lo 展示别的分支的日志，找到相应的commit,然后按a或A 来cherry 
 <p>Type y to show a buffer which lists branches, remote branches, and, at the bottom, tags.</p>
 <p>&hellip;in order to diff a specific revision [reachable from that tag]
 Move to the tag and press loRET. That shows the log for that tag. Move to the commit and press RET. That shows information about that commit, including the diff.</p>
-<p>You don&rsquo;t necessarily have to move to the tag first to show the log for it. You can also type</p>
+<p>You don&rsquo;t necessarily have to move to the tag first to show the log
+for it. You can also type</p>
+<h2 id="git-merge-squash">git merge &ndash;squash</h2>
+<p>你经常会面临着将dev分支或者很多零散的分支merge到一个公共release分支里。</p>
+<p>但是有一种情况是需要你处理的，就是在你的dev的分支里有很多commit记录。而这些commit是无需在release里体现的。</p>
+<p>这个时候，可以按m提交，选择squash merge，并提交mcommit信息。
+先切换到需要merge的分支，比如master分支，执行以下命令：</p>
+<pre><code class="language-bash">git merge --squash dev
+git commit -m'develop merge int master.feature1'
+</code></pre>
+<p>squash 会暂停commit提交。要不然一个merge会自动提交commit。</p>
 
     </div>
 </article>
@@ -397,6 +407,7 @@ Move to the tag and press loRET. That shows the log for that tag. Move to the co
     <li><a href="#stashing--z----git-stash">Stashing(z)(git stash)</a></li>
     <li><a href="#resetting--x-or-evil-magit-o">Resetting (x or evil-magit:o)</a></li>
     <li><a href="#checkout-tag">checkout tag</a></li>
+    <li><a href="#git-merge-squash">git merge &ndash;squash</a></li>
   </ul>
 </nav></div>
 </aside>
@@ -540,6 +551,7 @@ Move to the tag and press loRET. That shows the log for that tag. Move to the co
     <li><a href="#stashing--z----git-stash">Stashing(z)(git stash)</a></li>
     <li><a href="#resetting--x-or-evil-magit-o">Resetting (x or evil-magit:o)</a></li>
     <li><a href="#checkout-tag">checkout tag</a></li>
+    <li><a href="#git-merge-squash">git merge &ndash;squash</a></li>
   </ul>
 </nav>
     </div>
