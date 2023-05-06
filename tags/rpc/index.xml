@@ -25,5 +25,14 @@
       <description>安装 git安装略过 安装git-review [root@master ~]# yum install git-review Loaded plugins: fastestmirror, langpacks Loading mirror speeds from cached hostfile epel: mirrors.aliyun.com Resolving Dependencies &amp;ndash;&amp;gt; Running transaction check &amp;mdash;&amp;gt; Package git-review.noarch 0:1.24-5.el7 will be installed &amp;ndash;&amp;gt; Finished Dependency Resolution Dependencies Resolved =============================================================================================================================================================================================== Package Arch Version Repository Size =============================================================================================================================================================================================== Installing: git-review noarch 1.24-5.el7 epel 57 k Transaction Summary =============================================================================================================================================================================================== Install 1 Package 安装gitweb 1）# yum install gitweb 2）修改git.c</description>
     </item>
     
+    <item>
+      <title>OpenStack基础</title>
+      <link>https://hllu.github.io/posts/openstack/</link>
+      <pubDate>Thu, 27 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/openstack/</guid>
+      <description>WSGI(Web Server Gateway Interface) WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”： def application(environ, start_response): start_response(&#39;200 OK&#39;, [(&#39;Content-Type&#39;, &#39;text/html&#39;)]) return [b&#39;&amp;lt;h1&amp;gt;Hello, web!&amp;lt;/h1&amp;gt;&#39;] 上面的application(</description>
+    </item>
+    
   </channel>
 </rss>
