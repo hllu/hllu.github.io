@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>压测 on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/%E5%8E%8B%E6%B5%8B/</link>
+    <description>Recent content in 压测 on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 06 May 2023 15:21:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/%E5%8E%8B%E6%B5%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web 高并发压测工具WRK, AB介绍</title>
+      <link>https://hllu.github.io/posts/web-%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7wrk-ab%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Sat, 06 May 2023 15:21:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/web-%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7wrk-ab%E4%BB%8B%E7%BB%8D/</guid>
+      <description>常见压力测试工具有: ab, wrk，locust等。此外，还有 GoReplay 和 TcpCopy 等，可以拷贝线上服务器的真实流量并转发到测试服务器上去，用真实流量来测试，如此得到的数据更可信。不过它们的用法更复杂。 ab ab(Apache</description>
+    </item>
+    
+  </channel>
+</rss>
