@@ -6,7 +6,16 @@
     <description>Recent content in Posts on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 May 2023 15:21:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在emacs使用org和beamer做演讲稿</title>
+      <link>https://hllu.github.io/posts/beamer/</link>
+      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/beamer/</guid>
+      <description>Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在</description>
+    </item>
+    
     <item>
       <title>Web 高并发压测工具WRK, AB介绍</title>
       <link>https://hllu.github.io/posts/web-%E9%AB%98%E5%B9%B6%E5%8F%91%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7wrk-ab%E4%BB%8B%E7%BB%8D/</link>

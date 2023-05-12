@@ -6,7 +6,16 @@
     <description>Recent content in org on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 25 Apr 2023 15:08:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/tags/org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在emacs使用org和beamer做演讲稿</title>
+      <link>https://hllu.github.io/posts/beamer/</link>
+      <pubDate>Fri, 12 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://hllu.github.io/posts/beamer/</guid>
+      <description>Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在</description>
+    </item>
+    
     <item>
       <title>org mode中插入和使用图片</title>
       <link>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</link>

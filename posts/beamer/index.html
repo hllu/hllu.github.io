@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>在emacs使用org和beamer做演讲稿 - hllu&#39;s blog</title>
+
+
+<meta name="author" content="hllu" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="beamer, org" />
+
+
+<meta property="og:title" content="在emacs使用org和beamer做演讲稿" />
+<meta name="twitter:title" content="在emacs使用org和beamer做演讲稿" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/beamer/" /><meta property="og:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" />
+<meta name="twitter:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-12T00:00:00+00:00" /><meta property="article:modified_time" content="2023-05-12T16:10:31+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/beamer/">在emacs使用org和beamer做演讲稿</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-12</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2267 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beamer">beamer</a>&nbsp;<a href="/tags/org">org</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="beamer">Beamer</h2>
+<h3 id="介绍">介绍</h3>
+<p>Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性：</p>
+<ul>
+<li>在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。</li>
+<li>对组织演示稿有很大的帮助。</li>
+<li>主题</li>
+<li>完全支持 LaTeX</li>
+</ul>
+<h3 id="优点">优点</h3>
+<p>在 Org 模式中用 Beamer 有很多好处，Beamer的优点，很多都继承自org：</p>
+<ul>
+<li>写作效率高，用org模型写beamer，熟悉之后，发现效率会明显提高很多，不
+用费心思去安排格式排版。</li>
+<li>和org模式兼容，用org模式写的论文等文章，可以方便的copy出来，写幻灯片。</li>
+<li>Org 模式很简单，语法通常更容易使用，可以不关注排版，更关注写作内容。排版出来的效果又很惊
+艳。Beamer的各种模版制作出来的幻灯片也有很好的效果。</li>
+<li>与 org-babel 绑定在一起，实时语法高亮源码和内嵌结果。</li>
+<li>对代码段的支持很好</li>
+</ul>
+<h2 id="安装配置">安装配置</h2>
+<h3 id="安装latex">安装latex</h3>
+<p>我的环境是macos，在mac上，安装的时候，先到latex的网站下载镜像，
+MacTex官网下载地址是，<a href="http://www.tug.org/mactex/mactex-download.html" target="_blank">http://www.tug.org/mactex/mactex-download.html</a>
+下载后直接点击安装即可。</p>
+<h3 id="安装代码支持">安装代码支持</h3>
+<p>代码高亮支持，建议使用minted。使用minted需要安装python环境，以及
+Pygments模块，因为minted依赖于该模块提供超过300种语言的语法高亮。
+Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
+<pre><code class="language-bash">brew install Pygments-2.15.1-py3-none-any.whl
+</code></pre>
+<p>minted支持很多代码显示效果，可以到网上查看效果，常见的有以下几种</p>
+<ul>
+<li>manni</li>
+<li>vs</li>
+<li>pastie</li>
+<li>autumn</li>
+<li>emacs</li>
+<li>tango</li>
+<li>rrt</li>
+<li>manni</li>
+</ul>
+<h3 id="安装beamer模版">安装beamer模版</h3>
+<p>beamer 有很多默认的模版，各模版的显示效果可以从这个网站查看。
+<a href="https://hartwork.org/beamer-theme-matrix/" target="_blank">https://hartwork.org/beamer-theme-matrix/</a></p>
+<p>大部分情况下，使用默认的模版，效果就已经足够满意了。如果自己有定制效果，
+可以自己修改模版，或者从网上查找模版。</p>
+<p>下载的模版大都是sty文件类型，可以下载这个sty文件和相关的依赖文件，放到
+写beamer文档的目录下，写的时候引入包即可。可以在.emacs配置文件中引用这个模版。具体
+配置方式参考下一节。</p>
+<h3 id="配置">配置</h3>
+<h4 id="emacs配置">emacs配置</h4>
+<p>emacs中的配置如下，注意要引入ox-beamer包。</p>
+<pre><code class="language-lisp">(require 'ox-beamer)
+;;--------------------------begin latex---------------------------
+(with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+        '(&quot;ctexart&quot;
+          &quot;\\documentclass[UTF8,a4paper,12pt]{ctexart}
+          \\setcounter{secnumdepth}{4}
+          \\usepackage[linkcolor=blue,citecolor=blue,backref=page]{hyperref}
+          \\hypersetup{hidelinks}
+          \\usepackage{xeCJK}
+          \\usepackage{color}
+          \\usepackage{xcolor}
+          \\usepackage{fontspec}
+          \\usepackage{geometry}
+          \\geometry{top=2cm,bottom=2cm,right=2cm,left=2.5cm}
+          \\geometry{headsep=0.5cm}
+          \\usepackage{setspace}
+          \\setlength{\\baselineskip}{22pt}
+          \\setlength{\\parskip}{0pt}
+          \\usepackage{enumerate}
+          \\usepackage{enumitem}
+          \\newcommand{\\xiaosan}{\\fontsize{15.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\sihao}{\\fontsize{14.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\xiaosi}{\\fontsize{12.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\wuhao}{\\fontsize{10.5pt}{\\baselineskip}\\selectfont}
+          \\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\setdescription{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\usepackage[super,square,numbers,sort&amp;compress]{natbib}
+          \\usepackage{minted}
+          \\usemintedstyle{manni}%{vs}%{pastie}%{autumn}%{emacs}%{tango}%{rrt}%{manni}
+          \\usepackage{fancyhdr}
+              \\pagestyle{plain}
+          \\usepackage{titlesec}
+             \\titleformat{\\section}[block]{\\normalfont\\xiaosan\\bfseries\\heiti}{\\thesection}{10pt}{\\xiaosan}
+             \\titleformat{\\subsection}[block]{\\normalfont\\sihao\\bfseries\\heiti}{\\thesubsection}{10pt}{\\sihao}
+             \\titleformat{\\subsubsection}[block]{\\normalfont\\sihao\\bfseries\\heiti}{\\thesubsubsection}{10pt}{\\sihao}
+              \\titlespacing{\\chapter} {0pt}{-22pt}{0pt}{}
+              \\titlespacing{\\section} {0pt}{0pt}{0pt}
+              \\titlespacing{\\subsection} {0pt}{0pt}{0pt}
+              \\titlespacing{\\subsubsection} {0pt}{0pt}{0pt}}&quot;
+           (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
+           (&quot;\\subsection{%s}&quot; . &quot;\\subsection*{%s}&quot;)
+           (&quot;\\subsubsection{%s}&quot; . &quot;\\subsubsection*{%s}&quot;)
+           (&quot;\\paragraph{%s}&quot; . &quot;\\paragraph*{%s}&quot;)
+           (&quot;\\subparagraph{%s}&quot;     . &quot;\\subparagraph*{%s}&quot;)))
+    (add-to-list 'org-latex-classes
+     ;; beamer class, for presentations
+        '(&quot;beamer&quot;
+        &quot;\\documentclass[11pt,professionalfonts]{beamer}
+         \\mode
+          \\beamertemplateballitem
+          \\setbeameroption{show notes}
+          \\usepackage{graphicx}
+          \\usepackage{tikz}
+          \\usepackage{xcolor}
+          \\usepackage{titletoc}
+          \\usepackage{ctex}
+          \\usepackage{xeCJK}
+          \\usepackage{amsmath}
+          \\usepackage{lmodern}
+          \\usepackage{polyglossia}
+          \\usepackage{verbatim}
+          \\usepackage{minted}
+          \\usepackage{soul}
+          \\usepackage{textcomp}
+          \\usepackage{marvosym}
+          \\usepackage{wasysym}
+          \\usepackage{latexsym}
+          \\usepackage{amssymb}
+          \\usepackage{/Users/lhl/org/styles/zyuebeamer}
+          \\subject{{{{beamersubject}}}}&quot;
+              (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
+              (&quot;\\begin{frame}[fragile]\\frametitle{%s}&quot;
+               &quot;\\end{frame}&quot;
+               &quot;\\begin{frame}[fragile]\\frametitle{%s}&quot;
+               &quot;\\end{frame}&quot;)))
+    (add-to-list 'org-latex-packages-alist
+                 '(&quot;UTF8,fontset=macnew&quot; &quot;ctex&quot; t ))
+    (setq org-latex-default-class &quot;ctexart&quot;)
+    ;; (setq org-latex-logfiles-extensions
+    ;;       (quote (&quot;lof&quot; &quot;lot&quot; &quot;tex~&quot; &quot;tex&quot; &quot;aux&quot;
+    ;;               &quot;idx&quot; &quot;log&quot; &quot;out&quot; &quot;toc&quot; &quot;nav&quot;
+    ;;               &quot;snm&quot; &quot;vrb&quot; &quot;dvi&quot; &quot;fdb_latexmk&quot;
+    ;;               &quot;blg&quot; &quot;brf&quot; &quot;fls&quot; &quot;entoc&quot; &quot;ps&quot;
+    ;;               &quot;spl&quot; &quot;bbl&quot; &quot;xdv&quot;)))
+    (setq org-latex-listings 'minted)
+    (setq org-latex-pdf-process '(&quot;xelatex -shell-escape -interaction nonstopmode %f&quot;
+                                  &quot;xelatex -shell-escape -interaction nonstopmode %f&quot;))
+)
+;;\\ctexset{section={format=\\raggedright \\sihao \\heiti}} ;标题靠左
+;;\\usepackage[super,square,numbers,sort&amp;compress]{natbib}  ;引用标号
+;; \\usepackage{amssymb}  ;数学公式包
+;; \\usepackage{mathrsfs} ;数学公式包
+;; \\usepackage[namelimits]{amsmath} ;数学公式包
+;; \\usepackage{tikz}  ;绘图包,流程图，脑图
+;; \\setmainfont{Times New Roman} ;全局设置字体
+;; \\usepackage{ulem} ;下划线等标记
+          ;; \\usepackage{fancyhdr} ;设置页眉页脚
+          ;;     \\pagestyle{fancy}
+          ;;     \\fancyhead{}
+          ;;     \\fancyhead[CO,CE]{\\leftmark}
+;;          \\institute{{{{beamerinstitute}}}} 指定学校
+
+</code></pre>
+<h4 id="snippet配置">snippet配置</h4>
+<p>snippet中，可以定义一个beamer模版，方便创建beamer文件头，如下：</p>
+<pre><code class="language-text"># -*- mode: snippet -*-
+# name: beamer
+# key: &lt;beamer
+# --
+#+TITLE:     $1
+#+AUTHOR:    name
+#+EMAIL:     name@xxx.com
+#+DESCRIPTION:
+#+KEYWORDS:
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t &lt;:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+#+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+</code></pre>
+<h2 id="基础用法">基础用法</h2>
+<h3 id="列表-表格-链接-标签">列表,表格，链接，标签</h3>
+<p>列表、表格、链接、标签等等所有的编辑功能，都跟org模式完全一样，区别是每个三级标题下的内容，注意
+不要写的过多，否则显示效果不好。</p>
+<p>二级标题构成一个幻灯片，一级标题构成大纲。三级标题可以构成colum，block
+等。</p>
+<h3 id="属性设置">属性设置</h3>
+<p>属性设置都以:PROPERTIES:开始，以:END:结尾，中间可以填入不同的设置项，
+具体参数见下图。
+<img class="img-zoomable" src="/ox-hugo/2023-05-12_15-29-48_beamer.png" alt="" />
+</p>
+<ul>
+<li>
+<p>BEAMER_col 控制列宽度，0.5表示一半宽度。</p>
+</li>
+<li>
+<p>BEAMER_env 控制列外观，值可以是 ignoreheading 、 block 等等。</p>
+</li>
+<li>
+<p>BEAMER_envargs 可以控制列对齐，默认是中间对齐，改成顶部对齐的值为 C[t] ；设置为 &lt;2-&gt; 之类的值，可以控制停顿。</p>
+</li>
+</ul>
+<p>根据官方文档的描述，其他属性的用处如下：</p>
+<div class="verse">
+<p>If ‘BEAMER_ENV’ is set to ‘appendix’, Org exports the entry as an appendix. When set to ‘note’, Org exports the entry as a note within the frame or between frames, depending on the entry’s heading level. When set to ‘noteNH’, Org exports the entry as a note without its title. When set to ‘againframe’, Org exports the entry with ‘\againframe’ command, which makes setting the ‘BEAMER_REF’ property mandatory because ‘\againframe’ needs frame to resume.<br />
+When ‘ignoreheading’ is set, Org export ignores the entry’s headline but not its content. This is useful for inserting content between frames. It is also useful for properly closing a ‘column’ environment.<br />
+When ‘BEAMER_ACT’ is set for a headline, Org export translates that headline as an overlay or action specification. When enclosed in square brackets, Org export makes the overlay specification a default. Use ‘BEAMER_OPT’ to set any options applicable to the current Beamer frame or block. The Beamer export back-end wraps with appropriate angular or square brackets. It also adds the ‘fragile’ option for any code that may require a verbatim block.<br />
+To create a column on the Beamer slide, use the ‘BEAMER_COL’ property for its headline in the Org file. Set the value of ‘BEAMER_COL’ to a decimal number representing the fraction of the total text width. Beamer export uses this value to set the column’s width and fills the column with the contents of the Org entry. If the Org entry has no specific environment defined, Beamer export ignores the heading. If the Org entry has a defined environment, Beamer export uses the heading as title. Behind the scenes, Beamer export automatically handles LaTeX column separations for contiguous headlines. To manually adjust them for any unique configurations needs, use the ‘BEAMER_ENV’ property.<br /></p>
+</div>
+<h3 id="分列布局">分列布局</h3>
+<p>分列布局，在beamer中有个熟悉设置方式，如下</p>
+<pre><code class="language-text">:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_col: 0.3
+:END:
+</code></pre>
+<p>通过以上参数设置，可以指定列宽为0.3页面宽度。在org中，可以使用快捷建
+C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
+<p>注意，有时候快捷键不起作用，原因未知。
+可以参考网上的说法，试试效果
+#+begin_vers
+有一点小小的不爽，在扩展beamer snippet之后，要在第一行 #+startup: beamer 上做 C-c C-c ，才能使 C-c C-b 组合键起作用。
+#+end_verse</p>
+<p>建议以上各种属性都实验一下。</p>
+<h3 id="block布局">block布局</h3>
+<p>block布局是beamer中一个很有用的功能。可以在幻灯片中写出不同显示效
+果的块，块同样可以指定宽度，如下</p>
+<div class="verse">
+<p>:PROPERTIES:<br />
+:BEAMER_env: block<br />
+:BEAMER_col: 0.6<br />
+:END:<br /></p>
+</div>
+<h3 id="beamer-act">BEAMER_ACT</h3>
+<p>beamer_act可以控制这一帧的显示顺序。pdf中，是通过生成多张页面，显示的
+时候重叠起来。</p>
+<pre><code class="language-shell">BEAMER_act: [&lt;+-&gt;]
+</code></pre>
+<h2 id="进阶功能">进阶功能</h2>
+<h3 id="自定义模版">自定义模版</h3>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#beamer">Beamer</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#优点">优点</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装配置">安装配置</a>
+      <ul>
+        <li><a href="#安装latex">安装latex</a></li>
+        <li><a href="#安装代码支持">安装代码支持</a></li>
+        <li><a href="#安装beamer模版">安装beamer模版</a></li>
+        <li><a href="#配置">配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础用法">基础用法</a>
+      <ul>
+        <li><a href="#列表-表格-链接-标签">列表,表格，链接，标签</a></li>
+        <li><a href="#属性设置">属性设置</a></li>
+        <li><a href="#分列布局">分列布局</a></li>
+        <li><a href="#block布局">block布局</a></li>
+        <li><a href="#beamer-act">BEAMER_ACT</a></li>
+      </ul>
+    </li>
+    <li><a href="#进阶功能">进阶功能</a>
+      <ul>
+        <li><a href="#自定义模版">自定义模版</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#beamer">Beamer</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#优点">优点</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装配置">安装配置</a>
+      <ul>
+        <li><a href="#安装latex">安装latex</a></li>
+        <li><a href="#安装代码支持">安装代码支持</a></li>
+        <li><a href="#安装beamer模版">安装beamer模版</a></li>
+        <li><a href="#配置">配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础用法">基础用法</a>
+      <ul>
+        <li><a href="#列表-表格-链接-标签">列表,表格，链接，标签</a></li>
+        <li><a href="#属性设置">属性设置</a></li>
+        <li><a href="#分列布局">分列布局</a></li>
+        <li><a href="#block布局">block布局</a></li>
+        <li><a href="#beamer-act">BEAMER_ACT</a></li>
+      </ul>
+    </li>
+    <li><a href="#进阶功能">进阶功能</a>
+      <ul>
+        <li><a href="#自定义模版">自定义模版</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
