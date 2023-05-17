@@ -6,7 +6,16 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 12 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 May 2023 17:45:10 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>abbrev和skeleton使用</title>
+      <link>https://hllu.github.io/posts/usingabbrev/</link>
+      <pubDate>Wed, 17 May 2023 17:45:10 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/usingabbrev/</guid>
+      <description>abbrew abbrev 是 abbreviation 的缩写。这个模块的主要功能也是定义宏，并在文档 中把宏展开。总的来说，abbrev 提供了缩写展开功能，对于输入频次比较高的 文本可以减少输入工作。 abbrew 定义 abbrev 的定义使用 C-x a 作为快捷键前缀，或者说凡是和</description>
+    </item>
+    
     <item>
       <title>在emacs使用org和beamer做演讲稿</title>
       <link>https://hllu.github.io/posts/beamer/</link>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>abbrev和skeleton使用 - hllu&#39;s blog</title>
+
+
+<meta name="author" content="hllu" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="abbrev, skeleton, org" />
+
+
+<meta property="og:title" content="abbrev和skeleton使用" />
+<meta name="twitter:title" content="abbrev和skeleton使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/usingabbrev/" /><meta property="og:description" content="abbrew abbrev 是 abbreviation 的缩写。这个模块的主要功能也是定义宏，并在文档 中把宏展开。总的来说，abbrev 提供了缩写展开功能，对于输入频次比较高的 文本可以减少输入工作。 abbrew 定义 abbrev 的定义使用 C-x a 作为快捷键前缀，或者说凡是和" />
+<meta name="twitter:description" content="abbrew abbrev 是 abbreviation 的缩写。这个模块的主要功能也是定义宏，并在文档 中把宏展开。总的来说，abbrev 提供了缩写展开功能，对于输入频次比较高的 文本可以减少输入工作。 abbrew 定义 abbrev 的定义使用 C-x a 作为快捷键前缀，或者说凡是和" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-17T17:45:10+08:00" /><meta property="article:modified_time" content="2023-05-17T17:45:10+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/usingabbrev/">abbrev和skeleton使用</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-17</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1735 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/abbrev">abbrev</a>&nbsp;<a href="/tags/skeleton">skeleton</a>&nbsp;<a href="/tags/org">org</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="abbrew">abbrew</h2>
+<p>abbrev 是 abbreviation 的缩写。这个模块的主要功能也是定义宏，并在文档
+中把宏展开。总的来说，abbrev 提供了缩写展开功能，对于输入频次比较高的
+文本可以减少输入工作。</p>
+<h3 id="abbrew-定义">abbrew 定义</h3>
+<p>abbrev 的定义使用 C-x a 作为快捷键前缀，或者说凡是和 abbrev 有关的功能
+大多使用这个前缀。</p>
+<ul>
+<li>
+<p>C-x a g （add-global-abbrev）可以将光标位置前面的词加入全局 abbrev
+table 中，并提示你输入这个词对应的缩写。若要加入当前 buffer 对应
+major mode 的 abbrev table 的话，可以使用</p>
+</li>
+<li>
+<p>C-x a l （add-mode-abbrev），它只对该 mode 生效。</p>
+</li>
+<li>
+<p>C-x a i g （inverse-add-global-abbrev）全局模式</p>
+</li>
+<li>
+<p>C-x a i l （inverse-add-mode-abbrev）读取光标前的词作为缩写词，而要
+求用户你输入展开结果。</p>
+</li>
+<li>
+<p>C-u - C-x a g 或C-u - C-x a l 要删除某个 abbrev</p>
+<p>除了绑定在快捷键上的这些函数，通过使用 define-global-abbrev 和
+define-mode-abbrev 命令，我们也可以定义相应的 abbrev。要修改某个已定
+义的 abbrev 的话，使用新的定义将它覆盖就可以了。</p>
+</li>
+</ul>
+<h3 id="abbrew-展开">abbrew 展开</h3>
+<p>如果我们不想让 abbrev 展开，我们可以在输入 abbrev 后按下 C-q 来告诉 abbrev-mode 不进行展开。</p>
+<p>一只常见的情况谁忘记了定义的abbrev，可以通过list-abbrevs命令来 查看所
+有的定义。</p>
+<p>如果不小心展开了某个 abbrev，你可以使用 Undo 来撤销展开，它会使你
+回到展开前的状态。你也可是使用 unexpand-abbrev 来进行撤销操作。</p>
+<p>如果没有打开 abbrev-mode 的，可以使用 C-x a e （expand-abbrev）来进
+行展开。它的行为与 abbrev-mode 有效与否无关。</p>
+<h3 id="配置示例">配置示例</h3>
+<p>abbrev的默认配置一般在.emacs.d/abbrev_defs文件中.里面的配置是自动保存
+的，只能存一些简单的定义，稍微复杂一点的定义，需要定义。
+以下是我的配置，配合skeleton使用：</p>
+<pre><code class="language-lisp">(provide 'myabbrev)
+
+(add-hook 'org-mode-hook (lambda () (abbrev-mode t)))
+;; abbev and skeleton
+(define-skeleton skel-org-block
+  &quot;Insert an org block, querying for type.&quot;
+  &quot;Type: &quot;
+  &quot;#+begin_&quot; str &quot;\n&quot;
+  _ - \n
+  &quot;#+end_&quot; str &quot;\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sblk&quot; &quot;&quot; 'skel-org-block)
+
+(define-skeleton skel-org-block-ditaa
+  &quot;Insert a org ditaa block, querying for filename.&quot;
+  &quot;File (no extension): &quot;
+  &quot;#+begin_src ditaa :file &quot; str &quot;.png :cache yes\n&quot;
+  _ - \n
+  &quot;#+end_src\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sditaa&quot; &quot;&quot; 'skel-org-block-ditaa)
+
+(define-skeleton skel-org-beamer
+  &quot;Insert an org block, querying for type.&quot;
+  &quot;Type: &quot;
+&quot;# -*- mode: snippet -*-\n&quot;
+&quot;#+TITLE:  &quot;   str  \n
+&quot;#+AUTHOR:    xxx \n&quot;
+&quot;#+EMAIL:     xxxx@xxx.com \n&quot;
+&quot;#+DESCRIPTION: \n&quot;
+&quot;#+KEYWORDS: \n&quot;
+&quot;#+OPTIONS:   H:2 num:t toc:t \\n:nil @:t ::t |:t ^:{} -:t f:t *:t &lt;:t\n&quot;
+&quot;#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n&quot;
+&quot;#+EXPORT_SELECT_TAGS: export\n&quot;
+&quot;#+EXPORT_EXCLUDE_TAGS: noexport\n&quot;
+&quot;#+startup: beamer\n&quot;
+&quot;#+LaTeX_CLASS: beamer\n&quot;
+&quot;#+LaTeX_CLASS_OPTIONS: [bigger]\n&quot;
+&quot;#+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act)%4BEAMER_col(Col) %8BEAMER_opt(Opt)\n&quot;
+@ _)
+
+(define-abbrev org-mode-abbrev-table &quot;beamh&quot; &quot;&quot; 'skel-org-beamer)
+
+(define-skeleton skel-defun
+  &quot;Insert a defun template.&quot;
+  &quot;Name: &quot;
+  &quot;(defun &quot; str &quot; (&quot; @ - &quot;)&quot; \n
+  &quot;(&quot; @ _ &quot;)&quot; \n)
+
+(define-abbrev org-mode-abbrev-table &quot;defun&quot; &quot;&quot; 'skel-defun)
+
+
+(define-abbrev org-mode-abbrev-table &quot;footz&quot; &quot;#+attr_latex: :font \\footnotesize&quot; &quot;&quot;)
+
+(define-skeleton read-two-vars
+  &quot;Prompt the user for two variables, and use them in a skeleton.&quot;
+  &quot;&quot;
+  &gt; &quot;variable A is &quot; (setq v1 (skeleton-read &quot;Variable A? &quot;)) \n
+  &gt; &quot;variable B is &quot; (setq v2 (skeleton-read &quot;Variable B? &quot;)) \n
+  &gt; &quot;A: &quot; v1 &quot;    B: &quot; v2 \n)
+
+(define-abbrev org-mode-abbrev-table &quot;twov&quot; &quot;&quot; 'read-two-vars)
+
+(define-skeleton skel-org-orgh
+    &quot;Insert a org head.&quot;
+    &quot;Name: &quot;
+    &quot;#+TITLE:&quot; str \n
+    &quot;#+OPTIONS: author:nil ^:{}&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;orgh&quot; &quot;&quot; 'skel-org-orgh)
+
+(define-skeleton skel-org-picv
+    &quot;Insert a hugo head.&quot;
+    &quot;Name: &quot;
+&quot;#+CAPTION: &quot; (setq v1 (skeleton-read &quot;caption? &quot;)) \n
+&quot;#+ATTR_HTML: :title &quot; v1 &quot; :align &quot;(skeleton-read &quot;centre/right/left? &quot;)\n
+&quot;#+ATTR_HTML: :width &quot;(setq v2 (skeleton-read &quot;width %? &quot;))&quot;%&quot; &quot; :height &quot;v2&quot;%\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;pich&quot; &quot;&quot; 'skel-org-picv)
+
+</code></pre>
+<h3 id="动态-abbrev">动态 abbrev</h3>
+<p>除了说主动定义 abbrev 后再使用外，我们还可以使用所谓的动态 abbrev，它
+不使用定义的 abbrev，而是从 buffer 中找到符合展开的词来进行展开。它不
+会主动触发，需要你主动使用它。</p>
+<p>举例来说的话，当你输入了 &ldquo;does this follow&rdquo;，然后输入 &ldquo;fo&rdquo;，在按下 M-/
+（dabbrev-expand）后会插入 &ldquo;follow&rdquo; 来作为 &ldquo;fo&rdquo; 的展开结果。这是因为
+&ldquo;follow&rdquo; 是 buffer 中从头到当前位置离 &ldquo;fo&rdquo; 最近的，且以 &ldquo;fo&rdquo; 开头的词。
+当你多次按下 M-/ 时，emacs 会从后往前找匹配的内容来作为展开结果。在找
+完所有可能的结果后，它又会回到最初值。变量 dabbrev-limit 可用来指定从
+后往前找的最远距离（也就是最多往前找几个）。对该命令使用数字参数的话，
+就代表使用第参数个找到的内容来进行展开。</p>
+<p>在找完当前的 buffer 后，继续使用 M-/ ，emacs 会在其他 buffer 中查找。
+可用 dabbrev-check-all-buffers 和 dabbrev-check-other-buffers 来控制
+emacs 是否查找其他 buffer。要控制 emacs 搜索其他 buffer 的行为，可以对
+dabbrev-ignored-buffer-names 和 dabbrev-ignored-buffer-regexps 进行设
+置，前者是要跳过的 buffer 名字组成的表，后者是要跳过的 buffer 的名字匹
+配正则。如果 buffer 的名字符合两者之一，那么 emacs 会跳过该 buffer。</p>
+<p>若使用负数作为 M-/ 的数字参数，那么 M-/ 会向下而非向上搜索，到达
+buffer 末尾时再去其他 buffer 搜索，最后才考虑原 buffer 中向上的内容。</p>
+<h2 id="skeleton">skeleton</h2>
+<p>skeleton的部分内容，参考了以下链接
+<a href="https://www.emacswiki.org/emacs/SkeletonMode" target="_blank">https://www.emacswiki.org/emacs/SkeletonMode</a></p>
+<h3 id="简单定义">简单定义</h3>
+<p>以下的例子，简单的输入一个定义事项</p>
+<pre><code class="language-lisp">(define-skeleton hello-world-skeleton
+&quot;Write a greeting&quot;
+&quot;Type name of user: &quot;
+&quot;hello, &quot; str &quot;!&quot;)
+</code></pre>
+<h3 id="默认值">默认值</h3>
+<pre><code class="language-lisp">(define-skeleton hello-world-skeleton
+&quot;Write a greeting&quot;
+&quot;Type name of user: &quot;
+&quot;hello, &quot; str ｜ &quot;this is the default input!&quot;)
+</code></pre>
+<h3 id="输入多个参数">输入多个参数</h3>
+<p>可以定义多个入参输入，参考配置示例,也可以直接用skeleton-read读输入数据，
+不记录。</p>
+<pre><code class="language-lisp">(define-skeleton read-two-vars
+  &quot;Prompt the user for two variables, and use them in a skeleton.&quot;
+  &quot;&quot;
+  &gt; &quot;variable A is &quot; (setq v1 (skeleton-read &quot;Variable A? &quot;)) \n
+  &gt; &quot;variable B is &quot; (skeleton-read &quot;Variable B? &quot;) \n
+  &gt; &quot;A: &quot; v1 &quot;    B: &quot; v1 \n)
+</code></pre>
+<h3 id="焦点移动">焦点移动</h3>
+<p>可以知道最后输入焦点的位置。</p>
+<pre><code class="language-lisp">(define-skeleton skel-defun
+&quot;Insert a defun template.&quot;
+&quot;Name: &quot;
+&quot;(defun &quot; str &quot; (&quot; @ - &quot;)&quot; \n
+&quot;(&quot; @ _ &quot;)&quot; \n)
+</code></pre>
+<p>焦点移动部分，还没太搞明白，暂时只知道可以最好停留在-的位置。</p>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#abbrew">abbrew</a>
+      <ul>
+        <li><a href="#abbrew-定义">abbrew 定义</a></li>
+        <li><a href="#abbrew-展开">abbrew 展开</a></li>
+        <li><a href="#配置示例">配置示例</a></li>
+        <li><a href="#动态-abbrev">动态 abbrev</a></li>
+      </ul>
+    </li>
+    <li><a href="#skeleton">skeleton</a>
+      <ul>
+        <li><a href="#简单定义">简单定义</a></li>
+        <li><a href="#默认值">默认值</a></li>
+        <li><a href="#输入多个参数">输入多个参数</a></li>
+        <li><a href="#焦点移动">焦点移动</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#abbrew">abbrew</a>
+      <ul>
+        <li><a href="#abbrew-定义">abbrew 定义</a></li>
+        <li><a href="#abbrew-展开">abbrew 展开</a></li>
+        <li><a href="#配置示例">配置示例</a></li>
+        <li><a href="#动态-abbrev">动态 abbrev</a></li>
+      </ul>
+    </li>
+    <li><a href="#skeleton">skeleton</a>
+      <ul>
+        <li><a href="#简单定义">简单定义</a></li>
+        <li><a href="#默认值">默认值</a></li>
+        <li><a href="#输入多个参数">输入多个参数</a></li>
+        <li><a href="#焦点移动">焦点移动</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
