@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>odl - hllu&#39;s blog</title>
+<title>qrouter - hllu&#39;s blog</title>
 
 
 <meta name="author" content="hllu" />
@@ -31,14 +31,14 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/odl/index.xml" title="hllu's blog" />
+<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/qrouter/index.xml" title="hllu's blog" />
 
-<meta property="og:title" content="odl" />
-<meta name="twitter:title" content="odl" />
+<meta property="og:title" content="qrouter" />
+<meta name="twitter:title" content="qrouter" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://hllu.github.io/tags/odl/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/tags/qrouter/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-04-27T16:19:09+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-05-22T15:37:28+08:00" />
 
 
 <style>
@@ -95,42 +95,25 @@
                 
 
 <div class="page-info">
-  <span>Posts with the tag odl: </span>
+  <span>Posts with the tag qrouter: </span>
 </div>
 
 
 
 <div class="post">
   <h2 class="post-item post-title">
-    <a href="https://hllu.github.io/posts/bluprint/">Blueprint</a>
+    <a href="https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">VPC内互通问题排查</a>
   </h2>
   <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
+    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-22</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1596 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1909 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/odl">odl</a>&nbsp;<a href="/tags/rpc">rpc</a>&nbsp;</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/dvr">dvr</a>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;<a href="/tags/qrouter">qrouter</a>&nbsp;</span>
 
   </div>
   <div class="post-item post-summary markdown-body">
-    简介 在osgi中服务的使用有多种方式，如使用传统的注册式服务，就是我们之前中example不断使用的使用方式，还是osgi中的声明式服务， 还有著名的ipojo等等，但在这里值得花一番笔墨来讲解的应该是
-  </div>
-</div>
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://hllu.github.io/posts/gitreview/">Git review安装使用说明</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1605 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/odl">odl</a>&nbsp;<a href="/tags/rpc">rpc</a>&nbsp;</span>
-
-  </div>
-  <div class="post-item post-summary markdown-body">
-    安装 git安装略过 安装git-review [root@master ~]# yum install git-review Loaded plugins: fastestmirror, langpacks Loading mirror speeds from cached hostfile epel: mirrors.aliyun.com Resolving Dependencies &ndash;&gt; Running transaction check &mdash;&gt; Package git-review.noarch 0:1.24-5.el7 will be installed &ndash;&gt; Finished Dependency Resolution Dependencies Resolved =============================================================================================================================================================================================== Package Arch Version Repository Size =============================================================================================================================================================================================== Installing: git-review noarch 1.24-5.el7 epel 57 k Transaction Summary =============================================================================================================================================================================================== Install 1 Package 安装gitweb 1）# yum install gitweb 2）修改git.c
+    问题 VPC内虚机通过NAT网关配置SNAT访问外网。如下所示： 使用中出现问题，虚机不能访问外网。 基础知识 DVR模式 按照 Neutron 原先的设计，所有网络服务都在网络节点上进行，这意味着大量 的流量和处理，给网络节点
   </div>
 </div>
 

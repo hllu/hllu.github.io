@@ -31,7 +31,7 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<meta name="keywords" content="neutron, dvr" />
+<meta name="keywords" content="dvr, neutron, qrouter" />
 
 
 <meta property="og:title" content="VPC内互通问题排查" />
@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" /><meta property="og:description" content="问题 VPC内虚机通过NAT网关配置SNAT访问外网。如下所示： 使用中出现问题，虚机不能访问外网。 基础知识 DVR模式 按照 Neutron 原先的设计，所有网络服务都在网络节点上进行，这意味着大量 的流量和处理，给网络节点" />
 <meta name="twitter:description" content="问题 VPC内虚机通过NAT网关配置SNAT访问外网。如下所示： 使用中出现问题，虚机不能访问外网。 基础知识 DVR模式 按照 Neutron 原先的设计，所有网络服务都在网络节点上进行，这意味着大量 的流量和处理，给网络节点" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-22T15:26:49+08:00" /><meta property="article:modified_time" content="2023-05-22T15:26:49+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-22T15:37:28+08:00" /><meta property="article:modified_time" content="2023-05-22T15:37:28+08:00" />
 
 
 <style>
@@ -103,9 +103,9 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-22</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1845 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1909 words</span>
 
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;<a href="/tags/dvr">dvr</a>&nbsp;</span>
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/dvr">dvr</a>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;<a href="/tags/qrouter">qrouter</a>&nbsp;</span>
 
     </div>
     
@@ -169,11 +169,34 @@
 <h2 id="分析排查">分析排查</h2>
 <p>通过openstack命令，查到虚机的port，所在计算节点信息，所连接的qrouter信
 息。</p>
+<ul>
+<li>查看虚机的port信息</li>
+</ul>
 <blockquote>
-<p>~# openstack port list &ndash;server ed079656-c1d5-415e-bb79-c24dbbc54cdf
-~# openstack server show ed079656-c1d5-415e-bb79-c24dbbc54cdf | grep host</p>
+<p>~# openstack port list &ndash;server ed079656-c1d5-415e-bb79-c24dbbc54cdf</p>
+</blockquote>
+<ul>
+<li>查看虚机所在计算节点</li>
+</ul>
+<blockquote>
+<p>~# openstack server show ed079656-c1d5-415e-bb79-c24dbbc54cdf | grep  host</p>
+</blockquote>
+<ul>
+<li>查看虚机所在的网络</li>
+</ul>
+<blockquote>
 <p>~# openstack port show 74df9649-bd57-4a5e-8b7e-181c3e7a2a40 | grep network</p>
+</blockquote>
+<ul>
+<li>查看接入qrouter的port</li>
+</ul>
+<blockquote>
 <p>~# openstack port list &ndash;long &ndash;network c0ad68cc-2388-406c-9da0-e2ec4fe71b5e | grep dis</p>
+</blockquote>
+<ul>
+<li>根据port查到qrouter的id</li>
+</ul>
+<blockquote>
 <p>~# openstack port show 8d2bd1cf-bcf1-43e3-bf57-0c965a88e0e0 | grep device</p>
 </blockquote>
 <p>device_id即是qrouter的id。</p>
@@ -193,9 +216,9 @@
 <h3 id="pbr规则排查">pbr规则排查</h3>
 <p>查看qrouter上的规则</p>
 <blockquote>
-<p>~# ip netns exec qrouter-e6d4c905-4c62-4f06-a879-0bd6f4a8330d bash
-~# ip rule
-~# ip route show table 2886729985</p>
+<p>~# ip netns exec qrouter-e6d4c905-4c62-4f06-a879-0bd6f4a8330d bash</p>
+<p>~# ip rule</p>
+<p>~# ip route show table 2886729985</p>
 </blockquote>
 <h3 id="正常发送出去-但对端没收到">正常发送出去，但对端没收到</h3>
 <p>从计算节点的物理口上抓包，查看是否正常收到报文。</p>
@@ -327,6 +350,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
             </span>
             
             <span>
@@ -502,6 +529,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
             </span>
             
             <span>

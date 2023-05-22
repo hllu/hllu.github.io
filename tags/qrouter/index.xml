@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dvr on hllu&#39;s blog</title>
-    <link>https://hllu.github.io/tags/dvr/</link>
-    <description>Recent content in dvr on hllu&#39;s blog</description>
+    <title>qrouter on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/qrouter/</link>
+    <description>Recent content in qrouter on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 May 2023 15:37:28 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/dvr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 May 2023 15:37:28 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/qrouter/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VPC内互通问题排查</title>
       <link>https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</link>
