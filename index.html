@@ -38,7 +38,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hllu.github.io/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-05-17T17:45:10+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-05-22T15:26:49+08:00" />
 
 
 <style>
@@ -95,6 +95,40 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/">VPC内互通问题排查</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-22</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1845 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;<a href="/tags/dvr">dvr</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        问题 VPC内虚机通过NAT网关配置SNAT访问外网。如下所示： 使用中出现问题，虚机不能访问外网。 基础知识 DVR模式 按照 Neutron 原先的设计，所有网络服务都在网络节点上进行，这意味着大量 的流量和处理，给网络节点
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/iptables-in-neutron/">iptables-in-neutron</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-22</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2116 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/iptables">iptables</a>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        iptables Iptables 很早就已经集成到了Linux 的内核中，它由转发表 和 规则链 组成，通过表和链的组合，能适应各种场景下的安全需求功能。 iprable默认包含了表，每个表都有不同的用途，比如 Filter 表用来过滤数据 包，发往主机内
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -231,40 +265,6 @@
         orgmode有各种各样的好处，主要是文本折叠和缩进的功能实在太好用，gtd也功 能很强大。无论是用于hugo编辑工具还是作为笔记的主力，都是很好的实践。 但有一个问题，是emacs和org的弱项-图片处
     </div>
 </div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://hllu.github.io/posts/send-a-post-using-chrome-consol/">send a post using chrome consol</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-20</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;50 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/curl">curl</a>&nbsp;<a href="/tags/http">http</a>&nbsp;</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        send a message like this fetch('https://abb-king.cloud.cn:8080/service/cart/add', { method: 'POST', body: JSON.stringify({&quot;useUnitId&quot;:&quot;000000000000000200,424242020198576128&quot;,&quot;setCount&quot;:&quot;1&quot;,&quot;billType&quot;:&quot;dailySettlement&quot;,&quot;orderType&quot;:&quot;new&quot;,&quot;durationUnit&quot;:&quot;D&quot;,&quot;productTypeCode&quot;:&quot;IPv6_UL&quot;,&quot;consoleCustomization&quot;:{},&quot;productList&quot;:[{&quot;region&quot;:&quot;region-kunming-hlw&quot;,&quot;availableZone&quot;:&quot;&quot;,&quot;productLineCode&quot;:&quot;EIP&quot;,&quot;productTypeCode&quot;:&quot;IPv6_UL&quot;,&quot;productLineName&quot;:&quot;ip&quot;,&quot;instanceCount&quot;:&quot;1&quot;,&quot;instanceId&quot;:&quot;ada3bafe-590b-45d7-a18f&quot;,&quot;instanceName&quot;:&quot;&quot;,&quot;itemList&quot;:[{&quot;code&quot;:&quot;instance&quot;,&quot;type&quot;:&quot;billingItem&quot;,&quot;unit&quot;:&quot;COUNT&quot;,&quot;value&quot;:&quot;&quot;,&quot;packageList&quot;:null}]}],&quot;recordOrder&quot;:1}), headers: { 'Content-type': 'application/json; charset=UTF-8','Authorization': 'bearer eyOiJSUzI1NiIs' } }) .then(res =&gt; res.json()) .then(console.log) ipv6 curl curl -6 -g --interface eth0 &quot;http://[e80::f85b:4256:ee76:24a4]:8080&quot; -vvv put curl -X PUT -H 'Content-Type: application/json' -H 'region: ly-dx-zx' -H 'Authorization:bearer token' -d '{&quot;eip&quot;: {&quot;serverId&quot;:&quot;48e95b16--9fff-9cda5f443b25&quot;,&quot;portId&quot;:&quot;c97a826a--ceb373aad4d5&quot;,&quot;fixedIp&quot;:&quot;172.16.1.17&quot;,&quot;type&quot;:&quot;11&quot;,&quot;availabilityZone&quot;:&quot;ab.cd.ed&quot;}}' http://100.105.50.1:8080/ecp/v1.1/esp/-4b95-954e-371ea947a0f0/action/bind
-    </div>
-</div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://hllu.github.io/posts/%E4%BD%BF%E7%94%A8qemu-nbd%E7%BC%96%E8%BE%91qcow2%E9%95%9C%E5%83%8F/">使用qemu-nbd编辑qcow2镜像</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-20</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;265 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        qemu-nbd NBD指的是Network Block Device，正如其名字的意思，NBD让用户可以通过网络访问到某个块设备，或者设备镜像。 NFS的方式只能管到文件系统层，而NBD的方式则不仅可以管到文件系统层，还可以管到
-    </div>
-</div>
 <div class="pagination"><div class="pag-item pag-current">
     <a href="/">1</a>
   </div><div class="pag-item">
@@ -344,6 +344,10 @@
             </span>
             
             <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
                 <a href="/tags/emacs/">emacs</a>
             </span>
             
@@ -353,6 +357,14 @@
             
             <span>
                 <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
             </span>
             
             <span>
@@ -487,6 +499,10 @@
             </span>
             
             <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
                 <a href="/tags/emacs/">emacs</a>
             </span>
             
@@ -496,6 +512,14 @@
             
             <span>
                 <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
             </span>
             
             <span>

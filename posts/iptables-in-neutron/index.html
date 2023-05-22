@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>iptables-in-neutron - hllu&#39;s blog</title>
+
+
+<meta name="author" content="hllu" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="iptables, neutron" />
+
+
+<meta property="og:title" content="iptables-in-neutron" />
+<meta name="twitter:title" content="iptables-in-neutron" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/iptables-in-neutron/" /><meta property="og:description" content="iptables Iptables 很早就已经集成到了Linux 的内核中，它由转发表 和 规则链 组成，通过表和链的组合，能适应各种场景下的安全需求功能。 iprable默认包含了表，每个表都有不同的用途，比如 Filter 表用来过滤数据 包，发往主机内" />
+<meta name="twitter:description" content="iptables Iptables 很早就已经集成到了Linux 的内核中，它由转发表 和 规则链 组成，通过表和链的组合，能适应各种场景下的安全需求功能。 iprable默认包含了表，每个表都有不同的用途，比如 Filter 表用来过滤数据 包，发往主机内" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-22T15:26:22+08:00" /><meta property="article:modified_time" content="2023-05-22T15:26:22+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/iptables-in-neutron/">iptables-in-neutron</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-22</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2116 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/iptables">iptables</a>&nbsp;<a href="/tags/neutron">neutron</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="iptables">iptables</h2>
+<p>Iptables 很早就已经集成到了Linux 的内核中，它由转发表 和 规则链 组成，通过表和链的组合，能适应各种场景下的安全需求功能。</p>
+<p>iprable默认包含了表，每个表都有不同的用途，比如 Filter 表用来过滤数据
+包，发往主机内部的包，和发往主机外部的包都由 filter 表中相应规则链来处
+理。主机中默认的表有：</p>
+<ul>
+<li>Raw：数据包最先经过的表，一般用来配置需要绕过iptable处理的流量。在安全组和防火墙功能中都没有使用到该表。</li>
+<li>Filter ：默认用于过滤数据包的表。neutron安全组和防火墙都是通过该表的不同链来实现的。</li>
+<li>NAT：用于网络地址转换。</li>
+<li>Mangle： 可以修改数据包的特定字段，常用来标记流量（如用来实现策略路由功能），也没有被安全组或防火墙使用。</li>
+</ul>
+<h2 id="chains">chains</h2>
+<h3 id="chains-in-iptables">chains in iptables</h3>
+<p>链这个概念指的是一组规则，这些规则会在不同的场景下生效。默认有5种规则
+链，规则链内部的规则详细地定义了数据包的处理方
+式（转发或丢弃等等）。一旦开启iptables后，所有进出接口的数据包都需要经
+过至少一条规则链。规则允许数据包从一个规则链跳转到另一条规则链。如果跳
+转后没有匹配上任何规则，数据包将回到跳转之前的位置，并继续向下匹配规则。</p>
+<ul>
+<li>
+<p>Prerouting：跟名字一样，在数据包执行路由的策略之前会进入该规则链。除
+了Filter以外，其他表都有用到该策略链。比如NAT，在数据包路由之前修改
+数据包的源地址或目的地址。</p>
+</li>
+<li>
+<p>Input：所有发往本地主机的数据包（即目的地址是本地的地址）都会经该规则链处理。Mangle 和 Filter 中都有用到。</p>
+</li>
+<li>
+<p>Forward：所有目的地址非本机的数据包都用到该规则链。Mangle 和 Filter都有用到。</p>
+</li>
+<li>
+<p>Output：由本地主机发往外部的数据包都使用该规则链。Raw、Filter、NAT、Mangle都有用到。</p>
+</li>
+<li>
+<p>Postrouting：所有完成了路由选择的数据包都将通过该规则链。安全组的功
+能没有使用到这个规则链，但浮动ip则有使用。Mangle和NAT表有使用。</p>
+</li>
+</ul>
+<p>注意，报文会经过每个表的链。比如output链，nat、filter、raw、mangle表都
+有这个链。因此报文会分别经过这四个表的output链处理。</p>
+<figure><img src="/ox-hugo/2023-05-22_10-56-35_screenshot.png"/>
+</figure>
+
+<h3 id="package-path-in-iptables">package path in iptables</h3>
+<p>数据报文的路径如下：</p>
+<ul>
+<li>数据进入计算节点</li>
+<li>prerouteing处理阶段，一般是nat等功能处理</li>
+<li>查路由，根据目的地址看是否上送本机，如果上送，走input链</li>
+<li>转发报文发送到forward链</li>
+<li>如果主机收到报文，主机对收到的报文处理，发送出去</li>
+<li>出接口报文查路由</li>
+<li>送到output链处理</li>
+<li>postrouting链，处理对应的nat等</li>
+</ul>
+<figure><img src="/ox-hugo/2023-05-22_10-59-05_screenshot.png"/>
+</figure>
+
+<p>参考：<a href="https://www.cnblogs.com/pmyewei/p/7609259.html" target="_blank">https://www.cnblogs.com/pmyewei/p/7609259.html</a></p>
+<h2 id="iptables-in-neutron">iptables in neutron</h2>
+<h3 id="neutron相关的链">neutron相关的链</h3>
+<dl>
+<dt>neutron-filter-top</dt>
+<dd>加在原生的Forward和output链上</dd>
+<dt>neutron-openvswi-FORWARD</dt>
+<dd>neutron 定义的 FORWARD 链</dd>
+<dt>neutron-openvswi-INPUT</dt>
+<dd>neutron 定义的 INPUT 链</dd>
+<dt>neutron-openvswi-OUTPUT</dt>
+<dd>neutron 定义的 OUTPUT 链</dd>
+<dt>neutron-openvswi-local</dt>
+<dd>一般为空</dd>
+<dt>neutron-openvswi-sg-chain</dt>
+<dd>挂的neutron-openswi-FORWARD下，安全组实现的入口</dd>
+<dt>neutron-openvswi-sg-fallback</dt>
+<dd>默认为drop</dd>
+</dl>
+<p>neutron主要用的是filter表和nat表。对filter表的INPUT，OUTPUT，FORWARD链
+进行包装，将到达原链的数据包转发到包装链，还增加一个包装的local链。
+对于nat表，PREROUTING，OUTPUT，POSTROUTING链进行包装，另外在
+POSTROUTING链之后加了snat链。</p>
+<h4 id="filter-table">filter table</h4>
+<figure><img src="/ox-hugo/2023-05-22_11-53-55_neutronadd.png"/>
+</figure>
+
+<!--list-separator-->
+<ul>
+<li>
+<p>增加一个链neutron-filter-top，增加规则：</p>
+<ul>
+<li>-A FORWARD -j neutron-filter-top</li>
+<li>-A OUTPUT -j neutron-filter-top</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>增加一个包装链neutron-l3-agent-local，增加规则：</p>
+<ul>
+<li>-A neutron-filter-top -j neutron-l3-agent-local</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>包装链neutron-l3-agent-INPUT，neutron-l3-agent-OUTPUT，neutron-l3-agent-FORWARD，添加规则：</p>
+<ul>
+<li>-A INPUT -j neutron-l3-agent-INPUT</li>
+<li>-A OUTPUT -j neutron-l3-agent-OUTPUT</li>
+<li>-A FORWARD -j neutron-l3-agent-FORWARD</li>
+</ul>
+</li>
+</ul>
+<h4 id="nat-table">nat table</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>包装链neutron-l3-agent-PREROUTING，neutron-l3-agent-OUTPUT，neutron-l3-agent-POSTROUTING，添加规则：</p>
+<ul>
+<li>-A PREROUTING -j neutron-l3-agent-PREROUTING</li>
+<li>-A OUTPUT -j neutron-l3-agent-OUTPUT</li>
+<li>-A POSTROUTING -j neutron-l3-agent-POSTROUTING</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>nat表中添加neutron-postrouting-bottom链，增加规则：</p>
+<ul>
+<li>-A POSTROUTING -j neutron-postrouting-bottom</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>nat表中添加包装链neutron-l3-agent-snat，增加规则：</p>
+<ul>
+<li>-A neutron-postrouting-bottom -j neutron-l3-agent-snat</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>nat表中添加包装链neutron-l3-agent-float-snat，增加规则：</p>
+<ul>
+<li>-A neutron-l3-agent-snat -j neutron-l3-agent-float-snat</li>
+</ul>
+<p>这部分表，我在实验环境没找到，应该是需要开启某些功能。</p>
+</li>
+</ul>
+<h3 id="neutron链在iptables中的位置">neutron链在iptables中的位置</h3>
+<p>filter表和nat表中的表。</p>
+<figure><img src="/ox-hugo/2023-05-22_11-47-04_neutronchain.png"/>
+</figure>
+
+<h3 id="neutron的链之间的关系">neutron的链之间的关系</h3>
+<figure><img src="/ox-hugo/2023-05-22_12-54-22_screenshot.png"/>
+</figure>
+
+<h4 id="neutron的iptables规则是在filter表实现">neutron的iptables规则是在filter表实现</h4>
+<p>主要是在in和out两个表中实现。in表是安全组的入规则，out是安全组的出规则。</p>
+<h4 id="虚拟机访问宿主机">虚拟机访问宿主机</h4>
+<p>我们已经知道，安全组是在filter表的FORWARD链上实现的，但如果虚拟机的包
+是去往宿主机时，由于内核判断目标地址就是自己，因此不会流到FORWARD链而
+是发往INPUT链，那这样岂不就是绕过安全组规则了吗？</p>
+<p>解决办法很简单，只需要把neutron的out链再挂到INPUT链就可以了。</p>
+<h3 id="安全组问题排查">安全组问题排查</h3>
+<ul>
+<li>
+<p>先找到虚机的port</p>
+</li>
+<li>
+<p>在对应的计算节点，查看所有的安全组规则</p>
+</li>
+<li>
+<p>查看安全组规则是否正确，重点看in和out链是否有drop</p>
+<figure><img src="/ox-hugo/2023-05-22_14-30-38_screenshot.png"/>
+    </figure>
+
+</li>
+</ul>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#iptables">iptables</a></li>
+    <li><a href="#chains">chains</a>
+      <ul>
+        <li><a href="#chains-in-iptables">chains in iptables</a></li>
+        <li><a href="#package-path-in-iptables">package path in iptables</a></li>
+      </ul>
+    </li>
+    <li><a href="#iptables-in-neutron">iptables in neutron</a>
+      <ul>
+        <li><a href="#neutron相关的链">neutron相关的链</a></li>
+        <li><a href="#neutron链在iptables中的位置">neutron链在iptables中的位置</a></li>
+        <li><a href="#neutron的链之间的关系">neutron的链之间的关系</a></li>
+        <li><a href="#安全组问题排查">安全组问题排查</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#iptables">iptables</a></li>
+    <li><a href="#chains">chains</a>
+      <ul>
+        <li><a href="#chains-in-iptables">chains in iptables</a></li>
+        <li><a href="#package-path-in-iptables">package path in iptables</a></li>
+      </ul>
+    </li>
+    <li><a href="#iptables-in-neutron">iptables in neutron</a>
+      <ul>
+        <li><a href="#neutron相关的链">neutron相关的链</a></li>
+        <li><a href="#neutron链在iptables中的位置">neutron链在iptables中的位置</a></li>
+        <li><a href="#neutron的链之间的关系">neutron的链之间的关系</a></li>
+        <li><a href="#安全组问题排查">安全组问题排查</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

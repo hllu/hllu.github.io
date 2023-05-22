@@ -6,7 +6,25 @@
     <description>Recent content in Posts on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 May 2023 17:45:10 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 May 2023 15:26:49 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VPC内互通问题排查</title>
+      <link>https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</link>
+      <pubDate>Mon, 22 May 2023 15:26:49 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</guid>
+      <description>问题 VPC内虚机通过NAT网关配置SNAT访问外网。如下所示： 使用中出现问题，虚机不能访问外网。 基础知识 DVR模式 按照 Neutron 原先的设计，所有网络服务都在网络节点上进行，这意味着大量 的流量和处理，给网络节点</description>
+    </item>
+    
+    <item>
+      <title>iptables-in-neutron</title>
+      <link>https://hllu.github.io/posts/iptables-in-neutron/</link>
+      <pubDate>Mon, 22 May 2023 15:26:22 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/iptables-in-neutron/</guid>
+      <description>iptables Iptables 很早就已经集成到了Linux 的内核中，它由转发表 和 规则链 组成，通过表和链的组合，能适应各种场景下的安全需求功能。 iprable默认包含了表，每个表都有不同的用途，比如 Filter 表用来过滤数据 包，发往主机内</description>
+    </item>
+    
     <item>
       <title>abbrev和skeleton使用</title>
       <link>https://hllu.github.io/posts/usingabbrev/</link>
