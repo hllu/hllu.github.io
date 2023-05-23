@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-25</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1180 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1212 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/picture">picture</a>&nbsp;<a href="/tags/image">image</a>&nbsp;<a href="/tags/org">org</a>&nbsp;<a href="/tags/download">download</a>&nbsp;<a href="/tags/yasnippet">yasnippet</a>&nbsp;</span>
 
@@ -175,14 +175,22 @@
 </code></pre>
 <p>也可以自己定义一个快捷键。</p>
 <ul>
-<li>网上的部分配置参考，因为不想装对use package的依赖，没有采用
-<pre><code class="language-lisp">(use-package org-download
-        :ensure t
-        :bind (&quot;C-S-y&quot; . org-download-screenshot)
-        :config
-        (require 'org-download)
-        (add-hook 'dired-mode-hook 'org-download-enable)
-        )
+<li>参考网上部分配置参考，图片存储路径是文件名，设置org模式下截图快捷键
+<pre><code class="language-lisp">(defun my-org-download-method (link)
+  (let ((filename
+         (format-time-string &quot;screenshot_%Y%m%d_%H%M%S.png&quot;))
+        (dirname (file-name-sans-extension (buffer-name)) ))
+    ;; if directory not exist, create it
+    (unless (file-exists-p dirname)
+      (make-directory dirname))
+    ;; return the path to save the download files
+    (expand-file-name filename dirname)))
+
+(setq org-download-method 'my-org-download-method)
+
+(add-hook 'org-mode-hook
+          (lambda()
+            (local-set-key (kbd &quot;C-c p&quot;) 'org-download-screenshot)))
 </code></pre>
 </li>
 </ul>
