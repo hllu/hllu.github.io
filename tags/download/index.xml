@@ -6,7 +6,16 @@
     <description>Recent content in download on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 25 Apr 2023 15:08:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/download/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 May 2023 15:08:20 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/download/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>my emacs config</title>
+      <link>https://hllu.github.io/posts/emacsconfig/</link>
+      <pubDate>Tue, 23 May 2023 15:08:20 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/emacsconfig/</guid>
+      <description>my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-+会增加字体大小 ;; C-+ 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #+ATTR_ORG: :width 100 ~ ;; #+ATTR_HTML: :width 100 ~ ;; C-c C-q</description>
+    </item>
+    
     <item>
       <title>org mode中插入和使用图片</title>
       <link>https://hllu.github.io/posts/org-mode%E4%B8%AD%E6%8F%92%E5%85%A5%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9B%BE%E7%89%87/</link>

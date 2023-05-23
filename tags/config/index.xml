@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>config on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/config/</link>
+    <description>Recent content in config on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 23 May 2023 15:08:20 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/config/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>my emacs config</title>
+      <link>https://hllu.github.io/posts/emacsconfig/</link>
+      <pubDate>Tue, 23 May 2023 15:08:20 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/emacsconfig/</guid>
+      <description>my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-+会增加字体大小 ;; C-+ 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #+ATTR_ORG: :width 100 ~ ;; #+ATTR_HTML: :width 100 ~ ;; C-c C-q</description>
+    </item>
+    
+  </channel>
+</rss>

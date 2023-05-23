@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>my emacs config - hllu&#39;s blog</title>
+
+
+<meta name="author" content="hllu" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="emacs, config, hugo, download, latex, beamer" />
+
+
+<meta property="og:title" content="my emacs config" />
+<meta name="twitter:title" content="my emacs config" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/emacsconfig/" /><meta property="og:description" content="my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q" />
+<meta name="twitter:description" content="my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-23T15:08:20+08:00" /><meta property="article:modified_time" content="2023-05-23T15:08:20+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/emacsconfig/">my emacs config</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-23</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3223 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/config">config</a>&nbsp;<a href="/tags/hugo">hugo</a>&nbsp;<a href="/tags/download">download</a>&nbsp;<a href="/tags/latex">latex</a>&nbsp;<a href="/tags/beamer">beamer</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="my-main-config">my main config</h2>
+<pre><code class="language-lisp">;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+;; C-x C-+会增加字体大小
+;; C-+ 或 C-- 会增加/缩小字体大小
+;; C-x C-0会恢复字体大小
+
+;;================org========================
+;;-------------------org-----------------
+;; #+ATTR_ORG: :width 100 ~
+;; #+ATTR_HTML:  :width 100 ~
+;; C-c C-q 为标题添加标签
+;;C-c, 设置优先级（方括号里的ABC）
+;; C-c / m 生成带标签的树
+;;C-c C-x C-v 直接预览图片
+;;C-c /	它会提示再输入一个字符来选择稀疏树的创建命令。
+;;C-c / r 将所有匹配的项显示成稀疏树。所有的匹配项都会高亮显示；按 C-c C-c 取消高亮。
+;;------------------end org---------------
+;;------------------beamer---------------
+;;C-c C-b i  beamer 控制宏
+;;===================end org===============
+;; M -x  delete-duplicate-lines
+;; C-u 7 M-x sort-field
+;; M-/ （dabbrev-expand） 动态补全，默认搜索本文本
+;; #+OPTIONS ^:nil 关闭下划线转义 输入a_{b}才转义
+;; #+OPTIONS: toc:t  ^:nil author:nil num:2
+;; #+OPTINS: n:t  html 中不换行
+;;--------------------------job--------------------
+;; C-c C-t || S-LEFT/RIGHT    定义todo任务
+;; C-c [    &amp;&amp;    C-c ]  将文件加入或移除清单
+;; C-c a t 列出所有未完成任务
+;; C-c a a 日程表视图
+;; C-c C-x C-v 直接预览图片
+;;--------------------src -------------
+;;(require 'org-tempo)
+;; if want use &lt;s TAB to begin a src block in org-mode 9.3,you must
+;; add org-tempo. you can also use C-c C-, to do the same thing.
+;;--------------------------------------
+;; 丛journal中导出md文件
+;;  C-c C-e H H
+;;--------------------------------------
+;;=================book mark================
+;; ‘C-x r m’ – set a bookmark at the current location (e.g. in a file)
+;; ‘C-x r b’ – jump to a bookmark
+;; ‘C-x r l’ – list your bookmarks
+;; ‘M-x bookmark-delete’ – delete a bookmark by name
+;;===========================================
+
+;; #+TITLE:  Documents and presentations with org-mode
+;; #+AUTHOR: John Goerzen
+;; #+BEAMER_HEADER: \institute{The Changelog}
+;; #+PROPERTY: comments yes
+;; #+PROPERTY: header-args :exports both :eval never-export
+;; #+OPTIONS: H:2
+;; #+BEAMER_THEME: CambridgeUS
+;; #+BEAMER_COLOR_THEME: default
+;;===================================================
+;; M-s o    occur
+;;==========================================================
+
+
+(package-initialize)
+
+(add-to-list 'package-archives ' (&quot;melpa&quot;  . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/&quot;))
+;' (&quot;gnu&quot;    . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/&quot;)
+;' (&quot;nongnu&quot; . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/&quot;)
+
+;;                                . &quot;http://elpa.emacs-china.org/melpa/&quot;)
+;t)
+
+(set-foreground-color &quot;grey&quot;)
+(set-background-color &quot;black&quot;)
+(set-cursor-color &quot;gold1&quot;)
+(set-mouse-color &quot;gold1&quot;)
+
+;;启动设置
+(setq default-frame-alist
+             '((vertical-scroll-bars)
+               (top . 0)
+               (left . 1050)
+               (width . 120)
+               (height . 72)
+               (background-color . &quot;black&quot;)
+               (foreground-color . &quot;grey&quot;)
+               (cursor-color . &quot;gold1&quot;)
+               (mouse-color . &quot;gold1&quot;)
+               (tool-bar-lines . 0)
+               (menu-bar-lines . 0)
+               (right-fringe)
+               (left-fringe)))
+
+;;启动自动最大化(数据自己调整，注意格式，如(top . 0)，圆点前后都要留有空格)
+;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 142) (height . 46)))
+
+;;=================-用户信息==========================
+(add-to-list 'load-path &quot;/Users/path/.emacs.d/myconfig/&quot;)
+
+;;设置打开文件的缺省路径
+(setq default-directory &quot;/Users/path&quot;)
+
+;;添加执行路径，可以M-x ielm 查看exec-path
+(add-to-list 'exec-path &quot;/usr/local/bin&quot;)
+
+(setq user-full-name &quot;username&quot;)
+(setq user-mail-address &quot;username@comp.com&quot;)
+;;================end====================================
+(setq dired-dwim-target t) ;; dired
+;; 设置另外一些颜色：语法高亮显示的背景和主题，区域选择的背景和主题，二次选择的背景和选择
+(set-face-foreground 'highlight &quot;white&quot;)
+(set-face-background 'highlight &quot;blue&quot;)
+(set-face-foreground 'region &quot;cyan&quot;)
+(set-face-background 'region &quot;blue&quot;)
+(set-face-foreground 'secondary-selection &quot;skyblue&quot;)
+(set-face-background 'secondary-selection &quot;darkblue&quot;)
+;;------------窗口界面设置结束-----------------
+
+;;------------显示时间设置------------------------------
+(display-time-mode 1);;启用时间显示设置，在minibuffer上面的那个杠上
+(setq display-time-24hr-format t);;时间使用24小时制
+(setq display-time-day-and-date t);;时间显示包括日期和具体时间
+(setq display-time-use-mail-icon t);;时间栏旁边启用邮件设置
+(setq display-time-interval 10);;时间的变化频率，单位多少来着？
+(setq word-wrap-by-category t) ;;自动换行
+;;------------显示时间设置结束--------------
+
+;;------------定制操作习惯--------------------
+(setq visible-bell t)
+;;关闭烦人的出错时的提示声
+
+(setq inhibit-startup-message t)
+;;关闭emacs启动时的画面
+
+(fset 'yes-or-no-p 'y-or-n-p)
+;; 改变 Emacs 固执的要你回答 yes 的行为。按 y 或空格键表示 yes，n 表示 no。
+
+(setq font-lock-maximum-decoration t)
+(setq font-lock-global-modes '(not shell-mode text-mode))
+(setq font-lock-verbose t)
+(setq font-lock-maximum-size '((t . 1048576) (vm-mode . 5250000)))
+;; 语法高亮。除 shell-mode 和 text-mode 之外的模式中使用语法高亮。
+
+(setq column-number-mode t)
+(setq line-number-mode t)
+;;显示行列号
+(global-linum-mode t)
+(setq mouse-yank-at-point t)
+;;不要在鼠标点击的那个地方插入剪贴板内容。
+
+
+(setq kill-ring-max 200)
+;;设置粘贴缓冲条目数量.用一个很大的kill ring(最多的记录个数). 这样防止我不小心删掉重要的东西
+
+(setq-default auto-fill-function 'do-auto-fill)
+; Autofill in all modes;;
+;;(setq default-fill-column 360)
+;;把 fill-column 设为 60. 这样的文字更好读
+
+(setq-default indent-tabs-mode nil)
+(setq default-tab-width 8);;tab键为8个字符宽度
+(setq tab-stop-list ())
+;;不用 TAB 字符来indent, 这会引起很多奇怪的错误。
+
+
+;;(setq enable-recursive-minibuffers t)
+;;可以递归的使用 minibuffer
+
+(setq scroll-margin 3 scroll-conservatively 10000)
+;;防止页面滚动时跳动， scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文。
+
+(setq default-major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;;设置缺省主模式是text，,并进入auto-fill次模式.而不是基本模式fundamental-mode
+
+(show-paren-mode t)
+;;打开括号匹配显示模式
+
+
+(mouse-avoidance-mode 'animate)
+;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。
+
+(setq frame-title-format &quot;emacs@%b&quot;)
+;;在标题栏显示buffer的名字，而不是 emacs@wangyin.com 这样没用的提示。
+
+;;(setq uniquify-buffer-name-style 'forward);;好像没起作用
+;; 当有两个文件名相同的缓冲时，使用前缀的目录名做 buffer 名字，不用原来的foobar&lt;?&gt; 形式。
+
+(setq auto-image-file-mode t)
+;;让 Emacs 可以直接打开和显示图片。
+
+(setq global-font-lock-mode t)
+;;进行语法加亮。
+
+;; 把C-j绑定到到达指定行上
+(global-set-key (kbd &quot;C-h&quot;) 'backward-delete-char-untabify)
+(global-set-key (kbd &quot;M-h&quot;) 'backward-kill-word)
+(global-set-key (kbd &quot;&lt;f1&gt;&quot;) 'help-command)
+(global-set-key (kbd &quot;&lt;f8&gt;&quot;) 'bash)
+(global-set-key (kbd &quot;M-[&quot;) 'multi-term-prev)
+(global-set-key (kbd &quot;M-]&quot;) 'multi-term-next)
+(global-set-key &quot;\C-cg&quot; 'magit-status)
+
+(add-hook 'comint-output-filter-functions
+      'comint-watch-for-password-prompt)
+;;当你在shell、telnet、w3m等模式下时，必然碰到过要输入密码的情况,此时加密显出你的密码
+
+(setq make-backup-files nil)
+;; 设定不产生备份文件
+
+(setq-default make-backup-files nil)
+;; 不生成临时文件
+
+(put 'scroll-left 'disabled nil) ;允许屏幕左移
+(put 'scroll-right 'disabled nil) ;允许屏幕右移
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'LaTeX-hide-environment 'disabled nil)
+;;把这些缺省禁用的功能打开。
+
+;;允许emacs和外部其他程序的粘贴
+(setq x-select-enable-clipboard t)
+;;设置有用的个人信息,这在很多地方有用。
+
+;;不显示实际图片尺寸
+(setq org-image-actual-width nil)
+
+(setq track-eol t)
+;; 当光标在行尾上下移动的时候，始终保持在行尾。
+;;====================yasnippet===============
+;; (setq yas-snippet-dirs
+;; '(&quot;~/.emacs.d/snippets/&quot;;;personal snippets
+;;   ))
+;; (yas-global-mode 1)
+
+(require 'openwith)
+(openwith-mode t)
+(setq openwith-associations
+        '((&quot;\.docx$&quot; &quot;open&quot; (file) )(&quot;\.xlsx$&quot; &quot;open&quot; (file) ) (&quot;\.pptx$&quot; &quot;open&quot; (file))
+          (&quot;\.mov\|\.RM$\|\.RMVB$\|\.avi$\|\.AVI$\|\.flv$\|\.mp4\|\.mkv$\|\.rmvb$&quot; &quot;open&quot; (file) )
+          (&quot;\.pdf$&quot; &quot;open&quot; (file))
+          (&quot;\.CHM$\|\.chm$&quot; &quot;open&quot;  (file) )
+          )
+        )
+
+;; 上标^下标_是否需要特殊字符包裹，这里设置需要用大括号包裹
+;;(org-use-sub-superscripts '{})
+
+(require 'myorg)
+(require 'mygtd)
+(require 'myabbrev)
+;;-------------------begin tramp-------------------------
+;;(customize-set-variable 'tramp-default-method &quot;ssh&quot;)
+;; (add-to-list 'tramp-default-method-alist '(&quot;&quot; &quot;john&quot; &quot;ssh&quot;))
+;; (add-to-list 'tramp-default-method-alist '(&quot;lily&quot; &quot;&quot; &quot;rsync&quot;))
+;; (add-to-list 'tramp-default-method-alist
+;;              '(&quot;\\`localhost\\'&quot; &quot;\\`root\\'&quot; &quot;su&quot;))
+;;-------------------end tramp---------------------------
+
+;;============================================================
+
+(setq message-kill-buffer-on-exit t)
+;;=====================begin eshell====================
+(defun eshell-here ()
+ &quot;Opens up a new shell in the directory associated with the
+ current buffer's file. The eshell is renamed to match that
+ directory to make multiple eshell windows easier.&quot;
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) 3))
+         (name   (car (last (split-string parent &quot;/&quot; t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell &quot;new&quot;)
+    (rename-buffer (concat &quot;*eshell: &quot; name &quot;*&quot;))
+    ;; (insert (concat &quot;ls&quot;))
+    ;; (eshell-send-input)
+    ))
+
+(global-set-key (kbd &quot;C-!&quot;) 'eshell-here)
+
+(defun eshell/x ()
+  (eshell-life-is-too-much)
+  (delete-window))
+(add-hook
+ 'eshell-mode-hook
+ (lambda ()
+   (define-key eshell-mode-map (kbd &quot;C-d&quot;)
+     (lambda (arg)
+       &quot;Delete a character or quit eshell if there's nothing to delete.&quot;
+       (interactive &quot;p&quot;)
+       (if (and (eolp) (looking-back eshell-prompt-regexp nil))
+           (progn
+             (eshell-life-is-too-much)
+             (delete-window))
+         (delete-char arg))))))
+;;=====================end eshell====================
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '(&quot;/Users/path/.todos/journal.org&quot; &quot;/Users/path/.todos/gtd.org&quot;))
+ '(org-download-screenshot-method &quot;screencapture -i %s&quot;)
+ '(package-selected-packages
+   '(ox-spectacle org-download yasnippet ox-hugo openwith elpy magit magit-gerrit magithub)))
+ ;; foreground color (yellow)
+;; ---- END Email client ----
+;;----------------------------------------------------------
+;;(put 'erase-buffer 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+</code></pre>
+<h2 id="my-latex-config">my latex config</h2>
+<pre><code class="language-lisp">(provide 'myorg)
+;;--------------------------begin latex---------------------------
+;;export
+;; (require 'ox-latex)
+;;-------------------------begin org-download-------------------
+(require 'org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+(setq org-download-annotate-function (lambda (_link) &quot;&quot;))
+
+(defun my-org-download-method (link)
+  (let ((filename
+         (format-time-string &quot;screenshot_%Y%m%d_%H%M%S.png&quot;))
+        (dirname (file-name-sans-extension (buffer-name)) ))
+    ;; if directory not exist, create it
+    (unless (file-exists-p dirname)
+      (make-directory dirname))
+    ;; return the path to save the download files
+    (expand-file-name filename dirname)))
+
+(setq org-download-method 'my-org-download-method)
+
+(add-hook 'org-mode-hook
+          (lambda()
+            (local-set-key (kbd &quot;C-c p&quot;) 'org-download-screenshot)))
+;;-------------------------End org-download -----------------
+
+(require 'ox-beamer)
+(with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+        '(&quot;ctexart&quot;
+          &quot;\\documentclass[UTF8,a4paper,12pt]{ctexart}
+          \\setcounter{secnumdepth}{4}
+          \\usepackage[linkcolor=blue,citecolor=blue,backref=page]{hyperref}
+          \\usepackage{xeCJK}
+          \\hypersetup{hidelinks}
+          \\usepackage{color}
+          \\usepackage{xcolor}
+          \\usepackage{fontspec}
+          \\usepackage{geometry}
+          \\geometry{top=2cm,bottom=2cm,right=2cm,left=2.5cm}
+          \\geometry{headsep=0.5cm}
+          \\usepackage{setspace}
+          \\setlength{\\baselineskip}{22pt}
+          \\setlength{\\parskip}{0pt}
+          \\usepackage{enumerate}
+          \\usepackage{enumitem}
+          \\newcommand{\\xiaosan}{\\fontsize{15.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\sihao}{\\fontsize{14.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\xiaosi}{\\fontsize{12.1pt}{\\baselineskip}\\selectfont}
+          \\newcommand{\\wuhao}{\\fontsize{10.5pt}{\\baselineskip}\\selectfont}
+          \\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\setdescription{itemsep=0pt,partopsep=0pt,parsep=\\parskip,topsep=5pt}
+          \\usepackage[super,square,numbers,sort&amp;compress]{natbib}
+          \\usepackage{minted}
+          \\usemintedstyle{emacs}%{vs}%{pastie}%{autumn}%{emacs}%{tango}%{rrt}%{manni}
+          \\usepackage{fancyhdr}
+              \\pagestyle{plain}
+          \\ctexset{contentsname=\\heiti{目{\\quad}录}}
+          \\usepackage{titlesec}
+              \\titleformat{\\section}[block]{\\normalfont\\xiaosan\\bfseries\\heiti}{\\thesection}{10pt}{\\xiaosan}
+              \\titleformat{\\subsection}[block]{\\normalfont\\sihao\\bfseries\\heiti}{\\thesubsection}{10pt}{\\sihao
+}
+              \\titleformat{\\subsubsection}[block]{\\normalfont\\sihao\\bfseries\\heiti}{\\thesubsubsection}{10pt}{\\sihao}
+              \\titlespacing{\\chapter} {0pt}{-22pt}{0pt}{}
+              \\titlespacing{\\section} {0pt}{0pt}{0pt}
+              \\titlespacing{\\subsection} {0pt}{0pt}{0pt}
+              \\titlespacing{\\subsubsection} {0pt}{0pt}{0pt}&quot;
+           (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
+           (&quot;\\subsection{%s}&quot; . &quot;\\subsection*{%s}&quot;)
+           (&quot;\\subsubsection{%s}&quot; . &quot;\\subsubsection*{%s}&quot;)
+           (&quot;\\paragraph{%s}&quot; . &quot;\\paragraph*{%s}&quot;)
+           (&quot;\\subparagraph{%s}&quot;     . &quot;\\subparagraph*{%s}&quot;)))
+    (add-to-list 'org-latex-classes
+     ;; beamer class, for presentations
+        '(&quot;beamer&quot;
+        &quot;\\documentclass[11pt,professionalfonts]{beamer}
+         \\mode
+          \\beamertemplateballitem
+          \\setbeameroption{show notes}
+          \\usepackage{graphicx}
+          \\usepackage{fontspec}
+          \\usepackage{xeCJK}
+          \\usepackage{color}
+          \\usepackage{xcolor}
+          \\usepackage{tikz}
+          \\usepackage{titletoc}
+          \\usepackage{ctex}
+          \\usepackage{lmodern}
+          \\usepackage{polyglossia}
+          \\usepackage{verbatim}
+          \\usepackage{soul}
+          \\usepackage{textcomp}
+          \\usepackage{marvosym}
+          \\usepackage{wasysym}
+          \\usepackage{latexsym}
+          \\usepackage{minted}
+          \\usemintedstyle{emacs}%{vs}%{pastie}%{autumn}%{emacs}%{tango}%{rrt}%{manni}
+          \\usepackage{/Users/path/org/styles/zyuebeamer}
+          \\subject{{{{beamersubject}}}}&quot;
+              (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
+              (&quot;\\begin{frame}[fragile]\\frametitle{%s}&quot;
+               &quot;\\end{frame}&quot;
+               &quot;\\begin{frame}[fragile]\\frametitle{%s}&quot;
+               &quot;\\end{frame}&quot;)))
+    (add-to-list 'org-latex-packages-alist
+                 '(&quot;UTF8,fontset=macnew&quot; &quot;ctex&quot; t ))
+    (setq org-latex-default-class &quot;ctexart&quot;)
+    (setq org-latex-logfiles-extensions
+          (quote (&quot;lof&quot; &quot;lot&quot; &quot;tex~&quot; &quot;tex&quot; &quot;aux&quot;
+                  &quot;idx&quot; &quot;log&quot; &quot;out&quot; &quot;toc&quot; &quot;nav&quot;
+                  &quot;snm&quot; &quot;vrb&quot; &quot;dvi&quot; &quot;fdb_latexmk&quot;
+                  &quot;blg&quot; &quot;brf&quot; &quot;fls&quot; &quot;entoc&quot; &quot;ps&quot;
+                  &quot;spl&quot; &quot;bbl&quot; &quot;xdv&quot;)))
+    (setq org-latex-listings 'minted)
+    (setq org-latex-minted-options
+          '((&quot;framesep&quot; &quot;2mm&quot;)
+            (&quot;baselinestretch&quot; &quot;1.2&quot;)
+            (&quot;linenos=true&quot;)
+            (&quot;fontsize&quot; &quot;\\footnotesize&quot;) ;
+;;            (&quot;bgcolor&quot; &quot;LightGray&quot;)
+            (&quot;breaklines&quot; &quot;true&quot;)
+            (&quot;breakanywhere&quot; &quot;true&quot;)
+            ))
+    (setq org-latex-pdf-process '(&quot;xelatex -shell-escape -interaction nonstopmode %f&quot;
+                                  &quot;xelatex -shell-escape -interaction nonstopmode %f&quot;))
+)
+;;\\ctexset{section={format=\\raggedright \\sihao \\heiti}} ;标题靠左
+;;\\usepackage[super,square,numbers,sort&amp;compress]{natbib}  ;引用标号
+;; \\usepackage{amssymb}  ;数学公式包
+;; \\usepackage{mathrsfs} ;数学公式包
+;; \\usepackage[namelimits]{amsmath} ;数学公式包
+;; \\usepackage{tikz}  ;绘图包,流程图，脑图
+;; \\setmainfont{Times New Roman} ;全局设置字体
+;; \\usepackage{ulem} ;下划线等标记
+          ;; \\usepackage{fancyhdr} ;设置页眉页脚
+          ;;     \\pagestyle{fancy}
+          ;;     \\fancyhead{}
+          ;;     \\fancyhead[CO,CE]{\\leftmark}
+;;          \\institute{{{{beamerinstitute}}}} 指定学校
+;;            (&quot;framesep=2mm&quot;)
+;;             (&quot;fontsize=\\footnotesize&quot;)
+;; (add-to-list 'org-latex-packages-alist '(&quot;&quot; &quot;minted&quot;)) ;加入一个包
+;;--------------------------end latex---------------------------
+;; Enable abbrev-mode
+</code></pre>
+<h2 id="my-abberev-config">my abberev config</h2>
+<pre><code class="language-lisp">(provide 'myabbrev)
+
+(add-hook 'org-mode-hook (lambda () (abbrev-mode t)))
+;; abbev and skeleton
+(define-skeleton skel-org-block
+  &quot;Insert an org block, querying for type.&quot;
+  &quot;Type: &quot;
+  &quot;#+begin_&quot; str &quot;\n&quot;
+  _ - \n
+  &quot;#+end_&quot; str &quot;\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sblk&quot; &quot;&quot; 'skel-org-block)
+
+(define-skeleton skel-org-block-ditaa
+  &quot;Insert a org ditaa block, querying for filename.&quot;
+  &quot;File (no extension): &quot;
+  &quot;#+begin_src ditaa :file &quot; str &quot;.png :cache yes\n&quot;
+  _ - \n
+  &quot;#+end_src\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sditaa&quot; &quot;&quot; 'skel-org-block-ditaa)
+
+(define-skeleton skel-org-beamer
+  &quot;Insert an org block, querying for type.&quot;
+  &quot;Type: &quot;
+&quot;# -*- mode: snippet -*-\n&quot;
+&quot;#+TITLE:  &quot;   str  \n
+&quot;#+AUTHOR:    username \n&quot;
+&quot;#+EMAIL:     username@comp.com \n&quot;
+&quot;#+DESCRIPTION: \n&quot;
+&quot;#+KEYWORDS: \n&quot;
+&quot;#+OPTIONS:   H:2 num:t toc:t \\n:nil @:t ::t |:t ^:{} -:t f:t *:t &lt;:t\n&quot;
+&quot;#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n&quot;
+&quot;#+EXPORT_SELECT_TAGS: export\n&quot;
+&quot;#+EXPORT_EXCLUDE_TAGS: noexport\n&quot;
+&quot;#+startup: beamer\n&quot;
+&quot;#+LaTeX_CLASS: beamer\n&quot;
+&quot;#+LaTeX_CLASS_OPTIONS: [bigger]\n&quot;
+&quot;#+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act)%4BEAMER_col(Col) %8BEAMER_opt(Opt)\n&quot;
+@ _)
+
+(define-abbrev org-mode-abbrev-table &quot;beamh&quot; &quot;&quot; 'skel-org-beamer)
+
+(define-skeleton skel-defun
+  &quot;Insert a defun template.&quot;
+  &quot;Name: &quot;
+  &quot;(defun &quot; str &quot; (&quot; @ - &quot;)&quot; \n
+  &quot;(&quot; @ _ &quot;)&quot; \n)
+
+(define-abbrev org-mode-abbrev-table &quot;defun&quot; &quot;&quot; 'skel-defun)
+
+(define-abbrev org-mode-abbrev-table &quot;footz&quot; &quot;#+attr_latex: :font \\footnotesize&quot; &quot;&quot;)
+
+(define-skeleton read-two-vars
+  &quot;Prompt the user for two variables, and use them in a skeleton.&quot;
+  &quot;&quot;
+  &gt; &quot;variable A is &quot; (setq v1 (skeleton-read &quot;Variable A? &quot;)) \n
+  &gt; &quot;variable B is &quot; (setq v2 (skeleton-read &quot;Variable B? &quot;)) \n
+  &gt; &quot;A: &quot; v1 &quot;    B: &quot; v2 \n)
+
+(define-abbrev org-mode-abbrev-table &quot;twov&quot; &quot;&quot; 'read-two-vars)
+
+(define-skeleton skel-org-orgh
+    &quot;Insert a org head.&quot;
+    &quot;Name: &quot;
+    &quot;#+TITLE:&quot; str \n
+    &quot;#+OPTIONS: author:nil ^:{}&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;orgh&quot; &quot;&quot; 'skel-org-orgh)
+
+(define-skeleton skel-org-hugoh
+    &quot;Insert a hugo head.&quot;
+    &quot;Name: &quot;
+&quot;#+OPTIONS: author:nil ^:{}\n&quot;
+&quot;#+HUGO_BASE_DIR: ../\n&quot;
+&quot;#+TITLE: &quot; str \n
+&quot;#+HUGO_AUTO_SET_LASTMOD: t\n&quot;
+&quot;#+HUGO_TAGS: &quot; @ - \n
+&quot;#+HUGO_CATEGORIES: \n&quot;
+&quot;#+HUGO_DRAFT: false\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;hugoh&quot; &quot;&quot; 'skel-org-hugoh)
+
+
+(define-skeleton skel-org-picv
+    &quot;Insert a hugo head.&quot;
+    &quot;Name: &quot;
+&quot;#+CAPTION: &quot; (setq v1 (skeleton-read &quot;caption? &quot;)) \n
+&quot;#+ATTR_HTML: :title &quot; v1 &quot; :align &quot;(skeleton-read &quot;centre/right/left? &quot;)\n
+&quot;#+ATTR_HTML: :width &quot;(setq v2 (skeleton-read &quot;width %? &quot;))&quot;%&quot; &quot; :height &quot;v2&quot;%\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;pich&quot; &quot;&quot; 'skel-org-picv)
+
+</code></pre>
+<h2 id="my-gtd-config">my gtd config</h2>
+<pre><code class="language-lisp">(provide 'mygtd)
+;;-------------begin  gtd------------------------------
+(global-set-key &quot;\C-c1&quot; 'org-store-link)
+(global-set-key &quot;\C-cc&quot; 'org-capture)
+;;(global-set-key &quot;\C-cr&quot; 'remember)
+(global-set-key &quot;\C-ca&quot; 'org-agenda)
+(global-set-key &quot;\C-cb&quot; 'org-iswitchb)
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
+(setq org-todo-keywords
+      '(
+       (sequence &quot;TODO(t!)&quot; &quot;|&quot; &quot;DONE(d!)&quot; &quot;CANCELED(c@/!)&quot; &quot;ASSIGNED(a@/!)&quot;))
+      )
+(setq org-capture-templates
+      '((&quot;t&quot; &quot;Todo&quot; entry (file+headline &quot;~/.todos/gtd.org&quot; &quot;Tasks&quot;)
+         &quot;* TODO %?\n %i\n %a&quot;)
+        (&quot;j&quot; &quot;Journal&quot; entry (file+datetree &quot;~/.todos/journal.org&quot;)
+         &quot;* %?\nEntered on %U\n %i\n %a&quot;)))
+(setq org-agenda-files (list &quot;~/.todos/gtd.org&quot;
+                              &quot;~/.todos/journal.org&quot;
+                              &quot;~/Documents/todo/&quot;
+                              ))
+(setq org-default-notes-file &quot;~/.todos/journal.org&quot;)
+
+;;----------------end gtd-------------------------------
+;;---------------begin hugo------------------------
+;; org-hugo capture
+(with-eval-after-load 'org-capture
+  (defun org-hugo-new-subtree-post-capture-template ()
+    &quot;Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information.&quot;
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer &quot;Post Title: &quot;)) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat &quot;** TODO &quot; title &quot;     :@随笔:&quot;)
+                   &quot;:PROPERTIES:&quot;
+                   ,(concat &quot;:EXPORT_FILE_NAME: &quot; fname)
+                   ,(concat &quot;:EXPORT_DATE: &quot; date) ;Enter current date and time
+                   &quot;:END:&quot;
+                   &quot;%?\n&quot;)          ;Place the cursor here finally
+                 &quot;\n&quot;)))
+
+  (add-to-list 'org-capture-templates
+               '(&quot;h&quot;                ;`org-capture' binding + h
+                 &quot;Hugo post&quot;
+                 entry
+                 ;; It is assumed that below file is present in `org-directory'
+                 ;; and that it has a &quot;Blog Ideas&quot; heading. It can even be a
+                 ;; symlink pointing to the actual location of all-posts.org!
+                 (file+headline &quot;~/blog/gitblog//orgcontent/0000head.org&quot; &quot;INBOX&quot;)
+                 (function org-hugo-new-subtree-post-capture-template))))
+;;---------------end hugo--------------------------
+
+</code></pre>
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/config/">config</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/hugo/">hugo</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#my-main-config">my main config</a></li>
+    <li><a href="#my-latex-config">my latex config</a></li>
+    <li><a href="#my-abberev-config">my abberev config</a></li>
+    <li><a href="#my-gtd-config">my gtd config</a></li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/config/">config</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/hugo/">hugo</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#my-main-config">my main config</a></li>
+    <li><a href="#my-latex-config">my latex config</a></li>
+    <li><a href="#my-abberev-config">my abberev config</a></li>
+    <li><a href="#my-gtd-config">my gtd config</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

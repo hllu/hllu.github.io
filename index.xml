@@ -6,7 +6,16 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 May 2023 15:37:28 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 May 2023 15:08:20 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>my emacs config</title>
+      <link>https://hllu.github.io/posts/emacsconfig/</link>
+      <pubDate>Tue, 23 May 2023 15:08:20 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/emacsconfig/</guid>
+      <description>my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-+会增加字体大小 ;; C-+ 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #+ATTR_ORG: :width 100 ~ ;; #+ATTR_HTML: :width 100 ~ ;; C-c C-q</description>
+    </item>
+    
     <item>
       <title>VPC内互通问题排查</title>
       <link>https://hllu.github.io/posts/vpc%E5%86%85%E4%BA%92%E9%80%9A%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/</link>
