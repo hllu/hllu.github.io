@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/beamer/" /><meta property="og:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" />
 <meta name="twitter:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-12T00:00:00+00:00" /><meta property="article:modified_time" content="2023-05-12T16:10:31+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-12T00:00:00+00:00" /><meta property="article:modified_time" content="2023-05-23T14:51:29+08:00" />
 
 
 <style>
@@ -102,8 +102,8 @@
     </h2>
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-12</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2267 words</span>
+<span><i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2023-05-23</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2410 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beamer">beamer</a>&nbsp;<a href="/tags/org">org</a>&nbsp;</span>
 
@@ -152,14 +152,6 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
 <li>rrt</li>
 <li>manni</li>
 </ul>
-<h3 id="安装beamer模版">安装beamer模版</h3>
-<p>beamer 有很多默认的模版，各模版的显示效果可以从这个网站查看。
-<a href="https://hartwork.org/beamer-theme-matrix/" target="_blank">https://hartwork.org/beamer-theme-matrix/</a></p>
-<p>大部分情况下，使用默认的模版，效果就已经足够满意了。如果自己有定制效果，
-可以自己修改模版，或者从网上查找模版。</p>
-<p>下载的模版大都是sty文件类型，可以下载这个sty文件和相关的依赖文件，放到
-写beamer文档的目录下，写的时候引入包即可。可以在.emacs配置文件中引用这个模版。具体
-配置方式参考下一节。</p>
 <h3 id="配置">配置</h3>
 <h4 id="emacs配置">emacs配置</h4>
 <p>emacs中的配置如下，注意要引入ox-beamer包。</p>
@@ -203,7 +195,7 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
               \\titlespacing{\\chapter} {0pt}{-22pt}{0pt}{}
               \\titlespacing{\\section} {0pt}{0pt}{0pt}
               \\titlespacing{\\subsection} {0pt}{0pt}{0pt}
-              \\titlespacing{\\subsubsection} {0pt}{0pt}{0pt}}&quot;
+              \\titlespacing{\\subsubsection} {0pt}{0pt}{0pt}&quot;
            (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
            (&quot;\\subsection{%s}&quot; . &quot;\\subsection*{%s}&quot;)
            (&quot;\\subsubsection{%s}&quot; . &quot;\\subsubsection*{%s}&quot;)
@@ -250,6 +242,16 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
     ;;               &quot;blg&quot; &quot;brf&quot; &quot;fls&quot; &quot;entoc&quot; &quot;ps&quot;
     ;;               &quot;spl&quot; &quot;bbl&quot; &quot;xdv&quot;)))
     (setq org-latex-listings 'minted)
+    (setq org-latex-minted-options
+        '((&quot;framesep&quot; &quot;2mm&quot;)
+          (&quot;baselinestretch&quot; &quot;1.2&quot;)
+          (&quot;linenos=true&quot;)
+          (&quot;fontsize&quot; &quot;\\footnotesize&quot;) ;
+;;            (&quot;bgcolor&quot; &quot;LightGray&quot;)
+          (&quot;breaklines&quot; &quot;true&quot;)
+          (&quot;breakanywhere&quot; &quot;true&quot;)
+          ))
+
     (setq org-latex-pdf-process '(&quot;xelatex -shell-escape -interaction nonstopmode %f&quot;
                                   &quot;xelatex -shell-escape -interaction nonstopmode %f&quot;))
 )
@@ -327,10 +329,10 @@ To create a column on the Beamer slide, use the ‘BEAMER_COL’ property for it
 <p>通过以上参数设置，可以指定列宽为0.3页面宽度。在org中，可以使用快捷建
 C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
 <p>注意，有时候快捷键不起作用，原因未知。
-可以参考网上的说法，试试效果
-#+begin_vers
-有一点小小的不爽，在扩展beamer snippet之后，要在第一行 #+startup: beamer 上做 C-c C-c ，才能使 C-c C-b 组合键起作用。
-#+end_verse</p>
+可以参考网上的说法，试试效果</p>
+<blockquote>
+<p>有一点小小的不爽，在扩展beamer snippet之后，要在第一行 startup: beamer 上做 C-c C-c ，才能使 C-c C-b 组合键起作用。</p>
+</blockquote>
 <p>建议以上各种属性都实验一下。</p>
 <h3 id="block布局">block布局</h3>
 <p>block布局是beamer中一个很有用的功能。可以在幻灯片中写出不同显示效
@@ -346,8 +348,59 @@ C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
 时候重叠起来。</p>
 <pre><code class="language-shell">BEAMER_act: [&lt;+-&gt;]
 </code></pre>
+<p>如果需要三个block按先后顺序显示，可以用以下方式</p>
+<div class="verse">
+<p>:PROPERTIES:<br />
+:beamer_act: &lt;1&gt;<br />
+:BEAMER_col: 0.3<br />
+:BEAMER_ENV: block<br />
+:END:<br />
+a picture link<br />
+<br />
+:PROPERTIES:<br />
+:beamer_act: &lt;2-&gt;<br />
+:BEAMER_col: 0.3<br />
+:BEAMER_ENV: block<br />
+:END:<br />
+b picture link<br />
+<br />
+:PROPERTIES:<br />
+:beamer_act: &lt;3-&gt;<br />
+:BEAMER_col: 0.3<br />
+:BEAMER_ENV: block<br />
+:END:<br />
+c picture link<br />
+<br /></p>
+</div>
+<p>其中，a图片显示后，在后续b图显示出来时会消失，但b，c一直存在。</p>
+<h3 id="no-indent-list">no indent list</h3>
+<div class="verse">
+<p>#+ATTR_BEAMER: :environment nonindentlist<br /></p>
+<ul>
+<li>item 1, not indented<br /></li>
+<li>item 2, not indented<br /></li>
+<li>item 3, not indented<br /></li>
+</ul>
+</div>
+<h3 id="colorbox">colorbox</h3>
+<div class="verse">
+<p>#+LaTeX: \setbeamercolor{myblockcolor}{bg=magenta,fg=white}<br />
+<strong>*</strong> myblockcolor                                             :B_beamercolorbox:<br />
+:PROPERTIES:<br />
+:BEAMER_env: beamercolorbox<br />
+:BEAMER_opt: wd=6cm,rounded=ture,center<br />
+:END:<br /></p>
+</div>
+<p>可以指定特殊的颜色。</p>
 <h2 id="进阶功能">进阶功能</h2>
-<h3 id="自定义模版">自定义模版</h3>
+<h3 id="安装beamer模版">安装beamer模版</h3>
+<p>beamer 有很多默认的模版，各模版的显示效果可以从这个网站查看。
+<a href="https://hartwork.org/beamer-theme-matrix/" target="_blank">https://hartwork.org/beamer-theme-matrix/</a></p>
+<p>大部分情况下，使用默认的模版，效果就已经足够满意了。如果自己有定制效果，
+可以自己修改模版，或者从网上查找模版。</p>
+<p>下载的模版大都是sty文件类型，可以下载这个sty文件和相关的依赖文件，放到
+写beamer文档的目录下，写的时候引入包即可。可以在.emacs配置文件中引用这个模版。具体
+配置方式参考下一节。</p>
 
     </div>
 </article>
@@ -518,7 +571,6 @@ C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
       <ul>
         <li><a href="#安装latex">安装latex</a></li>
         <li><a href="#安装代码支持">安装代码支持</a></li>
-        <li><a href="#安装beamer模版">安装beamer模版</a></li>
         <li><a href="#配置">配置</a></li>
       </ul>
     </li>
@@ -529,11 +581,13 @@ C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
         <li><a href="#分列布局">分列布局</a></li>
         <li><a href="#block布局">block布局</a></li>
         <li><a href="#beamer-act">BEAMER_ACT</a></li>
+        <li><a href="#no-indent-list">no indent list</a></li>
+        <li><a href="#colorbox">colorbox</a></li>
       </ul>
     </li>
     <li><a href="#进阶功能">进阶功能</a>
       <ul>
-        <li><a href="#自定义模版">自定义模版</a></li>
+        <li><a href="#安装beamer模版">安装beamer模版</a></li>
       </ul>
     </li>
   </ul>
@@ -711,7 +765,6 @@ C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
       <ul>
         <li><a href="#安装latex">安装latex</a></li>
         <li><a href="#安装代码支持">安装代码支持</a></li>
-        <li><a href="#安装beamer模版">安装beamer模版</a></li>
         <li><a href="#配置">配置</a></li>
       </ul>
     </li>
@@ -722,11 +775,13 @@ C-c C-n 选择需要的属性，文档中会自动插入以上代码。</p>
         <li><a href="#分列布局">分列布局</a></li>
         <li><a href="#block布局">block布局</a></li>
         <li><a href="#beamer-act">BEAMER_ACT</a></li>
+        <li><a href="#no-indent-list">no indent list</a></li>
+        <li><a href="#colorbox">colorbox</a></li>
       </ul>
     </li>
     <li><a href="#进阶功能">进阶功能</a>
       <ul>
-        <li><a href="#自定义模版">自定义模版</a></li>
+        <li><a href="#安装beamer模版">安装beamer模版</a></li>
       </ul>
     </li>
   </ul>
