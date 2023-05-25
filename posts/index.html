@@ -38,7 +38,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hllu.github.io/posts/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-05-23T15:08:20+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2023-05-25T10:58:05+08:00" />
 
 
 <style>
@@ -95,6 +95,23 @@
                 
 
 
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/use-ditaa-in-emacs/">use ditaa in emacs</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-25</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1123 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ditaa">ditaa</a>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/picture-mode">picture-mode</a>&nbsp;</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - + / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储
+    </div>
+</div>
 
 <div class="post">
     <h2 class="post-item post-title">
@@ -248,31 +265,16 @@
         WSGI(Web Server Gateway Interface) WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求。我们来看一个最简单的Web版本的“Hello, web!”： def application(environ, start_response): start_response('200 OK', [('Content-Type', 'text/html')]) return [b'&lt;h1&gt;Hello, web!&lt;/h1&gt;'] 上面的application(
     </div>
 </div>
-
-<div class="post">
-    <h2 class="post-item post-title">
-        <a href="https://hllu.github.io/posts/ovs/">OVS 常用命令</a>
-    </h2>
-    <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-04-27</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;654 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
-
-    </div>
-    <div class="post-item post-summary markdown-body">
-        如何添加OVS和PORT; ovs-vsctl add-br br0 ovs-vsctl del-br br0 ovs-vsctl list-br ovs-vsctl add-port br0 eth0 ovs-vsctl set port eth0 tag=1//vlan id ovs-vsctl del-port br0 eth0 ovs-vsctl list-ports br0 ovs-vsctl show //显示所有端口的vlan属性 如何配置QOS，比如队列和限速; sudo ovs-vsctl -- set Port eth2 qos=@newqos -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 -- --id=@q0 create Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 -- --id=@q1 create Queue other-config:min-rate=500000000 ovs-vsctl clear
-    </div>
-</div>
 <div class="pagination"><div class="pag-item pag-current">
     <a href="/posts/">1</a>
   </div><div class="pag-item">
     <a href="/posts/page/2/">2</a>
+  </div><div class="pag-item">
+    <a href="/posts/page/3/">3</a>
   </div><div class="pag-next">
     <a href="/posts/page/2/"><i class="iconfont icon-chevron-forward-circle-sharp"></i></a>
   </div><div class="pag-last">
-    <a href="/posts/page/2/"><i class="iconfont icon-caret-forward-circle-sharp"></i></a>
+    <a href="/posts/page/3/"><i class="iconfont icon-caret-forward-circle-sharp"></i></a>
   </div></div>
             </div>
             <aside class="col-12 col-md-3 float-left sidebar">
@@ -344,6 +346,10 @@
             </span>
             
             <span>
+                <a href="/tags/ditaa/">ditaa</a>
+            </span>
+            
+            <span>
                 <a href="/tags/download/">download</a>
             </span>
             
@@ -397,6 +403,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture-mode/">picture-mode</a>
             </span>
             
             <span>
@@ -515,6 +525,10 @@
             </span>
             
             <span>
+                <a href="/tags/ditaa/">ditaa</a>
+            </span>
+            
+            <span>
                 <a href="/tags/download/">download</a>
             </span>
             
@@ -568,6 +582,10 @@
             
             <span>
                 <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture-mode/">picture-mode</a>
             </span>
             
             <span>

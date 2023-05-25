@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>picture-mode on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/picture-mode/</link>
+    <description>Recent content in picture-mode on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 25 May 2023 10:58:05 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/picture-mode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>use ditaa in emacs</title>
+      <link>https://hllu.github.io/posts/use-ditaa-in-emacs/</link>
+      <pubDate>Thu, 25 May 2023 10:58:05 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/use-ditaa-in-emacs/</guid>
+      <description>ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - + / &amp;gt; &amp;lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储</description>
+    </item>
+    
+  </channel>
+</rss>

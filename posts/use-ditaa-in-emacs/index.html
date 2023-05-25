@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.111.3">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon-16x16.png" />
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/site.webmanifest" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/safari-pinned-tab.svg" color="#8aa2d3" />
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+<meta name="theme-color" content="#ffffff" />
+
+
+<title>use ditaa in emacs - hllu&#39;s blog</title>
+
+
+<meta name="author" content="hllu" />
+
+
+<meta name="description" content="A minimal Hugo theme with nice theme color." />
+
+
+<meta name="keywords" content="ditaa, emacs, picture-mode" />
+
+
+<meta property="og:title" content="use ditaa in emacs" />
+<meta name="twitter:title" content="use ditaa in emacs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/use-ditaa-in-emacs/" /><meta property="og:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" />
+<meta name="twitter:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-25T10:58:05+08:00" /><meta property="article:modified_time" content="2023-05-25T10:58:05+08:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://hllu.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://hllu.github.io">hllu&#39;s blog</a>
+            
+            <span class="title-sub">hllu 的个人空间.</span>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/use-ditaa-in-emacs/">use ditaa in emacs</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-25</span>
+
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1123 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ditaa">ditaa</a>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/picture-mode">picture-mode</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="ditaa">ditaa</h2>
+<p>ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一
+种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - + / &gt;
+&lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储和阅读。</p>
+<p>ditaa比较轻量化，可以画比较简单的流程图及结构图等。</p>
+<h3 id="安装">安装</h3>
+<p>依赖java环境，如果有了java环境。macos下可以用以下命令安装</p>
+<pre><code class="language-shell">brew install ditaa
+</code></pre>
+<p>也可以从网上直接下载tar包，放在一个目录下就可以。</p>
+<h3 id="语法">语法</h3>
+<ul>
+<li>ditaa 能识别一些改变矩形渲染方式的标签。所有标记都在 { 和 }之间。</li>
+</ul>
+<p>支持的形状有,方形、椭圆、菱形、数据库、梯形、倒梯形、文档、io。</p>
+<ul>
+<li>ditaa有方框和箭头两种实体，横轴用多个-进行表示，竖轴用|进行表示，拐角</li>
+</ul>
+<p>用+表示直角，用/表示圆角。</p>
+<ul>
+<li>
+<p>颜色有两种：一种是以十六进制数进行表示；另一种是以单词进行表示。</p>
+</li>
+<li>
+<p>横轴包括至少一个=或竖轴至少包含一个:英文的冒号，那么原有的实线可以变为虚线。</p>
+</li>
+<li>
+<p>如果*在一个行中，其被渲染成特定的列表符号o</p>
+</li>
+<li>
+<p>文本模式：&rsquo; o XXXXX&rsquo; 其o会被渲染成列表符号，注意其前后都有一空格；后面</p>
+</li>
+</ul>
+<p>的XXXX是文本信息。</p>
+<h2 id="babel">babel</h2>
+<p>简单的说Babel可以让许多不同的语言一起工作，它可以执行不同语言的代码块，
+org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</p>
+<h3 id="配置">配置</h3>
+<p>要想在org-mode文件里执行其他程序语言的片断，需要在 .emacs 里加入如下配置：</p>
+<pre><code class="language-lisp">(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+      (ditaa . t)
+      (python . t)
+      (shell . t)
+      (latex . t)
+      (plantuml . t)
+      (dot . t)
+      (lisp . t)
+      (org . t)
+      (java . t)))
+</code></pre>
+<h3 id="常用的abbev">常用的abbev</h3>
+<p>常用的缩写配置，可以在文档中方便的插入下列ditaa头。</p>
+<pre><code class="language-lisp">  (define-skeleton skel-org-block-ditaa
+  &quot;Insert a org ditaa block, querying for filename.&quot;
+  &quot;File (no extension): &quot;
+  &quot;#+begin_src ditaa :file &quot; str &quot;.png :cache yes\n&quot;
+  _ - \n
+  &quot;#+end_src\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sditaa&quot; &quot;&quot; 'skel-org-block-ditaa)
+</code></pre>
+<h2 id="config">config</h2>
+<p>其他关于ditaa的配置</p>
+<pre><code class="language-lisp">;;(setq org-plantuml-jar-path
+;;      (expand-file-name &quot;~/.emacs.d/scripts/plantuml.jar&quot;))
+
+(setq org-ditaa-jar-path  &quot;~/.emacs.d/plugins/ditaa0_9.jar&quot;)
+(setq org-confirm-babel-evaluate nil)   ;picture 不提示
+(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
+
+; Make babel results blocks lowercase
+(setq org-babel-results-keyword &quot;results&quot;)
+
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
+;;C-c C-c get pic
+;;C-c C-x C-v see picture
+
+</code></pre>
+<h2 id="picture-mode">picture mode</h2>
+<p>picture mode 可以画出ASCII图形。进入这个模式，可以用M-x edit-picture
+或者 M-x picture-mode.</p>
+<h3 id="常用画图方向命令">常用画图方向命令</h3>
+<p>前后左右移动键，跟其他模式相同。</p>
+<ul>
+<li>
+<p>Move left after insertion:            C-c &lt;</p>
+</li>
+<li>
+<p>Move right after insertion:           C-c &gt;</p>
+</li>
+<li>
+<p>Move up after insertion:              C-c ^</p>
+</li>
+<li>
+<p>Move down after insertion:            C-c .</p>
+</li>
+<li>
+<p>Move northwest (nw) after insertion:  C-c `</p>
+</li>
+<li>
+<p>Move northeast (ne) after insertion:  C-c '</p>
+</li>
+<li>
+<p>Move southwest (sw) after insertion:  C-c /</p>
+</li>
+<li>
+<p>Move southeast (se) after insertion:  C-c \</p>
+</li>
+<li>
+<p>Move westnorthwest (wnw) after insertion:  C-u C-c `</p>
+</li>
+<li>
+<p>Move eastnortheast (ene) after insertion:  C-u C-c '</p>
+</li>
+<li>
+<p>Move westsouthwest (wsw) after insertion:  C-u C-c /</p>
+</li>
+<li>
+<p>Move eastsoutheast (ese) after insertion:  C-u C-c \</p>
+</li>
+</ul>
+<h3 id="常用图形命令">常用图形命令</h3>
+<ul>
+<li>Clear a rectangle and save it:                  C-c C-k</li>
+<li>Clear a rectangle, saving in a named register:  C-c C-w</li>
+<li>Insert currently saved rectangle at point:      C-c C-y</li>
+<li>Insert rectangle from named register:           C-c C-x</li>
+<li>Draw a rectangular box around mark and point:   C-c C-r</li>
+<li>Copies a rectangle to a register:               C-x r r</li>
+<li>Undo effects of rectangle overlay commands:     C-x u</li>
+</ul>
+<h2 id="example">example</h2>
+<p>ditaa 图示例，ascii图如下所示。</p>
+<div class="verse">
+<p><del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del><br />
+| c {c}|d {d} |io{io}|mo{mo}|o{o}  |s{s}  |tr{tr}|<br />
+<del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del>&mdash;&mdash;<del>&mdash;&mdash;</del><br />
+<br />
+  /&mdash;&mdash;&mdash;&mdash;-<del>&mdash;&mdash;&mdash;&mdash;-\          +&mdash;&mdash;&mdash;&mdash;&ndash;</del><br />
+  |cRED RED     |cBLU BLU     |          |  {c}         |<br />
+  <del>&mdash;&mdash;&mdash;&mdash;-</del>&mdash;&mdash;&mdash;&mdash;-<del>&mdash;-</del>     |    test c    |<br />
+  |cGRE GRE     |cPNK PNK     |    |     <del>&mdash;&mdash;</del>&mdash;&mdash;-+<br />
+  <del>&mdash;&mdash;&mdash;&mdash;-</del>&mdash;&mdash;&mdash;&mdash;-+    |            |<br />
+  |cBLK BLK     |cYEL YEL     |    |            |<br />
+  \&mdash;&mdash;&mdash;&mdash;-<del>&mdash;&mdash;&mdash;&mdash;-/    *     +&mdash;&mdash;</del>&mdash;&mdash;&mdash;+<br />
+                |                  |     |  {o}           |<br />
+  /&mdash;&mdash;&mdash;&mdash;-<del>&mdash;&mdash;&mdash;&mdash;-\    |     |   test 0       |<br />
+  |c777 777     |c33F 33F     |    |     +&mdash;&mdash;-</del>&mdash;&mdash;&ndash;+<br />
+  <del>&mdash;&mdash;&mdash;&mdash;-</del>&mdash;&mdash;&mdash;&mdash;-+    |             |<br />
+  |c1FF 1FF     |c707 707     |    |             V<br />
+  <del>&mdash;&mdash;&mdash;&mdash;-</del>&mdash;&mdash;&mdash;&mdash;-+    |     <del>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</del><br />
+  |c1AB 1AB     |cDDD ddd     |    |     | c707    {mo}       |<br />
+  \&mdash;&mdash;&mdash;&mdash;-<del>&mdash;&ndash;</del>&mdash;&mdash;-/    |     | mo test            |<br />
+                      ^            |     |                    |<br />
+   &mdash;-=&mdash;&mdash;        |            |     <del>&ndash;</del>&mdash;&ndash;<strong>&mdash;&ndash;^&mdash;&ndash;+<br />
+   &mdash;-</strong>&mdash;&ndash;         V            |        |     |     |   ^<br />
+              /&mdash;&mdash;-+&mdash;&mdash;&mdash;\  |        |     |     |   |<br />
+   <code>======</code>   | Things to do    |  |        |     |     |   |<br />
+              | cGRE            |  V        V     |     :   V<br />
+              | o Cut the grass |    <del>&mdash;&mdash;</del>&mdash;&ndash;*&mdash;&ndash;V&mdash;&mdash;&mdash;-+<br />
+   &mdash;:&mdash;-   | o Fix car       |    |     line test               |<br />
+              | o Make website  |    |                             |<br />
+              \&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;/    |                             |<br />
+                                     |                             |<br />
+                                     <del>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;</del><br /></p>
+</div>
+<p>产生的图片效果如下</p>
+<figure><img src="/ox-hugo/screenshot_20230525_103801.png"/>
+</figure>
+
+
+    </div>
+</article>
+
+
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
+</div>
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/config/">config</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ditaa/">ditaa</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/hugo/">hugo</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture-mode/">picture-mode</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ditaa">ditaa</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#语法">语法</a></li>
+      </ul>
+    </li>
+    <li><a href="#babel">babel</a>
+      <ul>
+        <li><a href="#配置">配置</a></li>
+        <li><a href="#常用的abbev">常用的abbev</a></li>
+      </ul>
+    </li>
+    <li><a href="#config">config</a></li>
+    <li><a href="#picture-mode">picture mode</a>
+      <ul>
+        <li><a href="#常用画图方向命令">常用画图方向命令</a></li>
+        <li><a href="#常用图形命令">常用图形命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#example">example</a></li>
+  </ul>
+</nav></div>
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives/">Archives</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/search/">Search</a>
+            </li>
+            
+            <li>
+                <a href="/index.xml">RSS</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/hllu" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com" target="_blank"><span>bilibili</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/abbrev/">abbrev</a>
+            </span>
+            
+            <span>
+                <a href="/tags/beamer/">beamer</a>
+            </span>
+            
+            <span>
+                <a href="/tags/blog/">Blog</a>
+            </span>
+            
+            <span>
+                <a href="/tags/config/">config</a>
+            </span>
+            
+            <span>
+                <a href="/tags/curl/">curl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ditaa/">ditaa</a>
+            </span>
+            
+            <span>
+                <a href="/tags/download/">download</a>
+            </span>
+            
+            <span>
+                <a href="/tags/dvr/">dvr</a>
+            </span>
+            
+            <span>
+                <a href="/tags/emacs/">emacs</a>
+            </span>
+            
+            <span>
+                <a href="/tags/http/">http</a>
+            </span>
+            
+            <span>
+                <a href="/tags/hugo/">hugo</a>
+            </span>
+            
+            <span>
+                <a href="/tags/image/">image</a>
+            </span>
+            
+            <span>
+                <a href="/tags/iptables/">iptables</a>
+            </span>
+            
+            <span>
+                <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/neutron/">neutron</a>
+            </span>
+            
+            <span>
+                <a href="/tags/odl/">odl</a>
+            </span>
+            
+            <span>
+                <a href="/tags/openstack/">openstack</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org/">org</a>
+            </span>
+            
+            <span>
+                <a href="/tags/org-model/">org-model</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture/">picture</a>
+            </span>
+            
+            <span>
+                <a href="/tags/picture-mode/">picture-mode</a>
+            </span>
+            
+            <span>
+                <a href="/tags/qrouter/">qrouter</a>
+            </span>
+            
+            <span>
+                <a href="/tags/rpc/">rpc</a>
+            </span>
+            
+            <span>
+                <a href="/tags/skeleton/">skeleton</a>
+            </span>
+            
+            <span>
+                <a href="/tags/snippet/">snippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/ssh/">ssh</a>
+            </span>
+            
+            <span>
+                <a href="/tags/yasnippet/">yasnippet</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%E5%8E%8B%E6%B5%8B/">压测</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ditaa">ditaa</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#语法">语法</a></li>
+      </ul>
+    </li>
+    <li><a href="#babel">babel</a>
+      <ul>
+        <li><a href="#配置">配置</a></li>
+        <li><a href="#常用的abbev">常用的abbev</a></li>
+      </ul>
+    </li>
+    <li><a href="#config">config</a></li>
+    <li><a href="#picture-mode">picture mode</a>
+      <ul>
+        <li><a href="#常用画图方向命令">常用画图方向命令</a></li>
+        <li><a href="#常用图形命令">常用图形命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#example">example</a></li>
+  </ul>
+</nav>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021-2023
+                <a href="https://hllu.github.io">hllu</a>
+                 | <a href="https://github.com/hllu/day">Source code</a> 
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.0/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>

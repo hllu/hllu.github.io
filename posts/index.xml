@@ -6,7 +6,16 @@
     <description>Recent content in Posts on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 23 May 2023 15:08:20 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 May 2023 10:58:05 +0800</lastBuildDate><atom:link href="https://hllu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>use ditaa in emacs</title>
+      <link>https://hllu.github.io/posts/use-ditaa-in-emacs/</link>
+      <pubDate>Thu, 25 May 2023 10:58:05 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/use-ditaa-in-emacs/</guid>
+      <description>ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - + / &amp;gt; &amp;lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储</description>
+    </item>
+    
     <item>
       <title>my emacs config</title>
       <link>https://hllu.github.io/posts/emacsconfig/</link>
