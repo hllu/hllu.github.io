@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta name="generator" content="Hugo 0.111.3">
+<meta name="generator" content="Hugo 0.112.3">
 
 
 
@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/use-ditaa-in-emacs/" /><meta property="og:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" />
 <meta name="twitter:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-25T11:04:30+08:00" /><meta property="article:modified_time" content="2023-05-25T11:04:30+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-26T11:01:08+08:00" /><meta property="article:modified_time" content="2023-05-26T11:01:08+08:00" />
 
 
 <style>
@@ -101,9 +101,9 @@
         <a href="https://hllu.github.io/posts/use-ditaa-in-emacs/">use ditaa in emacs</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-25</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-26</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;962 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1310 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ditaa">ditaa</a>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/picture-mode">picture-mode</a>&nbsp;</span>
 
@@ -144,6 +144,26 @@
 </li>
 </ul>
 <p>的XXXX是文本信息。</p>
+<h3 id="参数">参数</h3>
+<ul>
+<li>-e	–encoding	指定编码</li>
+<li>-E	–no-separation	嵌套矩形是否分隔,缺省有分隔,设置后无</li>
+<li>-r	–round-corners	圆角矩形</li>
+<li>-s	–scale	矩形大小 ,比如 0.8</li>
+<li>-o	–overwrite	如果有同名文件覆盖</li>
+<li>-S	–no-shadows</li>
+<li>-A	–no-antialias</li>
+<li>-v	–verbose</li>
+<li>-h	–help</li>
+<li>-t	–tabs</li>
+<li>-h	–html</li>
+</ul>
+<p>以上参数可以在源代码块里面携带</p>
+<pre><code class="language-shell">:cmdline -r -s 0.8
+</code></pre>
+<p>因为plantuml也支持ditaa，可以在@ditaa后面携带参数，如下：</p>
+<pre><code class="language-shell">@ditaa -E -S
+</code></pre>
 <h2 id="babel">babel</h2>
 <p>简单的说Babel可以让许多不同的语言一起工作，它可以执行不同语言的代码块，
 org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</p>
@@ -245,6 +265,14 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
 <li>Draw a rectangular box around mark and point:   C-c C-r</li>
 <li>Copies a rectangle to a register:               C-x r r</li>
 <li>Undo effects of rectangle overlay commands:     C-x u</li>
+</ul>
+<h2 id="artist-mode">artist-mode</h2>
+<p>artist-mode可以用鼠标画一些基本的图形。picture模式不方便画的图形，可以
+用artist模式下鼠标试试。
+画一个rectangle的方式如下：</p>
+<ul>
+<li>C-c C-a C-o选择rectangle画笔</li>
+<li>按下Ret, 然后鼠标开始移动(C-b C-n C-p C-f等cursor移送就好)</li>
 </ul>
 <h2 id="example">example</h2>
 <p>ditaa 图示例，ascii图如下所示。</p>
@@ -391,6 +419,10 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
             </span>
             
             <span>
+                <a href="/tags/org-mode/">org-mode</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org-model/">org-model</a>
             </span>
             
@@ -400,6 +432,10 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
             
             <span>
                 <a href="/tags/picture-mode/">picture-mode</a>
+            </span>
+            
+            <span>
+                <a href="/tags/plantuml/">plantuml</a>
             </span>
             
             <span>
@@ -439,6 +475,7 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
       <ul>
         <li><a href="#安装">安装</a></li>
         <li><a href="#语法">语法</a></li>
+        <li><a href="#参数">参数</a></li>
       </ul>
     </li>
     <li><a href="#babel">babel</a>
@@ -454,6 +491,7 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
         <li><a href="#常用图形命令">常用图形命令</a></li>
       </ul>
     </li>
+    <li><a href="#artist-mode">artist-mode</a></li>
     <li><a href="#example">example</a></li>
   </ul>
 </nav></div>
@@ -592,6 +630,10 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
             </span>
             
             <span>
+                <a href="/tags/org-mode/">org-mode</a>
+            </span>
+            
+            <span>
                 <a href="/tags/org-model/">org-model</a>
             </span>
             
@@ -601,6 +643,10 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
             
             <span>
                 <a href="/tags/picture-mode/">picture-mode</a>
+            </span>
+            
+            <span>
+                <a href="/tags/plantuml/">plantuml</a>
             </span>
             
             <span>
@@ -644,6 +690,7 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
       <ul>
         <li><a href="#安装">安装</a></li>
         <li><a href="#语法">语法</a></li>
+        <li><a href="#参数">参数</a></li>
       </ul>
     </li>
     <li><a href="#babel">babel</a>
@@ -659,6 +706,7 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
         <li><a href="#常用图形命令">常用图形命令</a></li>
       </ul>
     </li>
+    <li><a href="#artist-mode">artist-mode</a></li>
     <li><a href="#example">example</a></li>
   </ul>
 </nav>
