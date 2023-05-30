@@ -37,10 +37,10 @@
 <meta property="og:title" content="my emacs config" />
 <meta name="twitter:title" content="my emacs config" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/emacsconfig/" /><meta property="og:description" content="my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q" />
-<meta name="twitter:description" content="my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/emacsconfig/" /><meta property="og:description" content="my .config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q 为" />
+<meta name="twitter:description" content="my .config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-&#43;会增加字体大小 ;; C-&#43; 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #&#43;ATTR_ORG: :width 100 ~ ;; #&#43;ATTR_HTML: :width 100 ~ ;; C-c C-q 为" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-23T15:08:20+08:00" /><meta property="article:modified_time" content="2023-05-23T15:08:20+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-29T11:30:37+08:00" /><meta property="article:modified_time" content="2023-05-29T11:30:37+08:00" />
 
 
 <style>
@@ -101,16 +101,16 @@
         <a href="https://hllu.github.io/posts/emacsconfig/">my emacs config</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-23</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-29</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3223 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;3605 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/config">config</a>&nbsp;<a href="/tags/hugo">hugo</a>&nbsp;<a href="/tags/download">download</a>&nbsp;<a href="/tags/latex">latex</a>&nbsp;<a href="/tags/beamer">beamer</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        <h2 id="my-main-config">my main config</h2>
+        <h2 id="my-dot-config">my .config</h2>
 <pre><code class="language-lisp">;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -171,22 +171,14 @@
 ;;===================================================
 ;; M-s o    occur
 ;;==========================================================
-
-
 (package-initialize)
-
+;;(setq debug-on-error t) ;;调试模式
 (add-to-list 'package-archives ' (&quot;melpa&quot;  . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/&quot;))
 ;' (&quot;gnu&quot;    . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/&quot;)
 ;' (&quot;nongnu&quot; . &quot;http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/&quot;)
 
 ;;                                . &quot;http://elpa.emacs-china.org/melpa/&quot;)
 ;t)
-
-(set-foreground-color &quot;grey&quot;)
-(set-background-color &quot;black&quot;)
-(set-cursor-color &quot;gold1&quot;)
-(set-mouse-color &quot;gold1&quot;)
-
 ;;启动设置
 (setq default-frame-alist
              '((vertical-scroll-bars)
@@ -194,10 +186,10 @@
                (left . 1050)
                (width . 120)
                (height . 72)
-               (background-color . &quot;black&quot;)
-               (foreground-color . &quot;grey&quot;)
-               (cursor-color . &quot;gold1&quot;)
-               (mouse-color . &quot;gold1&quot;)
+                (background-color . &quot;black&quot;) ;
+                (foreground-color . &quot;grey&quot;)
+                (cursor-color . &quot;gold1&quot;)
+                (mouse-color . &quot;gold1&quot;)
                (tool-bar-lines . 0)
                (menu-bar-lines . 0)
                (right-fringe)
@@ -207,102 +199,74 @@
 ;;(setq initial-frame-alist '((top . 0) (left . 0) (width . 142) (height . 46)))
 
 ;;=================-用户信息==========================
-(add-to-list 'load-path &quot;/Users/path/.emacs.d/myconfig/&quot;)
+(add-to-list 'load-path &quot;/Users/mypath/.emacs.d/myconfig/&quot;)
 
-;;设置打开文件的缺省路径
-(setq default-directory &quot;/Users/path&quot;)
+(setq default-directory &quot;/Users/mypath&quot;);;设置打开文件的缺省路径
+(add-to-list 'exec-path &quot;/usr/local/bin&quot;);;添加执行路径，可以M-x ielm 查看exec-path
 
-;;添加执行路径，可以M-x ielm 查看exec-path
-(add-to-list 'exec-path &quot;/usr/local/bin&quot;)
-
-(setq user-full-name &quot;username&quot;)
-(setq user-mail-address &quot;username@comp.com&quot;)
+(setq user-full-name &quot;user_name&quot;)
+(setq user-mail-address &quot;user_name@comp.com&quot;)
 ;;================end====================================
 (setq dired-dwim-target t) ;; dired
-;; 设置另外一些颜色：语法高亮显示的背景和主题，区域选择的背景和主题，二次选择的背景和选择
-(set-face-foreground 'highlight &quot;white&quot;)
-(set-face-background 'highlight &quot;blue&quot;)
-(set-face-foreground 'region &quot;cyan&quot;)
-(set-face-background 'region &quot;blue&quot;)
-(set-face-foreground 'secondary-selection &quot;skyblue&quot;)
-(set-face-background 'secondary-selection &quot;darkblue&quot;)
+
+;;=================窗口设置================
+(load-theme 'deeper-blue t t)     ;;加载浅色主题，但不启用。
+(load-theme 'tango-dark t t)	;;加载深色主题，但不启用。
+;;早上5点启用浅色主题， 每24小时重复一次。
+(run-at-time &quot;05:00&quot; (* 60 60 24) (lambda () (enable-theme 'tango-dark)))
+;;晚上7点启用深色主题， 每24小时重复一次。
+(run-at-time &quot;19:00&quot; (* 60 60 24) (lambda () (enable-theme 'deeper-blue)))
 ;;------------窗口界面设置结束-----------------
 
 ;;------------显示时间设置------------------------------
 (display-time-mode 1);;启用时间显示设置，在minibuffer上面的那个杠上
 (setq display-time-24hr-format t);;时间使用24小时制
 (setq display-time-day-and-date t);;时间显示包括日期和具体时间
-(setq display-time-use-mail-icon t);;时间栏旁边启用邮件设置
-(setq display-time-interval 10);;时间的变化频率，单位多少来着？
-(setq word-wrap-by-category t) ;;自动换行
+;; (setq display-time-interval 10);;时间的变化频率，单位多少来着？
+;;(setq word-wrap-by-category t) ;;自动换行
 ;;------------显示时间设置结束--------------
 
 ;;------------定制操作习惯--------------------
-(setq visible-bell t)
-;;关闭烦人的出错时的提示声
+(setq visible-bell t) ;;关闭烦人的出错时的提示声
+(setq inhibit-startup-message t);;关闭emacs启动时的画面
+(fset 'yes-or-no-p 'y-or-n-p);; yes 按y或空格键，n 表示 no。
 
-(setq inhibit-startup-message t)
-;;关闭emacs启动时的画面
-
-(fset 'yes-or-no-p 'y-or-n-p)
-;; 改变 Emacs 固执的要你回答 yes 的行为。按 y 或空格键表示 yes，n 表示 no。
-
-(setq font-lock-maximum-decoration t)
-(setq font-lock-global-modes '(not shell-mode text-mode))
-(setq font-lock-verbose t)
-(setq font-lock-maximum-size '((t . 1048576) (vm-mode . 5250000)))
+;; (setq font-lock-maximum-decoration t)
+;; (setq font-lock-global-modes '(not shell-mode text-mode))
+;; (setq font-lock-verbose t)
+;; (setq font-lock-maximum-size '((t . 1048576) (vm-mode . 5250000)))
 ;; 语法高亮。除 shell-mode 和 text-mode 之外的模式中使用语法高亮。
 
-(setq column-number-mode t)
-(setq line-number-mode t)
-;;显示行列号
-(global-linum-mode t)
-(setq mouse-yank-at-point t)
-;;不要在鼠标点击的那个地方插入剪贴板内容。
+;;(setq column-number-mode t)
+;;(setq line-number-mode t)
+(global-display-line-numbers-mode t) ;;显示行列号
+(setq mouse-yank-at-point t) ;;不要在鼠标点击的那个地方插入剪贴板内容。
+(setq kill-ring-max 200);;设置粘贴缓冲条目数量
 
-
-(setq kill-ring-max 200)
-;;设置粘贴缓冲条目数量.用一个很大的kill ring(最多的记录个数). 这样防止我不小心删掉重要的东西
-
-(setq-default auto-fill-function 'do-auto-fill)
-; Autofill in all modes;;
-;;(setq default-fill-column 360)
-;;把 fill-column 设为 60. 这样的文字更好读
+(setq-default auto-fill-function 'do-auto-fill) ; Autofill in all modes;;
+;;(setq default-fill-column 360) ;;把 fill-column 设为 60. 这样的文字更好读
 
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 8);;tab键为8个字符宽度
-(setq tab-stop-list ())
-;;不用 TAB 字符来indent, 这会引起很多奇怪的错误。
+(setq tab-stop-list ()) ;;不用 TAB 字符来indent, 这会引起很多奇怪的错误
+(setq-default line-spacing 6) ;; 行间距设置
+(setq enable-recursive-minibuffers t)  ;;可以递归的使用 minibuffer
 
 
-;;(setq enable-recursive-minibuffers t)
-;;可以递归的使用 minibuffer
+(setq scroll-margin 3 scroll-conservatively 10000);;防止页面滚动时跳动，3行时滚动
 
-(setq scroll-margin 3 scroll-conservatively 10000)
-;;防止页面滚动时跳动， scroll-margin 3 可以在靠近屏幕边沿3行时就开始滚动，可以很好的看到上下文。
+(setq default-major-mode 'text-mode) ;;设置缺省主模式是text，
+(add-hook 'text-mode-hook 'turn-on-auto-fill) ;;进入auto-fill次模式.而不是基本模式fundamental-mode
 
-(setq default-major-mode 'text-mode)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-;;设置缺省主模式是text，,并进入auto-fill次模式.而不是基本模式fundamental-mode
+(show-paren-mode t);;打开括号匹配显示模式
 
-(show-paren-mode t)
-;;打开括号匹配显示模式
+(mouse-avoidance-mode 'animate);;光标靠近鼠标指针时，让鼠标指针自动让开
 
+(setq frame-title-format &quot;emacs@%b&quot;);;在标题栏显示buffer的名字
 
-(mouse-avoidance-mode 'animate)
-;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。
+(setq auto-image-file-mode t) ;;让 Emacs 可以直接打开和显示图片。
 
-(setq frame-title-format &quot;emacs@%b&quot;)
-;;在标题栏显示buffer的名字，而不是 emacs@wangyin.com 这样没用的提示。
-
-;;(setq uniquify-buffer-name-style 'forward);;好像没起作用
-;; 当有两个文件名相同的缓冲时，使用前缀的目录名做 buffer 名字，不用原来的foobar&lt;?&gt; 形式。
-
-(setq auto-image-file-mode t)
-;;让 Emacs 可以直接打开和显示图片。
-
-(setq global-font-lock-mode t)
-;;进行语法加亮。
+(setq global-font-lock-mode t);;进行语法加亮。
 
 ;; 把C-j绑定到到达指定行上
 (global-set-key (kbd &quot;C-h&quot;) 'backward-delete-char-untabify)
@@ -313,15 +277,13 @@
 (global-set-key (kbd &quot;M-]&quot;) 'multi-term-next)
 (global-set-key &quot;\C-cg&quot; 'magit-status)
 
+;;当你在shell、telnet、w3m等模式下时，必然碰到过要输入密码的情况,此时加密显出你的密码
 (add-hook 'comint-output-filter-functions
       'comint-watch-for-password-prompt)
-;;当你在shell、telnet、w3m等模式下时，必然碰到过要输入密码的情况,此时加密显出你的密码
 
-(setq make-backup-files nil)
-;; 设定不产生备份文件
+(setq make-backup-files nil);; 设定不产生备份文件
 
-(setq-default make-backup-files nil)
-;; 不生成临时文件
+(setq-default make-backup-files nil);; 不生成临时文件
 
 (put 'scroll-left 'disabled nil) ;允许屏幕左移
 (put 'scroll-right 'disabled nil) ;允许屏幕右移
@@ -332,15 +294,12 @@
 (put 'LaTeX-hide-environment 'disabled nil)
 ;;把这些缺省禁用的功能打开。
 
-;;允许emacs和外部其他程序的粘贴
-(setq x-select-enable-clipboard t)
-;;设置有用的个人信息,这在很多地方有用。
+(setq x-select-enable-clipboard t);;允许emacs和外部其他程序的粘贴
 
-;;不显示实际图片尺寸
-(setq org-image-actual-width nil)
+(setq org-image-actual-width nil);;不显示实际图片尺寸
 
-(setq track-eol t)
-;; 当光标在行尾上下移动的时候，始终保持在行尾。
+(setq track-eol t) ;; 当光标在行尾上下移动的时候，始终保持在行尾。
+
 ;;====================yasnippet===============
 ;; (setq yas-snippet-dirs
 ;; '(&quot;~/.emacs.d/snippets/&quot;;;personal snippets
@@ -357,8 +316,7 @@
           )
         )
 
-;; 上标^下标_是否需要特殊字符包裹，这里设置需要用大括号包裹
-;;(org-use-sub-superscripts '{})
+;;(org-use-sub-superscripts '{}) ;; 上标^下标_是否需要特殊字符包裹，这里设置需要用大括号包裹
 
 (require 'myorg)
 (require 'mygtd)
@@ -398,6 +356,7 @@
 (defun eshell/x ()
   (eshell-life-is-too-much)
   (delete-window))
+
 (add-hook
  'eshell-mode-hook
  (lambda ()
@@ -411,6 +370,41 @@
              (delete-window))
          (delete-char arg))))))
 ;;=====================end eshell====================
+;;==============begin picture=================
+(org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . t)
+        (ditaa . t)
+        (python . t)
+        (shell . t)
+        (latex . t)
+        (plantuml . t)
+        (dot . t)
+        (lisp . t)
+        (org . t)
+        (java . t)))
+
+(setq org-plantuml-jar-path
+      (expand-file-name &quot;~/.emacs.d/plugins/plantuml-1.2023.8.jar&quot;))
+(setq org-ditaa-jar-path  &quot;~/.emacs.d/plugins/ditaa0_9.jar&quot;)
+(setq org-confirm-babel-evaluate nil)   ;picture 不提示
+(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
+
+; Make babel results blocks lowercase
+(setq org-babel-results-keyword &quot;results&quot;)
+
+(defun bh/display-inline-images ()
+  (condition-case nil
+      (org-display-inline-images)
+    (error nil)))
+
+(setq org-latex-create-formula-image-program 'imagemagick) ;使用imagemagick
+(eval-after-load &quot;preview&quot;
+  '(add-to-list 'preview-default-preamble
+                &quot;\\PreviewEnvironment{tikzpicture}&quot; t))
+
+;;C-c C-c get pic  C-c C-x C-v see picture
+;;==============end picture=================
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -418,7 +412,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '(&quot;/Users/path/.todos/journal.org&quot; &quot;/Users/path/.todos/gtd.org&quot;))
+   '(&quot;/Users/mypath/.todos/journal.org&quot; &quot;/Users/mypath/.todos/gtd.org&quot;))
  '(org-download-screenshot-method &quot;screencapture -i %s&quot;)
  '(package-selected-packages
    '(ox-spectacle org-download yasnippet ox-hugo openwith elpy magit magit-gerrit magithub)))
@@ -432,7 +426,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 </code></pre>
 <h2 id="my-latex-config">my latex config</h2>
 <pre><code class="language-lisp">(provide 'myorg)
@@ -473,6 +466,7 @@
           \\usepackage{color}
           \\usepackage{xcolor}
           \\usepackage{fontspec}
+          \\usepackage{tikz}
           \\usepackage{geometry}
           \\geometry{top=2cm,bottom=2cm,right=2cm,left=2.5cm}
           \\geometry{headsep=0.5cm}
@@ -533,7 +527,7 @@
           \\usepackage{latexsym}
           \\usepackage{minted}
           \\usemintedstyle{emacs}%{vs}%{pastie}%{autumn}%{emacs}%{tango}%{rrt}%{manni}
-          \\usepackage{/Users/path/org/styles/zyuebeamer}
+          \\usepackage{/Users/mypath/org/styles/zyuebeamer}
           \\subject{{{{beamersubject}}}}&quot;
               (&quot;\\section{%s}&quot; . &quot;\\section*{%s}&quot;)
               (&quot;\\begin{frame}[fragile]\\frametitle{%s}&quot;
@@ -598,22 +592,23 @@
 (define-skeleton skel-org-block-ditaa
   &quot;Insert a org ditaa block, querying for filename.&quot;
   &quot;File (no extension): &quot;
-  &quot;#+begin_src ditaa :file &quot; str &quot;.png :cache yes\n&quot;
+  &quot;#+begin_src ditaa :file &quot; str &quot;.png :cache yes :cmdline -r\n&quot;
   _ - \n
   &quot;#+end_src\n&quot;)
 
 (define-abbrev org-mode-abbrev-table &quot;sditaa&quot; &quot;&quot; 'skel-org-block-ditaa)
+
 
 (define-skeleton skel-org-beamer
   &quot;Insert an org block, querying for type.&quot;
   &quot;Type: &quot;
 &quot;# -*- mode: snippet -*-\n&quot;
 &quot;#+TITLE:  &quot;   str  \n
-&quot;#+AUTHOR:    username \n&quot;
-&quot;#+EMAIL:     username@comp.com \n&quot;
+&quot;#+AUTHOR:    user_name \n&quot;
+&quot;#+EMAIL:     user_name@comp.com \n&quot;
 &quot;#+DESCRIPTION: \n&quot;
 &quot;#+KEYWORDS: \n&quot;
-&quot;#+OPTIONS:   H:2 num:t toc:t \\n:nil @:t ::t |:t ^:{} -:t f:t *:t &lt;:t\n&quot;
+&quot;#+OPTIONS:   H:2 num:t toc:t \\n:nil @:t ::t |:t ^:{} -:t f:t *:t &lt;:t broken-links:t\n&quot;
 &quot;#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n&quot;
 &quot;#+EXPORT_SELECT_TAGS: export\n&quot;
 &quot;#+EXPORT_EXCLUDE_TAGS: noexport\n&quot;
@@ -648,14 +643,15 @@
     &quot;Insert a org head.&quot;
     &quot;Name: &quot;
     &quot;#+TITLE:&quot; str \n
-    &quot;#+OPTIONS: author:nil ^:{}&quot;)
+    &quot;#+OPTIONS: toc:t &lt;:nil broken-links:t author:nil ^:{} todo:nil pri:nil tags:nil\n &quot;
+    @ _)
 
 (define-abbrev org-mode-abbrev-table &quot;orgh&quot; &quot;&quot; 'skel-org-orgh)
 
 (define-skeleton skel-org-hugoh
     &quot;Insert a hugo head.&quot;
     &quot;Name: &quot;
-&quot;#+OPTIONS: author:nil ^:{}\n&quot;
+&quot;#+OPTIONS: author:nil ^:{} broken-links:t todo:nil pri:nil tags:nil\n&quot;
 &quot;#+HUGO_BASE_DIR: ../\n&quot;
 &quot;#+TITLE: &quot; str \n
 &quot;#+HUGO_AUTO_SET_LASTMOD: t\n&quot;
@@ -674,6 +670,94 @@
 &quot;#+ATTR_HTML: :width &quot;(setq v2 (skeleton-read &quot;width %? &quot;))&quot;%&quot; &quot; :height &quot;v2&quot;%\n&quot;)
 
 (define-abbrev org-mode-abbrev-table &quot;pich&quot; &quot;&quot; 'skel-org-picv)
+
+;;==============plantuml=====================
+(define-skeleton skel-org-block-plantuml
+  &quot;Insert a org plantuml block, querying for filename.&quot;
+  &quot;File (no extension): &quot;
+  &quot;#+begin_src plantuml :file &quot; str &quot;.png :cach yes :cmdline -charset UTF-8\n&quot;
+  &quot;title &quot; @ - \n
+  &quot;#+end_src\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;spuml&quot; &quot;&quot; 'skel-org-block-plantuml)
+
+(define-skeleton skel-org-block-plantuml-activity
+  &quot;Insert a org plantuml block, querying for filename.&quot;
+  &quot;File (no extension): &quot;
+  &quot;#+begin_src plantuml :file &quot; str &quot;-act.png :cache yes :tangle &quot; str &quot;-act.txt\n&quot;
+  (bh/plantuml-reset-counters)
+  &quot;@startuml\n&quot;
+  &quot;skinparam activity {\n&quot;
+  &quot;BackgroundColor&lt;&lt;New&gt;&gt; Cyan\n&quot;
+  &quot;}\n\n&quot;
+  &quot;title &quot; str &quot; - \n&quot;
+  &quot;note left: &quot; str &quot;\n&quot;
+  &quot;(*) --&gt; \&quot;&quot; str &quot;\&quot;\n&quot;
+  &quot;--&gt; (*)\n&quot;
+  _ - \n
+  &quot;@enduml\n&quot;
+  &quot;#+end_src\n&quot;)
+
+(defvar bh/plantuml-if-count 0)
+
+(defun bh/plantuml-if ()
+  (incf bh/plantuml-if-count)
+  (number-to-string bh/plantuml-if-count))
+
+(defvar bh/plantuml-loop-count 0)
+
+(defun bh/plantuml-loop ()
+  (incf bh/plantuml-loop-count)
+  (number-to-string bh/plantuml-loop-count))
+
+(defun bh/plantuml-reset-counters ()
+  (setq bh/plantuml-if-count 0
+        bh/plantuml-loop-count 0)
+  &quot;&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sact&quot; &quot;&quot; 'skel-org-block-plantuml-activity)
+
+(define-skeleton skel-org-block-plantuml-activity-if
+  &quot;Insert a org plantuml block activity if statement&quot;
+  &quot;&quot;
+  &quot;if \&quot;\&quot; then\n&quot;
+  &quot;  -&gt; [condition] ==IF&quot; (setq ifn (bh/plantuml-if)) &quot;==\n&quot;
+  &quot;  --&gt; ==IF&quot; ifn &quot;M1==\n&quot;
+  &quot;  -left-&gt; ==IF&quot; ifn &quot;M2==\n&quot;
+  &quot;else\n&quot;
+  &quot;end if\n&quot;
+  &quot;--&gt; ==IF&quot; ifn &quot;M2==&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sif&quot; &quot;&quot; 'skel-org-block-plantuml-activity-if)
+
+(define-skeleton skel-org-block-plantuml-activity-for
+  &quot;Insert a org plantuml block activity for statement&quot;
+  &quot;Loop for each: &quot;
+  &quot;--&gt; ==LOOP&quot; (setq loopn (bh/plantuml-loop)) &quot;==\n&quot;
+  &quot;note left: Loop&quot; loopn &quot;: For each &quot; str &quot;\n&quot;
+  &quot;--&gt; ==ENDLOOP&quot; loopn &quot;==\n&quot;
+  &quot;note left: Loop&quot; loopn &quot;: End for each &quot; str &quot;\n&quot; )
+
+(define-abbrev org-mode-abbrev-table &quot;sfor&quot; &quot;&quot; 'skel-org-block-plantuml-activity-for)
+
+(define-skeleton skel-org-block-plantuml-sequence
+  &quot;Insert a org plantuml activity diagram block, querying for filename.&quot;
+  &quot;File appends (no extension): &quot;
+  &quot;#+begin_src plantuml :file &quot; str &quot;-seq.png :cache yes :tangle &quot; str &quot;-seq.txt\n&quot;
+  &quot;@startuml\n&quot;
+  &quot;title &quot; str &quot; - \n&quot;
+  &quot;actor CSR as \&quot;Customer Service Representative\&quot;\n&quot;
+  &quot;participant CSMO as \&quot;CSM Online\&quot;\n&quot;
+  &quot;participant CSMU as \&quot;CSM Unix\&quot;\n&quot;
+  &quot;participant NRIS\n&quot;
+  &quot;actor Customer&quot;
+  _ - \n
+  &quot;@enduml\n&quot;
+  &quot;#+end_src\n&quot;)
+
+(define-abbrev org-mode-abbrev-table &quot;sseq&quot; &quot;&quot; 'skel-org-block-plantuml-sequence)
+
+;;=================end plantuml==========================
 
 </code></pre>
 <h2 id="my-gtd-config">my gtd config</h2>
@@ -733,7 +817,6 @@ See `org-capture-templates' for more information.&quot;
                  (file+headline &quot;~/blog/gitblog//orgcontent/0000head.org&quot; &quot;INBOX&quot;)
                  (function org-hugo-new-subtree-post-capture-template))))
 ;;---------------end hugo--------------------------
-
 </code></pre>
 
     </div>
@@ -923,7 +1006,7 @@ See `org-capture-templates' for more information.&quot;
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3><nav id="TableOfContents">
   <ul>
-    <li><a href="#my-main-config">my main config</a></li>
+    <li><a href="#my-dot-config">my .config</a></li>
     <li><a href="#my-latex-config">my latex config</a></li>
     <li><a href="#my-abberev-config">my abberev config</a></li>
     <li><a href="#my-gtd-config">my gtd config</a></li>
@@ -1120,7 +1203,7 @@ See `org-capture-templates' for more information.&quot;
         <h3>Table of Contents</h3>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#my-main-config">my main config</a></li>
+    <li><a href="#my-dot-config">my .config</a></li>
     <li><a href="#my-latex-config">my latex config</a></li>
     <li><a href="#my-abberev-config">my abberev config</a></li>
     <li><a href="#my-gtd-config">my gtd config</a></li>

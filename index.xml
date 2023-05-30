@@ -6,14 +6,23 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 26 May 2023 17:14:03 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 May 2023 16:25:46 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>emacs在org模式使用plantuml</title>
       <link>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</link>
-      <pubDate>Fri, 26 May 2023 17:14:03 +0800</pubDate>
+      <pubDate>Tue, 30 May 2023 16:25:46 +0800</pubDate>
       
       <guid>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</guid>
-      <description>emacs的org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成</description>
+      <description>emacs在org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成</description>
+    </item>
+    
+    <item>
+      <title>my emacs config</title>
+      <link>https://hllu.github.io/posts/emacsconfig/</link>
+      <pubDate>Mon, 29 May 2023 11:30:37 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/emacsconfig/</guid>
+      <description>my .config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-+会增加字体大小 ;; C-+ 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #+ATTR_ORG: :width 100 ~ ;; #+ATTR_HTML: :width 100 ~ ;; C-c C-q 为</description>
     </item>
     
     <item>
@@ -23,15 +32,6 @@
       
       <guid>https://hllu.github.io/posts/use-ditaa-in-emacs/</guid>
       <description>ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - + / &amp;gt; &amp;lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储</description>
-    </item>
-    
-    <item>
-      <title>my emacs config</title>
-      <link>https://hllu.github.io/posts/emacsconfig/</link>
-      <pubDate>Tue, 23 May 2023 15:08:20 +0800</pubDate>
-      
-      <guid>https://hllu.github.io/posts/emacsconfig/</guid>
-      <description>my main config ;; Added by Package.el. This must come before configurations of ;; installed packages. Don&#39;t delete this line. If you don&#39;t want it, ;; just comment it out by adding a semicolon to the start of the line. ;; You may delete these explanatory comments. ;; C-x C-+会增加字体大小 ;; C-+ 或 C-- 会增加/缩小字体大小 ;; C-x C-0会恢复字体大小 ;;================org======================== ;;-------------------org----------------- ;; #+ATTR_ORG: :width 100 ~ ;; #+ATTR_HTML: :width 100 ~ ;; C-c C-q</description>
     </item>
     
     <item>
