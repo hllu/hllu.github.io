@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/" /><meta property="og:description" content="emacs在org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成" />
 <meta name="twitter:description" content="emacs在org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-30T16:25:46+08:00" /><meta property="article:modified_time" content="2023-05-30T16:25:46+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-30T17:35:20+08:00" /><meta property="article:modified_time" content="2023-05-30T17:35:20+08:00" />
 
 
 <style>
@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-30</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2500 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2531 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-mode">org-mode</a>&nbsp;<a href="/tags/plantuml">plantuml</a>&nbsp;</span>
 
@@ -184,7 +184,10 @@ plantuml这种更强大的工具。</p>
 <li>together 有时候，默认布局并不完美,你可以使用 together 关键词将某些类进行分组： 布局引擎会尝试将它们捆绑在一起</li>
 <li>package 可以定义不同的样式,你可以通过以下的命令来设置默认样式 :
 skinparam packageStyle,或者对包使用对应的模板</li>
-<li></li>
+<li>如果需要调整布局，学会使用a -[hidden]d- c ， A -[hidden]left- B 类似
+的方式</li>
+<li>skinparam nodesep x  will increase the horizontal margin</li>
+<li>skinparam ranksep x   affects the vertical margin</li>
 </ul>
 <h4 id="时序图">时序图</h4>
 <!--list-separator-->
@@ -305,9 +308,6 @@ rectangle WAIT #orange
 Junction_And JunctionAnd
 Junction_Or JunctionOr
 archimate #Technology &quot;VPN Server&quot; as vpnServerA &lt;&lt;technology-device&gt;&gt;
-rectangle GO #lightgreen
-rectangle STOP #red
-rectangle WAIT #orange
 GO -up-&gt; JunctionOr
 STOP -up-&gt; JunctionOr
 STOP -down-&gt; JunctionAnd
@@ -540,6 +540,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             </span>
             
             <span>
+                <a href="/tags/blame/">blame</a>
+            </span>
+            
+            <span>
                 <a href="/tags/blog/">Blog</a>
             </span>
             
@@ -568,6 +572,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             </span>
             
             <span>
+                <a href="/tags/git/">git</a>
+            </span>
+            
+            <span>
                 <a href="/tags/http/">http</a>
             </span>
             
@@ -585,6 +593,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             
             <span>
                 <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/magit/">magit</a>
             </span>
             
             <span>
@@ -740,6 +752,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             </span>
             
             <span>
+                <a href="/tags/blame/">blame</a>
+            </span>
+            
+            <span>
                 <a href="/tags/blog/">Blog</a>
             </span>
             
@@ -768,6 +784,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             </span>
             
             <span>
+                <a href="/tags/git/">git</a>
+            </span>
+            
+            <span>
                 <a href="/tags/http/">http</a>
             </span>
             
@@ -785,6 +805,10 @@ package foo6 &lt;&lt;Database&gt;&gt; {
             
             <span>
                 <a href="/tags/latex/">latex</a>
+            </span>
+            
+            <span>
+                <a href="/tags/magit/">magit</a>
             </span>
             
             <span>

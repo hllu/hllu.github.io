@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/git/</link>
+    <description>Recent content in git on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 31 May 2023 17:35:29 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git blame使用</title>
+      <link>https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 31 May 2023 17:35:29 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/</guid>
+      <description>git blame 排查问题的时候，为了查找是谁改得某个文件或者某一行，可以用git blame这 个命令，用法最常用的就是 git blame &amp;lt;filename&amp;gt; git blame -L start,end &amp;lt;filename&amp;gt; 或者 git blame myfile.py git blame -L 5,20 myfile.py //查看5-20行的修改历史 git blame -L 5,+20 myfile.py //表示查看5行及后面</description>
+    </item>
+    
+  </channel>
+</rss>
