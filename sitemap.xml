@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hllu.github.io/tags/blame/</loc>
-    <lastmod>2023-05-31T17:35:29+08:00</lastmod>
+    <loc>https://hllu.github.io/tags/ditaa/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/emacs/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/picture-mode/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/use-ditaa-in-emacs/</loc>
+    <lastmod>2023-06-01T14:59:35+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/blame/</loc>
     <lastmod>2023-05-31T17:35:29+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/git/</loc>
@@ -14,13 +29,7 @@
     <loc>https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2023-05-31T17:35:29+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/</loc>
-    <lastmod>2023-05-31T17:35:29+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/magit/</loc>
-    <lastmod>2023-05-31T17:35:29+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/</loc>
     <lastmod>2023-05-31T17:35:29+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</loc>
@@ -49,15 +58,6 @@
   </url><url>
     <loc>https://hllu.github.io/posts/emacsconfig/</loc>
     <lastmod>2023-05-29T11:30:37+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/ditaa/</loc>
-    <lastmod>2023-05-26T11:01:08+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/picture-mode/</loc>
-    <lastmod>2023-05-26T11:01:08+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/use-ditaa-in-emacs/</loc>
-    <lastmod>2023-05-26T11:01:08+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/dvr/</loc>
     <lastmod>2023-05-22T15:37:28+08:00</lastmod>

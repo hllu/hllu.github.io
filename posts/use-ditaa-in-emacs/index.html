@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/use-ditaa-in-emacs/" /><meta property="og:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" />
 <meta name="twitter:description" content="ditaa ditaa 是 DIagrams Through Ascii Art，作者是 Stathis Sideris。是一 种基于java的类似plantuml但是更轻量级的绘图工具。ditaa使用符号| - &#43; / &gt; &lt; V ^符号渲染不同的字符画出来，在文本格式下，字符画本身方便存储" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-26T11:01:08+08:00" /><meta property="article:modified_time" content="2023-05-26T11:01:08+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-01T14:59:35+08:00" /><meta property="article:modified_time" content="2023-06-01T14:59:35+08:00" />
 
 
 <style>
@@ -101,9 +101,9 @@
         <a href="https://hllu.github.io/posts/use-ditaa-in-emacs/">use ditaa in emacs</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-26</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-01</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1310 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2036 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/ditaa">ditaa</a>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/picture-mode">picture-mode</a>&nbsp;</span>
 
@@ -275,12 +275,179 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
 <li>按下Ret, 然后鼠标开始移动(C-b C-n C-p C-f等cursor移送就好)</li>
 </ul>
 <h2 id="example">example</h2>
-<p>ditaa 图示例，ascii图如下所示。</p>
+<h3 id="ditaa-图示例-ascii图如下所示">ditaa 图示例，ascii图如下所示。</h3>
 <figure><img src="/ox-hugo/screenshot_20230525_110400.png"/>
 </figure>
 
 <p>产生的图片效果如下</p>
 <figure><img src="/ox-hugo/screenshot_20230525_103801.png"/>
+</figure>
+
+<h3 id="更多ditaa示例">更多ditaa示例</h3>
+<pre><code class="language-bash">@startditaa -E -S
++--------+   +-------+    +-------+
+|        +---+ ditaa +--&gt; |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+
++---------+  /--------\   +-------+
+| cBLU    +--+cAAA    +---+Version|
+|         |  |  Data  |   |   V3  |
+|    +----+  |  Base  |   |cRED{d}|
+|    |cPNK|  |     {s}|   +-------+
+|    |    |  \---+----/
++----+----+
+@endditaa
+
+</code></pre>
+<figure><img src="/ox-hugo/sfs.png"/>
+</figure>
+
+<h3 id="方框类的架构图">方框类的架构图</h3>
+<pre><code class="language-bash">@startditaa -S -r
++------------+--------------------+-------------------+---------------+----------+
+|cGRE        | cRED               |  cBLU             |  c707         | cDDD     |
+|            |                    |                   |               |          |
+|    NAT     |     EIP            |     SLB           |    VPN        |    IPTS  |
+|            |                    |                   |               |          |
++------------+--------------------+-------------------+---------------+----------+
+|  c1AB                                                                          |
+|                                                                                |
+|                              servic                                            |
+|                                                                                |
++-------------------------+----------------------------+-------------------------+
+|                         |                            |                         |
+|  cYEL                   |   cPNK                     |   cBLK                  |
+|                         |                            |                         |
+|        SQL              |       openstack            |          VPC            |
+|                         |                            |                         |
++-------------------------+----------------------------+-------------------------+
+@endditaa
+
+</code></pre>
+<figure><img src="/ox-hugo/ditest.png"/>
+</figure>
+
+<h3 id="其他类型的示意图">其他类型的示意图</h3>
+<p>参考来源：
+<a href="http://mschuldt.github.io/cs61b_lecture_notes/notes.html#sec-1" target="_blank">http://mschuldt.github.io/cs61b_lecture_notes/notes.html#sec-1</a></p>
+<pre><code class="language-bash">@startditaa
+title some extra pic
++------------------------------+    |    method all
+|  first         +---------+   |    +------------------------------
+|                |      7  |   |    |
+|                +---------+   |    |    picture 1
+|                              |    +------------------------------
+|  second        +---------+   |    |   +-----+     +----------+
+|                |     ?   +---|-=-&gt;|   |  .  |--&gt;  |  next    |
+|                +---------+   |    |   +-----+     +----------+
++------------------------------+    +------------------------------
+@endditaa
+
+</code></pre>
+<figure><img src="/ox-hugo/ditae.png"/>
+</figure>
+
+<h3 id="稍微复杂一点的图">稍微复杂一点的图</h3>
+<pre><code class="language-bash">@startditaa
+===============================================================================
++ ROOTED TREE | --------------------             ---------------------------- +
+=============== |---          ---- |             |          parent          | +
++               ||.|root  size|14| |             ---------------------------- +
++               |-+-          ---- |             |           item           | +
++               --|-----------------             ---------------------------- +
++                 v     SibTree object           | firstChild | nextSibling | +
++               -----                            ---------------------------- +
++               | * |                              structure of SibTreeNodes  +
++               -----                                                         +
++ Root node =&gt;  |jrs|                                                         +
++               -----&lt;---------                                               +
++               |.|*|          \                                              +
++               /----&lt;----      \                                             +
++              /  ^^      \      \                                            +
++             v  /  \      \      \                                           +
++            ---/-  -\---  -\---  -\---                                       +
++            | . |  | . |  | . |  | . |                                       +
++            -----  -----  -----  -----                                       +
++            |hw |  |ind|  |lab|  |lec|&lt;&lt;-----------------------              +
++            -----  -----  -----  -----&lt;------------------      \             +
++            |.|.+-&gt;|*|.+-&gt;|.|.+-&gt;|.|*|&lt;------------      \      \            +
++            /----  -----  /----  --\--&lt;------      \      \      \           +
++           /  ^^         /   ^^     \ ^      \      \      \      \          +
++          v  /  \       v   /  \     \ \      \      \      \      \         +
++         -----  -----   -----  -----   &gt;-\---  -\---  -\---  -\---  -\---     +
++         | . |  | . |   | . |  | . |   | . |  | . |  | . |  | . |  | . |     +
++         -----  -----   -----  -----   -----  -----  -----  -----  -----     +
++         |hw1|  |hw2|   |lb1|  |lb2|   |01 |  |02 |  |03 |  |04 |  |05 |     +
++         -----  -----   -----  -----   -----  -----  -----  -----  -----     +
++         |*|.+-&gt;|*|*|   |*|.+-&gt;|*|*|   |*|.+-&gt;|*|.+-&gt;|*|.+-&gt;|*|.+-&gt;|*|*|     +
++         -----  -----   -----  -----   -----  -----  -----  -----  -----     +
+===============================================================================
+@endditaa
+
+</code></pre>
+<figure><img src="/ox-hugo/ditaat2.png"/>
+</figure>
+
+<h3 id="线组成的图">线组成的图</h3>
+<pre><code class="language-bash">@startditaa
+-------------------------------------------------------------------------
+|                                                                       |
+| old generation                                                        |
+|                                                                       |
+|                                                                       |
+-------------------------------------------------------------------------
+|                                                                       |
+| young generation                                                      |
+|                                                                       |
+|  -------------------------------------------------------------------  |
+|  | survivor space                                                  |  |
+|  |                                                                 |  |
+|  -------------------------------------------------------------------  |
+|  | survivor space                                                  |  |
+|  |                                                                 |  |
+|  -------------------------------------------------------------------  |
+|                                 _____                   ____          |
+|      /----\               /----/     \/\/\         /---/    \____     |
+|    _/      \     -\      /                \___--__/              \    |
+|   /         \___/  \__--/                                         |   |
+|  |                                                               /    |
+|  |                             Eden                              \    |
+|   \                                                               |   |
+|    \                                    _                ^       /    |
+|     -\   /\_    _/--\     /\     /\    / \--\    /--\   / \__   /     |
+|       --/   \__/     \___/  \/\_/  \__/      \/\/    --/     \_/      |
+-------------------------------------------------------------------------
+@endditaa
+
+</code></pre>
+<figure><img src="/ox-hugo/dit3.png"/>
+</figure>
+
+<h3 id="其他示意图">其他示意图</h3>
+<pre><code class="language-bash">@startditaa
+    0      1      2      3      4      5      6      7      8      9
+-----------------------------------------------------------------------
+|   .  |   .  |   *  |   .  |   *  |   .  |   .  |   .  |   *  |   .  |
+----|------|-------------|-------------|------|------|-------------|---
+    v      v             v             v      v      v             v
+ ------ ------        ------        ------ ------ ------        ------
+ | 342| |1390|        |3950|        |5384| |6395| |7394|        |9362|
+ |9583| |5849|        |8883|        |2356| |1200| |2039|        |9193|
+ ---|-- ------        ---|--        ------ ------ ---|--        ---|--
+    v                    v                           v             v
+ ------               ------                      ------        ------
+ |  59|               |3693|                      |7104|        |9993|
+ |2178|               |7834|                      |2114|        |3949|
+ ------               ------                      ------        ------
+
+</code></pre>
+<figure><img src="/ox-hugo/ditaa4.png"/>
 </figure>
 
 
@@ -504,7 +671,17 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
       </ul>
     </li>
     <li><a href="#artist-mode">artist-mode</a></li>
-    <li><a href="#example">example</a></li>
+    <li><a href="#example">example</a>
+      <ul>
+        <li><a href="#ditaa-图示例-ascii图如下所示">ditaa 图示例，ascii图如下所示。</a></li>
+        <li><a href="#更多ditaa示例">更多ditaa示例</a></li>
+        <li><a href="#方框类的架构图">方框类的架构图</a></li>
+        <li><a href="#其他类型的示意图">其他类型的示意图</a></li>
+        <li><a href="#稍微复杂一点的图">稍微复杂一点的图</a></li>
+        <li><a href="#线组成的图">线组成的图</a></li>
+        <li><a href="#其他示意图">其他示意图</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
 </aside>
@@ -731,7 +908,17 @@ org-mode可以导出HTML样式的代码也可以将执行结果显示出来。</
       </ul>
     </li>
     <li><a href="#artist-mode">artist-mode</a></li>
-    <li><a href="#example">example</a></li>
+    <li><a href="#example">example</a>
+      <ul>
+        <li><a href="#ditaa-图示例-ascii图如下所示">ditaa 图示例，ascii图如下所示。</a></li>
+        <li><a href="#更多ditaa示例">更多ditaa示例</a></li>
+        <li><a href="#方框类的架构图">方框类的架构图</a></li>
+        <li><a href="#其他类型的示意图">其他类型的示意图</a></li>
+        <li><a href="#稍微复杂一点的图">稍微复杂一点的图</a></li>
+        <li><a href="#线组成的图">线组成的图</a></li>
+        <li><a href="#其他示意图">其他示意图</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
