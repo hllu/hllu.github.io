@@ -22,7 +22,7 @@
 <meta name="theme-color" content="#ffffff" />
 
 
-<title>Blog - hllu&#39;s blog</title>
+<title>use getopt in c program - hllu&#39;s blog</title>
 
 
 <meta name="author" content="hllu" />
@@ -31,14 +31,16 @@
 <meta name="description" content="A minimal Hugo theme with nice theme color." />
 
 
-<link rel="alternate" type="application/rss+xml" href="https://hllu.github.io/tags/blog/index.xml" title="hllu's blog" />
+<meta name="keywords" content="getopt, c" />
 
-<meta property="og:title" content="Blog" />
-<meta name="twitter:title" content="Blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hllu.github.io/tags/blog/" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+
+<meta property="og:title" content="use getopt in c program" />
+<meta name="twitter:title" content="use getopt in c program" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hllu.github.io/posts/use-getopt-in-c/" /><meta property="og:description" content="getopt getopt库是用来分析命令行参数的。由Unix标准库提供。 对类似于main函数那样传进来的参数进行解析。如有的参数是 &ndash;help 也可以 是-h，同时也可以传递参数，如 &ndash;interval 10。getopt可以支持-key 或者-" />
+<meta name="twitter:description" content="getopt getopt库是用来分析命令行参数的。由Unix标准库提供。 对类似于main函数那样传进来的参数进行解析。如有的参数是 &ndash;help 也可以 是-h，同时也可以传递参数，如 &ndash;interval 10。getopt可以支持-key 或者-" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="og:updated_time" content="2019-10-19T00:00:00+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-02T16:33:51+08:00" /><meta property="article:modified_time" content="2023-06-02T16:33:51+08:00" />
 
 
 <style>
@@ -93,28 +95,278 @@
             
             <div class="col-12 col-md-9 float-left content">
                 
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://hllu.github.io/posts/use-getopt-in-c/">use getopt in c program</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-02</span>
 
-<div class="page-info">
-  <span>Posts with the tag Blog: </span>
-</div>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1067 words</span>
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/getopt">getopt</a>&nbsp;<a href="/tags/c">c</a>&nbsp;</span>
+
+    </div>
+    
+    <div class="post-content markdown-body">
+        <h2 id="getopt">getopt</h2>
+<p>getopt库是用来分析命令行参数的。由Unix标准库提供。
+对类似于main函数那样传进来的参数进行解析。如有的参数是 &ndash;help 也可以
+是-h，同时也可以传递参数，如 &ndash;interval 10。getopt可以支持-key 或者-k
+v。如果需要同时支持&ndash;key和-k，就需要用到getopt_long.</p>
+<p>因为getopt_long可以支持长短两种参数格式，我们可以只使用这个函数。</p>
+<h3 id="相关函数表头文件">相关函数表头文件</h3>
+<p>#include&lt;unistd.h&gt;
+#include &lt;getopt.h&gt;</p>
+<h3 id="函数声明">函数声明</h3>
+<pre><code class="language-c">int getopt(int argc,char * const argv[ ],const char * optstring);
+int getopt_long(int argc, char * const argv[],   const char
+*optstring,   const struct option *longopts, int *longindex);
+struct option {
+const char  *name;       /* 参数名称 */
+int          has_arg;    /* 指明是否带有参数 */
+int          *flag;      /* flag=NULL时,返回value;不为空时,*flag=val,返回0 */
+int          val;        /* 用于指定函数找到选项的返回值或flag非空时指定*flag的值 */
+};
+</code></pre>
+<h3 id="变量和参数">变量和参数</h3>
+<p>比如char*optstring = “ab:c::”;表示</p>
+<ul>
+<li>单个字符a         表示选项a没有参数            格式：-a即可，不加参数</li>
+<li>单字符加冒号b:     表示选项b有且必须加参数      格式：-b 100或-b100,但-b=100错</li>
+<li>单字符加2冒号c::   表示选项c可以有，也可以无     格式：-c200，其它格式错误</li>
+</ul>
+<h2 id="example">example</h2>
+<pre><code class="language-c">#define _GNU_SOURCE
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/epoll.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;time.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;getopt.h&gt;
+#include &lt;sched.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define PORT     111
+
+struct controll_blk
+{
+    char      role;                         /* 'c' lient or 's' erver */
+    int       mode;                         /* 1 - server, 2 - client */
+    char     *server_ip;                    /* -c option */
+    char     *bind_address;                 /* first -B option */
+    int       server_port;
+};
+
+const char usage[] = &quot;Usage: newtest [-s|-c host] [options]\n&quot;
+                     &quot;       newtest [-h|--help]\n\n&quot;
+                     &quot;Server or Client:\n&quot;
+                     &quot;  -p, --port      #         server port to listen on/connect to\n&quot;
+                     &quot;  -h, --help                show this message and quit\n&quot;
+                     &quot;  -B, --bind      &lt;host&gt;    bind to the interface associated with the address &lt;host&gt;\n&quot;
+                     &quot;  -s, --server              run in server mode\n&quot;
+                     &quot;  -c, --client    &lt;host&gt;    run in client mode, connecting to &lt;host&gt;\n&quot;
+                     ;
+
+void timer_set(int interval);
+
+void timer_handler (int signum)
+{
+    duration--;
+}
+
+void timer_init()
+{
+     struct sigaction sa;
+
+     memset (&amp;sa, 0, sizeof (sa));
+     sa.sa_handler = &amp;timer_handler;
+     sigaction (SIGALRM, &amp;sa, NULL);
+}
+
+void timer_set(int interval)
+{
+    struct itimerval timer;
+
+    timer.it_value.tv_sec = interval;
+    timer.it_value.tv_usec = 0;
+
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 0;
+
+    setitimer (ITIMER_REAL, &amp;timer, NULL);
+}
+
+static inline void add_to_epfd(int fd, int type, int epfd)
+{
+    struct epoll_event ev;
+
+    ev.data.fd = fd;
+    ev.events = type;
+    epoll_ctl(epfd, EPOLL_CTL_ADD, ev.data.fd, &amp;ev);
+}
+
+int parse_arguments(struct controll_blk *test, int argc, char **argv)
+{
+    static struct option longopts[] =
+    {
+        {&quot;port&quot;, required_argument, NULL, 'p'},
+        {&quot;server&quot;, no_argument, NULL, 's'},
+        {&quot;client&quot;, required_argument, NULL, 'c'},
+        {&quot;bind&quot;, required_argument, NULL, 'B'},
+        {&quot;help&quot;, no_argument, NULL, 'h'},
+        {NULL, 0, NULL, 0}
+    };
+    int flag;
+    int portno;
+    char *endptr;
+    char* slash;
+
+    test-&gt;pkt_size = 65536;
+    while ((flag = getopt_long(argc, argv, &quot;p:sc:l:hP:n&quot;, longopts, NULL)) != -1) {
+        switch (flag) {
+            case 'p':
+                portno = atoi(optarg);
+                if (portno &lt; 1 || portno &gt; 65535) {
+                    i_errno = IEBADPORT;
+                    return -1;
+                }
+                test-&gt;server_port = portno;
+                break;
+            case 's':
+                if (test-&gt;role == 'c') {
+                    i_errno = IESERVCLIENT;
+                    return -1;
+                }
+                test-&gt;role = 's';
+                test-&gt;mode = 1;
+                break;
+            case 'c':
+                if (test-&gt;role == 's') {
+                    i_errno = IESERVCLIENT;
+                    return -1;
+                }
+                test-&gt;role = 'c';
+                test-&gt;mode = 2;
+                test-&gt;server_ip = strdup(optarg);
+                break;
+            case 'B':
+                test-&gt;bind_address = strdup(optarg);
+                test-&gt;mode = 1;
+                break;
+            case 'h':
+                printf(&quot;%s&quot;, usage);
+                exit(0);
+            default:
+                printf(&quot;%s&quot;, usage);
+                exit(1);
+        }
+    }
+
+    return 0;
+}
+int sever_proc(){
+  while(1)
+    {
+
+    }
+  }
+int client_proc(){
+        connfd = socket(AF_INET, SOCK_STREAM, 0);
+        if (connect(connfd, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr)) &lt; 0) {
+          perror(&quot;connect failed: &quot;);
+          continue;
+        }
+        add_to_epfd(connfd, EPOLLOUT, epfd);
+        timer_set(test.interval);
+
+        nfds = epoll_wait(epfd, events, 65536, eptimeout);
+        for (i = 0; i &lt; nfds; i++) {
+          timer_set(test.interval);
+          bytes = write(events[i].data.fd, buffer, test.pkt_size);
+        }
+        for (i = 0; i &lt; nsds; i++) {
+          close(sds[i]);
+        }
+ }
+
+int main(int argc, char *argv[])
+{
+    int listenfd = 0, connfd = 0;
+    struct sockaddr_in serv_addr;
+    char *buffer;
+    int epfd;
+    struct epoll_event *events;
+    unsigned long *r_bitmap;
+    unsigned long *w_bitmap;
+    int i;
+    int j;
+    int bytes;
+    struct controll_blk test;
+    size_t total = 0;
+
+    memset(&amp;test, 0, sizeof(test));
+    if (parse_arguments(&amp;test, argc, argv) &lt; 0) {
+        printf(&quot; error - %s\n&quot;);
+        exit(1);
+    }
+
+    memset(&amp;serv_addr, '0', sizeof(serv_addr));
+
+    buffer = malloc(65536);
+    r_bitmap = (unsigned long *)malloc(sizeof(unsigned long) * 1024);
+    w_bitmap = (unsigned long *)malloc(sizeof(unsigned long) * 1024);
+    events = (struct epoll_event *)malloc(sizeof(struct epoll_event) * 10);
+    sds = (int *)malloc(sizeof(int) * 10);
+    epfd = epoll_create(1);
+
+    serv_addr.sin_family = AF_INET; // IPv4
+    if (test.bind_address) {
+        serv_addr.sin_addr.s_addr = inet_addr(test.bind_address);
+    } else {
+        serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+        if (test.server_ip) {
+            serv_addr.sin_addr.s_addr = inet_addr(test.server_ip);
+        }
+    }
+    serv_addr.sin_port = htons(test.server_port);
+
+    if (test.role == 's') {
+        listenfd = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, 0);
+        bind(listenfd, (struct sockaddr*)&amp;serv_addr, sizeof(serv_addr));
+        listen(listenfd, 65536);
+        add_to_epfd(listenfd, EPOLLIN, epfd);
+    }
+
+    eptimeout = 1000;
+    timer_init();
+    last_duration = duration;
+    if (test.role == 's') {
+      server_proc();
+    } else {// C
+      client_proc();
+    }
+}
+</code></pre>
+
+    </div>
+</article>
 
 
-
-<div class="post">
-  <h2 class="post-item post-title">
-    <a href="https://hllu.github.io/posts/demo/">Org-mode&amp;Hugo&amp;ox-hugo写Blog</a>
-  </h2>
-  <div class="post-item post-meta">
-    <span><i class="iconfont icon-today-sharp"></i>&nbsp;2019-10-19</span>
-
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;833 words</span>
-
-<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/blog">Blog</a>&nbsp;</span>
-
-  </div>
-  <div class="post-item post-summary markdown-body">
-    通过emacs的org-mode写文章 在Org mode下写Blog，有两种方式 直接在Blog所在的目录下写独立的org 在目录‘~/blog/gitblog/orgcontent/’下添加个demon.
-  </div>
+<div class="license markdown-body">
+    <blockquote>
+        <p>Unless otherwise noted, the content of this site is licensed under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"
+               target="_blank">CC BY-NC-SA 4.0</a>.</p>
+    </blockquote>
 </div>
 
 
@@ -310,9 +562,19 @@
             
         </div>
     </div>
-    
-    
-    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#getopt">getopt</a>
+      <ul>
+        <li><a href="#相关函数表头文件">相关函数表头文件</a></li>
+        <li><a href="#函数声明">函数声明</a></li>
+        <li><a href="#变量和参数">变量和参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#example">example</a></li>
+  </ul>
+</nav></div>
 </aside>
         </div>
         <div class="btn">
@@ -516,6 +778,24 @@
             </span>
             
         </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#getopt">getopt</a>
+      <ul>
+        <li><a href="#相关函数表头文件">相关函数表头文件</a></li>
+        <li><a href="#函数声明">函数声明</a></li>
+        <li><a href="#变量和参数">变量和参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#example">example</a></li>
+  </ul>
+</nav>
     </div>
     
     

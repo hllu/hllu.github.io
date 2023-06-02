@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>getopt on hllu&#39;s blog</title>
+    <link>https://hllu.github.io/tags/getopt/</link>
+    <description>Recent content in getopt on hllu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Jun 2023 16:33:51 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/getopt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>use getopt in c program</title>
+      <link>https://hllu.github.io/posts/use-getopt-in-c/</link>
+      <pubDate>Fri, 02 Jun 2023 16:33:51 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/use-getopt-in-c/</guid>
+      <description>getopt getopt库是用来分析命令行参数的。由Unix标准库提供。 对类似于main函数那样传进来的参数进行解析。如有的参数是 &amp;ndash;help 也可以 是-h，同时也可以传递参数，如 &amp;ndash;interval 10。getopt可以支持-key 或者-</description>
+    </item>
+    
+  </channel>
+</rss>
