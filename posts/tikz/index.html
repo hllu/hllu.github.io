@@ -37,10 +37,10 @@
 <meta property="og:title" content="tikz画图" />
 <meta name="twitter:title" content="tikz画图" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/tikz/" /><meta property="og:description" content="画弧线 画球体 流程图 树 流程图4" />
-<meta name="twitter:description" content="画弧线 画球体 流程图 树 流程图4" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/tikz/" /><meta property="og:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" />
+<meta name="twitter:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-06T09:23:07+08:00" /><meta property="article:modified_time" content="2023-06-06T09:23:07+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-06T09:27:31+08:00" /><meta property="article:modified_time" content="2023-06-06T09:27:31+08:00" />
 
 
 <style>
@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-06</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;14 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;467 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/tikz">tikz</a>&nbsp;<a href="/tags/latex">latex</a>&nbsp;<a href="/tags/emacs-org">emacs-org</a>&nbsp;</span>
 
@@ -111,22 +111,119 @@
     
     <div class="post-content markdown-body">
         <h2 id="画弧线">画弧线</h2>
+<pre><code class="language-shell">\begin{tikzpicture}[xscale=6,yscale=6]
+\draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0);
+\draw[green,thick,domain=0:0.5]
+plot(\x, {0.025+\x*\x});
+\draw[red, thick, domain=0:0.5]
+plot(\x, {sqrt(\x)});
+\draw[blue, thick, domain=0:0.5]
+plot(\x, {abs(\x)});
+\end{tikzpicture}
+</code></pre>
 <figure><img src="/ox-hugo/screenshot_20230606_085948.png"/>
 </figure>
 
 <h2 id="画球体">画球体</h2>
+<pre><code class="language-shell">\begin{tikzpicture}
+\draw[step=1,color=gray!40] (-2,-2) grid (2,2);
+\draw[-&gt;] (-3,0) -- (3,0);
+\draw[-&gt;] (0,-3) -- (0,3);
+\draw[color=gray!40] (0,0) circle (1); %
+\draw[color=red] (1,0) arc (0:45:1);
+\draw[color=gray!40] (0,0) ellipse (1 and 0.5);
+\draw[color=green] (1,0) arc (0:60:1 and 0.5);
+\end{tikzpicture}
+</code></pre>
 <figure><img src="/ox-hugo/screenshot_20230606_090004.png"/>
 </figure>
 
 <h2 id="流程图">流程图</h2>
+<pre><code class="language-shell">\usetikzlibrary{positioning, shapes.geometric}
+\begin{tikzpicture}[node distance=10pt]
+  \node[draw, rounded corners]                        (start)   {Start};
+  \node[draw, below=of start]                         (step 1)  {Step 1};
+  \node[draw, below=of step 1]                        (step 2)  {Step 2};
+  \node[draw, diamond, aspect=2, below=of step 2]     (choice)  {Choice};
+  \node[draw, right=30pt of choice]                   (step x)  {Step X};
+  \node[draw, rounded corners, below=20pt of choice]  (end)     {End};
+
+  \draw[-&gt;] (start)  -- (step 1);
+  \draw[-&gt;] (step 1) -- (step 2);
+  \draw[-&gt;] (step 2) -- (choice);
+  \draw[-&gt;] (choice) -- node[left]  {Yes} (end);
+  \draw[-&gt;] (choice) -- node[above] {No}  (step x);
+  \draw[-&gt;] (step x) -- (step x|-step 2) -&gt; (step 2);
+\end{tikzpicture}
+</code></pre>
 <figure><img src="/ox-hugo/screenshot_20230606_090020.png"/>
 </figure>
 
 <h2 id="树">树</h2>
+<pre><code class="language-shell">\begin{tikzpicture}[sibling distance =80pt]
+  \tikzset{
+    box/.style ={
+      rectangle, %矩形节点
+      rounded corners =5pt, %圆角
+      minimum width =50pt, %最小宽度
+      minimum height =20pt, %最小高度
+      inner sep=5pt, %文字和边框的距离
+      draw=blue %边框颜色
+    }}
+
+  \node[box] {1}
+  child {node[box] {2}}
+  child {node[box] {3}
+    child {node[box] {4}}
+    child {node[box] {5}}
+    child {node[box] {6}}
+  };
+\end{tikzpicture}
+</code></pre>
 <figure><img src="/ox-hugo/screenshot_20230606_090039.png"/>
 </figure>
 
 <h2 id="流程图4">流程图4</h2>
+<pre><code class="language-shell">\usetikzlibrary{positioning, shapes.geometric}
+\usetikzlibrary{calc}
+
+% Define the basic shape of flow chart
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black, fill = red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black, fill = blue!25]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill = yellow!35]
+\tikzstyle{decision} = [diamond, aspect = 3, text centered, minimum width = 2.5cm, draw=black, fill = green!45]
+% arrow shape
+\tikzstyle{arrow} = [-&gt;,&gt;=stealth]
+
+\setlength{\PreviewBorder}{0.5bp}
+
+\centering
+\begin{tikzpicture}[node distance = 1.2cm]
+  % Define flowchart  shape
+  \node (start) [startstop] {Start};
+  \node (in1) [io, below of = start, yshift=-0.2cm, minimum width=1cm] {Input};
+  \node (dec1) [decision, below of=in1, yshift=-0.2cm] {cycle 1};
+  \node (pro1) [process, below of=dec1,yshift=-0.2cm] {process 1};
+  \node (dec2) [decision, below of=pro1, yshift=-0.2cm] {cycle 2};
+  \node (pro2) [process, below of=dec2,yshift=-0.2cm] {Process 2};
+  \node (pro3) [process, below of=pro2,yshift=-0.2cm] {Process 3};
+  \node (pro4) [process, below of=pro3,yshift=-0.2cm] {Process 4};
+  \node (in2)  [io, below of=pro4, yshift=-0.2cm] {Output};
+  \node (stop) [startstop, below of=in2,node distance = 1.6cm] {End};
+  % connect
+  \draw[arrow] (start)  -- (in1);
+  \draw[arrow] (in1) -- (dec1);
+  \draw[arrow] (dec1.west)-- node[anchor=south] {N} ($(dec1.west) - (1.3,0)$) |- ($(stop.north)!.3!(in2.south)$) -- (stop);
+  \draw[arrow] (dec1) -- node[anchor=west] {Y} (pro1);
+  \draw[arrow] (pro1) -- (dec2);
+  \draw[arrow] (dec2.east) -- node[anchor=south] {N} ($(dec2.east) + (1.3,0)$) |- ($(in1.south)!.5!(dec1.north)$);
+  \draw[arrow] (dec2) -- node[anchor=west] {Y} (pro2);
+  \draw[arrow] (pro2) -- (pro3);
+  \draw[arrow] (pro3) -- (pro4);
+  \draw[arrow] (pro4) -- (in2);
+  \draw[arrow] (in2.south)  -- ($(in2.south)-(0,0.2)$) -- ($(in2.south) - (2.2,0.2)$) |- ($(pro1.south)!.5!(dec2.north)$);
+\end{tikzpicture}
+</code></pre>
 <figure><img src="/ox-hugo/screenshot_20230606_090143.png"/>
 </figure>
 
