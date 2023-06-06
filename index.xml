@@ -6,7 +6,16 @@
     <description>Recent content on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 02 Jun 2023 16:33:51 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Jun 2023 09:02:00 +0800</lastBuildDate><atom:link href="https://hllu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tikz画图</title>
+      <link>https://hllu.github.io/posts/tikz/</link>
+      <pubDate>Tue, 06 Jun 2023 09:02:00 +0800</pubDate>
+      
+      <guid>https://hllu.github.io/posts/tikz/</guid>
+      <description>画弧线 画球体 流程图 树 流程图4</description>
+    </item>
+    
     <item>
       <title>use getopt in c program</title>
       <link>https://hllu.github.io/posts/use-getopt-in-c/</link>
