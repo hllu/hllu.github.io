@@ -2,16 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hllu.github.io/tags/emacs/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/org-mode/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/plantuml/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/</loc>
+    <lastmod>2023-06-07T11:03:13+08:00</lastmod>
+  </url><url>
     <loc>https://hllu.github.io/tags/emacs-org/</loc>
     <lastmod>2023-06-06T09:27:31+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/</loc>
-    <lastmod>2023-06-06T09:27:31+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/latex/</loc>
-    <lastmod>2023-06-06T09:27:31+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/</loc>
     <lastmod>2023-06-06T09:27:31+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/tikz/</loc>
@@ -32,9 +44,6 @@
     <loc>https://hllu.github.io/tags/ditaa/</loc>
     <lastmod>2023-06-01T15:22:32+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/tags/emacs/</loc>
-    <lastmod>2023-06-01T15:22:32+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/picture-mode/</loc>
     <lastmod>2023-06-01T15:22:32+08:00</lastmod>
   </url><url>
@@ -52,15 +61,6 @@
   </url><url>
     <loc>https://hllu.github.io/tags/magit/</loc>
     <lastmod>2023-05-31T17:35:29+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</loc>
-    <lastmod>2023-05-30T17:35:20+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/org-mode/</loc>
-    <lastmod>2023-05-30T17:35:20+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/plantuml/</loc>
-    <lastmod>2023-05-30T17:35:20+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/beamer/</loc>
     <lastmod>2023-05-29T11:30:37+08:00</lastmod>
