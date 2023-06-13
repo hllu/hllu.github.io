@@ -6,11 +6,11 @@
     <description>Recent content in tikz on hllu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 13 Jun 2023 15:52:28 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/tikz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jun 2023 16:08:51 +0800</lastBuildDate><atom:link href="https://hllu.github.io/tags/tikz/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>tikz画图</title>
       <link>https://hllu.github.io/posts/tikz/</link>
-      <pubDate>Tue, 13 Jun 2023 15:52:28 +0800</pubDate>
+      <pubDate>Tue, 13 Jun 2023 16:08:51 +0800</pubDate>
       
       <guid>https://hllu.github.io/posts/tikz/</guid>
       <description>画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&amp;lt;-&amp;gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025+\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&amp;gt;] (-3,0) -- (3,0); \draw[-&amp;gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of</description>

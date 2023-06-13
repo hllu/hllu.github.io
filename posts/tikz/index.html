@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/tikz/" /><meta property="og:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" />
 <meta name="twitter:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-13T15:52:28+08:00" /><meta property="article:modified_time" content="2023-06-13T15:52:28+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-13T16:08:51+08:00" /><meta property="article:modified_time" content="2023-06-13T16:08:51+08:00" />
 
 
 <style>
@@ -103,7 +103,7 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-13</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1740 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1647 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/tikz">tikz</a>&nbsp;<a href="/tags/latex">latex</a>&nbsp;<a href="/tags/emacs-org">emacs-org</a>&nbsp;</span>
 
@@ -390,21 +390,12 @@ plot(\x, {abs(\x)});
 
 \caption{Kalman filter system model}
 \end{figure}
-
-This is the system model of the (linear) Kalman filter. At each time
-step the state vector $\mathbf{x}_k$ is propagated to the new state
-estimation $\mathbf{x}_{k+1}$ by multiplication with the constant state
-transition matrix $\mathbf{A}$. The state vector $\mathbf{x}_{k+1}$ is
-additionally influenced by the control input vector $\mathbf{u}_{k+1}$
-multiplied by the input matrix $\mathbf{B}$, and the system noise vector
-$\mathbf{w}_{k+1}$. The system state cannot be measured directly. The
-measurement vector $\mathbf{z}_k$ consists of the information contained
-within the state vector $\mathbf{x}_k$ multiplied by the measurement
-matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
-
 \end{document}
 </code></pre>
 <p>这个图中，用到了矩阵matrix和path，不用输入具体的坐标。</p>
+<figure><img src="/ox-hugo/screenshot_20230613_160428.png"/>
+</figure>
+
 <h2 id="使用chain画瀑布型图">使用chain画瀑布型图</h2>
 <p>定义如下：</p>
 <pre><code class="language-shell">% The Purdue Enterprise Reference Architecture (PERA) model.
@@ -469,6 +460,9 @@ matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
 
 \end{document}
 </code></pre>
+<figure><img src="/ox-hugo/screenshot_20230613_160756.png"/>
+</figure>
+
 <h2 id="用坐标和position画图">用坐标和position画图</h2>
 <pre><code class="language-shell">% Author: Laurent Dutriaux
 \documentclass[a4paper,11pt]{article}
@@ -551,6 +545,9 @@ matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
 \end{document}
 </code></pre>
 <p>结果如下：</p>
+<figure><img src="/ox-hugo/screenshot_20230613_160837.png"/>
+</figure>
+
 
     </div>
 </article>
