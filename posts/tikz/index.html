@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/tikz/" /><meta property="og:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" />
 <meta name="twitter:description" content="画弧线 \begin{tikzpicture}[xscale=6,yscale=6] \draw[&lt;-&gt;] (0,0.8) -- (0,0) -- (0.8,0); \draw[green,thick,domain=0:0.5] plot(\x, {0.025&#43;\x*\x}); \draw[red, thick, domain=0:0.5] plot(\x, {sqrt(\x)}); \draw[blue, thick, domain=0:0.5] plot(\x, {abs(\x)}); \end{tikzpicture} 画球体 \begin{tikzpicture} \draw[step=1,color=gray!40] (-2,-2) grid (2,2); \draw[-&gt;] (-3,0) -- (3,0); \draw[-&gt;] (0,-3) -- (0,3); \draw[color=gray!40] (0,0) circle (1); % \draw[color=red] (1,0) arc (0:45:1); \draw[color=gray!40] (0,0) ellipse (1 and 0.5); \draw[color=green] (1,0) arc (0:60:1 and 0.5); \end{tikzpicture} 流程图 \usetikzlibrary{positioning, shapes.geometric} \begin{tikzpicture}[node distance=10pt] \node[draw, rounded corners] (start) {Start}; \node[draw, below=of start] (step 1) {Step 1}; \node[draw, below=of step 1] (step 2) {Step 2}; \node[draw, diamond, aspect=2, below=of step 2] (choice) {Choice}; \node[draw, right=30pt of" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-06T09:27:31+08:00" /><meta property="article:modified_time" content="2023-06-06T09:27:31+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-13T15:52:28+08:00" /><meta property="article:modified_time" content="2023-06-13T15:52:28+08:00" />
 
 
 <style>
@@ -101,9 +101,9 @@
         <a href="https://hllu.github.io/posts/tikz/">tikz画图</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-06</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-13</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;467 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1740 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/tikz">tikz</a>&nbsp;<a href="/tags/latex">latex</a>&nbsp;<a href="/tags/emacs-org">emacs-org</a>&nbsp;</span>
 
@@ -227,6 +227,330 @@ plot(\x, {abs(\x)});
 <figure><img src="/ox-hugo/screenshot_20230606_090143.png"/>
 </figure>
 
+<h2 id="使用matrix和path画结构接近矩形的图">使用matrix和path画结构接近矩形的图</h2>
+<pre><code class="language-shell">% Kalman filter system model
+% by Burkart Lingner
+% An example using TikZ/PGF 2.00
+%
+% Features: Decorations, Fit, Layers, Matrices, Styles
+% Tags: Block diagrams, Diagrams
+% Technical area: Electrical engineering
+
+\usetikzlibrary{decorations.pathmorphing} % noisy shapes
+\usetikzlibrary{fit}					% fitting shapes to coordinates
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+
+\begin{document}
+
+\begin{figure}[htbp]
+\centering
+% The state vector is represented by a blue circle.
+% &quot;minimum size&quot; makes sure all circles have the same size
+% independently of their contents.
+\tikzstyle{state}=[circle,
+                                    thick,
+                                    minimum size=1.2cm,
+                                    draw=blue!80,
+                                    fill=blue!20]
+
+% The measurement vector is represented by an orange circle.
+\tikzstyle{measurement}=[circle,
+                                                thick,
+                                                minimum size=1.2cm,
+                                                draw=orange!80,
+                                                fill=orange!25]
+
+% The control input vector is represented by a purple circle.
+\tikzstyle{input}=[circle,
+                                    thick,
+                                    minimum size=1.2cm,
+                                    draw=purple!80,
+                                    fill=purple!20]
+
+% The input, state transition, and measurement matrices
+% are represented by gray squares.
+% They have a smaller minimal size for aesthetic reasons.
+\tikzstyle{matrx}=[rectangle,
+                                    thick,
+                                    minimum height=1cm,
+                                    minimum width=2cm,
+                                    draw=gray!80,
+                                    fill=gray!20]
+
+% The system and measurement noise are represented by yellow
+% circles with a &quot;noisy&quot; uneven circumference.
+% This requires the TikZ library &quot;decorations.pathmorphing&quot;.
+\tikzstyle{noise}=[circle,
+                                    thick,
+                                    minimum size=1.2cm,
+                                    draw=yellow!85!black,
+                                    fill=yellow!40,
+                                    decorate,
+                                    decoration={random steps,
+                                                            segment length=2pt,
+                                                            amplitude=2pt}]
+
+% Everything is drawn on underlying gray rectangles with
+% rounded corners.
+\tikzstyle{background}=[rectangle,
+                                                fill=gray!10,
+                                                inner sep=0.2cm,
+                                                rounded corners=5mm]
+
+\begin{tikzpicture}[&gt;=latex,text height=1.5ex,text depth=0.25ex]
+    % &quot;text height&quot; and &quot;text depth&quot; are required to vertically
+    % align the labels with and without indices.
+
+  % The various elements are conveniently placed using a matrix:
+  \matrix[row sep=0.5cm,column sep=0.5cm] {
+    % First line: Control input
+    &amp;
+        \node (u_k-1) [matrx]{$\mathbf{u}_{k-1}$}; &amp;
+        &amp;
+        \node (u_k)   [input]{$\mathbf{u}_k$};     &amp;
+        &amp;
+        \node (u_k+1) [matrx]{$\mathbf{u}_{k+1}$}; &amp;
+        \\
+        &amp;
+        % Second line: System noise &amp; input matrix
+        \node (B_k-1) [matrx] {$\mathbf{B-1}$};       &amp;
+        &amp;
+        \node (B_k)   [matrx] {$\mathbf{B}$};       &amp;
+        &amp;
+        \node (B_k+1) [matrx] {$\mathbf{B+1}$};       &amp;
+        \\
+        % Third line: State &amp; state transition matrix
+        \node (A_k-2)         {$\cdots$};           &amp;
+        \node (x_k-1) [state] {$\mathbf{x}_{k-1}$}; &amp;
+        \node (A_k-1) [matrx] {$\mathbf{A-1}$};       &amp;
+        \node (x_k)   [state] {$\mathbf{x}_k$};     &amp;
+        \node (A_k)   [matrx] {$\mathbf{A}$};       &amp;
+        \node (x_k+1) [state] {$\mathbf{x}_{k+1}$}; &amp;
+        \node (A_k+1)         {$\cdots$};           \\
+        % Fourth line: Measurement noise &amp; measurement matrix
+        \node (v_k-1) [noise] {$\mathbf{v}_{k-1}$}; &amp;
+        \node (H_k-1) [matrx] {$\mathbf{H-1}$};       &amp;
+        \node (v_k)   [noise] {$\mathbf{v}_k$};     &amp;
+        \node (H_k)   [matrx] {$\mathbf{H}$};       &amp;
+        \node (v_k+1) [noise] {$\mathbf{v}_{k+1}$}; &amp;
+        \node (H_k+1) [matrx] {$\mathbf{H+1}$};       &amp;
+        \\
+        % Fifth line: Measurement
+        &amp;
+        \node (z_k-1) [measurement] {$\mathbf{z}_{k-1}$}; &amp;
+        &amp;
+        \node (z_k)   [measurement] {$\mathbf{z}_k$};     &amp;
+        &amp;
+        \node (z_k+1) [measurement] {$\mathbf{z}_{k+1}$}; &amp;
+        \\
+    };
+
+    % The diagram elements are now connected through arrows:
+    \path[-&gt;]
+        (A_k-2) edge[thick] (x_k-1)	% The main path between the
+        (x_k-1) edge[thick] (A_k-1)	% states via the state
+        (A_k-1) edge[thick] (x_k)		% transition matrices is
+        (x_k)   edge[thick] (A_k)		% accentuated.
+        (A_k)   edge[thick] (x_k+1)	% x -&gt; A -&gt; x -&gt; A -&gt; ...
+        (x_k+1) edge[thick] (A_k+1)
+
+        (x_k-1) edge (H_k-1)				% Output path x -&gt; H -&gt; z
+        (x_k)   edge (H_k)
+        (x_k+1) edge (H_k+1)
+
+        (v_k-1) edge (z_k-1)				% Output noise v -&gt; z
+        (v_k)   edge (z_k)
+        (v_k+1) edge (z_k+1)
+
+        (u_k-1) edge (B_k-1)				% Input path u -&gt; B -&gt; x
+        (B_k-1) edge (x_k-1)
+        (u_k)   edge (B_k)
+        (B_k)   edge (x_k)
+        (u_k+1) edge (B_k+1)
+        (B_k+1) edge (x_k+1)
+        ;
+
+    % Now that the diagram has been drawn, background rectangles
+    % can be fitted to its elements. This requires the TikZ
+    % libraries &quot;fit&quot; and &quot;background&quot;.
+    % Control input and measurement are labeled. These labels have
+    % not been translated to English as &quot;Measurement&quot; instead of
+    % &quot;Messung&quot; would not look good due to it being too long a word.
+    \begin{pgfonlayer}{background}
+        \node [background,
+                    fit=(u_k-1) (u_k+1),
+                    label=left:Entrance:] {};
+        \node [background,
+                    fit=(B_k-1) (v_k-1) (A_k+1)] {};
+        \node [background,
+                    fit=(z_k-1) (z_k+1),
+                    label=left:Measure:] {};
+    \end{pgfonlayer}
+\end{tikzpicture}
+
+\caption{Kalman filter system model}
+\end{figure}
+
+This is the system model of the (linear) Kalman filter. At each time
+step the state vector $\mathbf{x}_k$ is propagated to the new state
+estimation $\mathbf{x}_{k+1}$ by multiplication with the constant state
+transition matrix $\mathbf{A}$. The state vector $\mathbf{x}_{k+1}$ is
+additionally influenced by the control input vector $\mathbf{u}_{k+1}$
+multiplied by the input matrix $\mathbf{B}$, and the system noise vector
+$\mathbf{w}_{k+1}$. The system state cannot be measured directly. The
+measurement vector $\mathbf{z}_k$ consists of the information contained
+within the state vector $\mathbf{x}_k$ multiplied by the measurement
+matrix $\mathbf{H}$, and the additional measurement noise $\mathbf{v}_k$.
+
+\end{document}
+</code></pre>
+<p>这个图中，用到了矩阵matrix和path，不用输入具体的坐标。</p>
+<h2 id="使用chain画瀑布型图">使用chain画瀑布型图</h2>
+<p>定义如下：</p>
+<pre><code class="language-shell">% The Purdue Enterprise Reference Architecture (PERA) model.
+% Author: Erno Pentzin (2013)
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{chains}
+\begin{document}
+
+\begin{tikzpicture}[
+        scale=0.75,
+        start chain=1 going below,
+        start chain=2 going right,
+        node distance=1mm,
+        desc/.style={
+                scale=0.75,
+                on chain=2,
+                rectangle,
+                rounded corners,
+                draw=black,
+                very thick,
+                text centered,
+                text width=8cm,
+                minimum height=12mm,
+                fill=blue!30
+                },
+        it/.style={
+                fill=blue!10
+        },
+        level/.style={
+                scale=0.75,
+                on chain=1,
+                minimum height=12mm,
+                text width=2cm,
+                text centered
+        },
+        every node/.style={font=\sffamily}
+]
+
+% Levels
+\node [level] (Level 5) {Level 5};
+\node [level] (Level 4) {Level 4};
+\node [level] (Level 3) {Level 3};
+\node [level] (Level 2) {Level 2};
+\node [level] (Level 1.5) { };
+\node [level] (Level 1) {Level 1};
+\node [level] (Level 0) {Level 0};
+
+% Descriptions
+\chainin (Level 5); % Start right of Level 5
+% IT levels
+\node [desc, it] (Archives) {Archives/File Servers};
+\node [desc, it, continue chain=going below] (ERP) {ERP/Finance/Messaging};
+% ICS levels
+\node [desc] (Operations) {Operations Management/Historians};
+\node [desc] (Supervisory) {Supervisory Controls};
+\node [desc, text width=3.5cm, xshift=2.25cm] (PLC) {PLC/RTU IP Communication};
+\node [desc, text width=3.5cm, xshift=-4.5cm] (SIS) {Safety Instrumented Systems};
+\node [desc, xshift=2.25cm] (IO) {I/O from Sensors};
+
+\end{tikzpicture}
+
+\end{document}
+</code></pre>
+<h2 id="用坐标和position画图">用坐标和position画图</h2>
+<pre><code class="language-shell">% Author: Laurent Dutriaux
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fourier} % Utilisation des polices texte
+\usepackage{tikz}
+\usetikzlibrary[positioning]
+\usetikzlibrary{patterns}
+\usepackage[french]{babel} % styles français
+\title{A simple Timetable}
+\author{Laurent Dutriaux}
+\date{\today}
+\newcommand{\daywidth}{2.2 cm}
+\begin{document}
+
+\maketitle
+
+\begin{tikzpicture}[x=\daywidth, y=-1cm, node distance=0 cm,outer sep = 0pt]
+% Style for Days
+\tikzstyle{day}=[draw, rectangle,  minimum height=1cm, minimum width=\daywidth, fill=yellow!20,anchor=south west]
+% Style for hours
+\tikzstyle{hour}=[draw, rectangle, minimum height=1 cm, minimum width=1.5 cm, fill=yellow!30,anchor=north east]
+
+% Styles for events
+% Duration of sequences
+\tikzstyle{hours}=[rectangle,draw, minimum width=\daywidth, anchor=north west,text centered,text width=5 em]
+\tikzstyle{1hour}=[hours,minimum height=1cm]
+\tikzstyle{2hours}=[hours,minimum height=2cm]
+\tikzstyle{3hours}=[hours,minimum height=3cm]
+%Style for type of sequence
+\tikzstyle{Ang2h}=[2hours,fill=green!20]
+\tikzstyle{Phys2h}=[2hours,fill=red!20]
+\tikzstyle{Math2h}=[2hours,fill=blue!20]
+\tikzstyle{TIPE2h}=[2hours,fill=blue!10]
+\tikzstyle{TP2h}=[2hours, pattern=north east lines, pattern color=magenta]
+\tikzstyle{G3h}=[3hours, pattern=north west lines, pattern color=magenta!60!white]
+\tikzstyle{Planche}=[1hour,fill=white]
+% Positioning labels for days and hours
+\node[day] (lundi) at (1,8) {Lundi};
+\node[day] (mardi) [right = of lundi] {Mardi};
+\node[day] (mercredi) [right = of mardi] {Mercredi};
+\node[day] (jeudi) [right = of mercredi] {Jeudi};
+\node[day] (vendredi) [right = of jeudi] {Vendredi};
+\node[hour] (8-9) at (1,8) {8-9};
+\node[hour] (9-10) [below = of 8-9] {9-10};
+\node[hour] (10-11) [below= of 9-10] {10-11};
+\node[hour] (11-12) [below = of 10-11] {11-12};
+\node[hour] (12-13) [below  = of 11-12] {12-13};
+\node[hour] (13-14) [below = of 12-13] {13-14};
+\node[hour] (14-15) [below = of 13-14] {14-15};
+\node[hour] (15-16) [below = of 14-15] {15-16};
+\node[hour] (16-17) [below = of 15-16] {16-17};
+\node[hour] (17-18) [below = of 16-17] {17-18};
+\node[hour] (18-19) [below = of 17-18] {18-19};
+%Position of sequences
+\node[Ang2h] at (1,10) {Anglais};
+\node[Phys2h] at (1,8) {Physique};
+\node[Phys2h] at (2,8) {Physique};
+\node[Phys2h] at (4,8) {Physique};
+\node[Phys2h] at (5,10) {Physique};
+\node[Math2h] at (2,10) {Maths};
+\node[Math2h] at (2,14) {Maths};
+\node[Math2h] at (3,8) {Maths};
+\node[Math2h] at (4,10) {Maths};
+\node[Math2h] at (5,8) {Maths};
+\node[TIPE2h] at (1,14) {TIPE};
+\node[TIPE2h] at (1,16) {TIPE};
+\node[TIPE2h] at (2,16) {TIPE};
+\node[TIPE2h] at (3,10) {TIPE};
+\node[TIPE2h] at (5,14) {TIPE};
+\node[TIPE2h] at (5,16) {TIPE};
+\node[TP2h] at (3,14) {Phys ou SI};
+\node[TP2h] at (3,16) {SI ou Phys};
+\node[Planche] at (1,13) {Planche};
+\node[Planche] at (1,18) {Colle};
+\node[Planche] at (4,13.5) {Planche};
+\end{tikzpicture}
+
+
+\end{document}
+</code></pre>
+<p>结果如下：</p>
 
     </div>
 </article>
@@ -448,6 +772,9 @@ plot(\x, {abs(\x)});
     <li><a href="#流程图">流程图</a></li>
     <li><a href="#树">树</a></li>
     <li><a href="#流程图4">流程图4</a></li>
+    <li><a href="#使用matrix和path画结构接近矩形的图">使用matrix和path画结构接近矩形的图</a></li>
+    <li><a href="#使用chain画瀑布型图">使用chain画瀑布型图</a></li>
+    <li><a href="#用坐标和position画图">用坐标和position画图</a></li>
   </ul>
 </nav></div>
 </aside>
@@ -674,6 +1001,9 @@ plot(\x, {abs(\x)});
     <li><a href="#流程图">流程图</a></li>
     <li><a href="#树">树</a></li>
     <li><a href="#流程图4">流程图4</a></li>
+    <li><a href="#使用matrix和path画结构接近矩形的图">使用matrix和path画结构接近矩形的图</a></li>
+    <li><a href="#使用chain画瀑布型图">使用chain画瀑布型图</a></li>
+    <li><a href="#用坐标和position画图">用坐标和position画图</a></li>
   </ul>
 </nav>
     </div>
