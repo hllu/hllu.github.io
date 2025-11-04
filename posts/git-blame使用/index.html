@@ -37,10 +37,10 @@
 <meta property="og:title" content="git blame使用" />
 <meta name="twitter:title" content="git blame使用" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/" /><meta property="og:description" content="" />
-<meta name="twitter:description" content="" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/" /><meta property="og:description" content="git blame 排查问题的时候，为了查找是谁改得某个文件或者某一行，可以用git blame这 个命令，用法最常用的就是 git blame &lt;filename&gt; git blame -L start,end &lt;filename&gt; 或者 git blame myfile.py git blame -L 5,20 myfile.py //查看5-20行的修改历史 git blame -L 5,&#43;20 myfile.py //表示查看5行及后面" />
+<meta name="twitter:description" content="git blame 排查问题的时候，为了查找是谁改得某个文件或者某一行，可以用git blame这 个命令，用法最常用的就是 git blame &lt;filename&gt; git blame -L start,end &lt;filename&gt; 或者 git blame myfile.py git blame -L 5,20 myfile.py //查看5-20行的修改历史 git blame -L 5,&#43;20 myfile.py //表示查看5行及后面" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2025-11-04T15:36:16+08:00" /><meta property="article:modified_time" content="2025-11-04T15:36:16+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2025-11-04T17:03:37+08:00" /><meta property="article:modified_time" content="2025-11-04T17:03:37+08:00" />
 
 
 <style>
@@ -103,14 +103,33 @@
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2025-11-04</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;0 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;218 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/magit">magit</a>&nbsp;<a href="/tags/git">git</a>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/blame">blame</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        
+        <h2 id="git-blame">git blame</h2>
+<p>排查问题的时候，为了查找是谁改得某个文件或者某一行，可以用git blame这
+个命令，用法最常用的就是</p>
+<pre><code class="language-bash">git blame &lt;filename&gt;
+git blame -L start,end &lt;filename&gt;
+</code></pre>
+<p>或者</p>
+<pre><code class="language-bash">git blame myfile.py
+git blame -L 5,20 myfile.py //查看5-20行的修改历史
+git blame -L 5,+20 myfile.py //表示查看5行及后面20行
+</code></pre>
+<p>magit中使用快捷键的方式，先选中需要查询的几行代码
+然后按键C-c M-g b即可。</p>
+<p>按键C-c M-g后，还有其他的选项，可以都去试试。</p>
+<h2 id="示例">示例</h2>
+<p>从代码中按键C-c M-g b后，显示每一行的修改情况。
+magit还有其他的blame选项，也可以去试试。
+<img class="img-zoomable" src="/ox-hugo/screenshot_20230531_172751.png" alt="" />
+</p>
+
     </div>
 </article>
 
@@ -324,7 +343,12 @@
         </div>
     </div>
     <div class="sidebar-item sidebar-toc">
-        <h3>Table of Contents</h3><nav id="TableOfContents"></nav></div>
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-blame">git blame</a></li>
+    <li><a href="#示例">示例</a></li>
+  </ul>
+</nav></div>
 </aside>
         </div>
         <div class="btn">
@@ -542,7 +566,12 @@
     
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3>
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#git-blame">git blame</a></li>
+    <li><a href="#示例">示例</a></li>
+  </ul>
+</nav>
     </div>
     
     
