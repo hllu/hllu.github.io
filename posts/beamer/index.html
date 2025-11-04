@@ -40,7 +40,7 @@
 <meta property="og:url" content="https://hllu.github.io/posts/beamer/" /><meta property="og:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" />
 <meta name="twitter:description" content="Beamer 介绍 Beamer是一个生成演示稿的 LaTeX 环境. 它包括了以下特性： 在演示稿中自动生成结构化的元素（例如 Marburg 主题)。 在演示稿中，这个特性可以为观众提供了视觉参考。 对组织演示稿有很大的帮助。 主题 完全支持 LaTeX 优点 在" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-12T00:00:00+00:00" /><meta property="article:modified_time" content="2023-05-23T14:51:29+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-05-12T00:00:00+00:00" /><meta property="article:modified_time" content="2025-11-04T16:29:27+08:00" />
 
 
 <style>
@@ -102,8 +102,8 @@
     </h2>
     <div class="post-item post-meta">
         <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-05-12</span>
-<span><i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2023-05-23</span>
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2410 words</span>
+<span><i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2025-11-04</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;1979 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/beamer">beamer</a>&nbsp;<a href="/tags/org">org</a>&nbsp;</span>
 
@@ -277,6 +277,7 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
 # key: &lt;beamer
 # --
 #+TITLE:     $1
+#+SUBTITLE:   sub name of the slide
 #+AUTHOR:    name
 #+EMAIL:     name@xxx.com
 #+DESCRIPTION:
@@ -287,7 +288,7 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+startup: beamer
 #+LaTeX_CLASS: beamer
-#+LaTeX_CLASS_OPTIONS: [bigger]
+#+LaTeX_CLASS_OPTIONS: [bigger,aspectratio=169]
 #+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 </code></pre>
 <h2 id="基础用法">基础用法</h2>
@@ -297,7 +298,7 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
 <p>二级标题构成一个幻灯片，一级标题构成大纲。三级标题可以构成colum，block
 等。</p>
 <h3 id="属性设置">属性设置</h3>
-<p>属性设置都以:PROPERTIES:开始，以:END:结尾，中间可以填入不同的设置项，
+<p>属性设置都以PROPERTIES开始，以END结尾，中间可以填入不同的设置项，
 具体参数见下图。
 <img class="img-zoomable" src="/ox-hugo/2023-05-12_15-29-48_beamer.png" alt="" />
 </p>
@@ -313,12 +314,6 @@ Pygments建议直接到官网下载whl包，直接用以下命令安装</p>
 </li>
 </ul>
 <p>根据官方文档的描述，其他属性的用处如下：</p>
-<div class="verse">
-<p>If ‘BEAMER_ENV’ is set to ‘appendix’, Org exports the entry as an appendix. When set to ‘note’, Org exports the entry as a note within the frame or between frames, depending on the entry’s heading level. When set to ‘noteNH’, Org exports the entry as a note without its title. When set to ‘againframe’, Org exports the entry with ‘\againframe’ command, which makes setting the ‘BEAMER_REF’ property mandatory because ‘\againframe’ needs frame to resume.<br />
-When ‘ignoreheading’ is set, Org export ignores the entry’s headline but not its content. This is useful for inserting content between frames. It is also useful for properly closing a ‘column’ environment.<br />
-When ‘BEAMER_ACT’ is set for a headline, Org export translates that headline as an overlay or action specification. When enclosed in square brackets, Org export makes the overlay specification a default. Use ‘BEAMER_OPT’ to set any options applicable to the current Beamer frame or block. The Beamer export back-end wraps with appropriate angular or square brackets. It also adds the ‘fragile’ option for any code that may require a verbatim block.<br />
-To create a column on the Beamer slide, use the ‘BEAMER_COL’ property for its headline in the Org file. Set the value of ‘BEAMER_COL’ to a decimal number representing the fraction of the total text width. Beamer export uses this value to set the column’s width and fills the column with the contents of the Org entry. If the Org entry has no specific environment defined, Beamer export ignores the heading. If the Org entry has a defined environment, Beamer export uses the heading as title. Behind the scenes, Beamer export automatically handles LaTeX column separations for contiguous headlines. To manually adjust them for any unique configurations needs, use the ‘BEAMER_ENV’ property.<br /></p>
-</div>
 <h3 id="分列布局">分列布局</h3>
 <p>分列布局，在beamer中有个熟悉设置方式，如下</p>
 <pre><code class="language-text">:PROPERTIES:
@@ -373,15 +368,18 @@ c picture link<br />
 <br /></p>
 </div>
 <p>其中，a图片显示后，在后续b图显示出来时会消失，但b，c一直存在。</p>
-<h3 id="no-indent-list">no indent list</h3>
+<h3 id="shrink-幻灯片">shrink 幻灯片</h3>
+<p>如果代码比较多，需要缩小显示，可以用shrink参数，如下：</p>
 <div class="verse">
-<p>#+ATTR_BEAMER: :environment nonindentlist<br /></p>
-<ul>
-<li>item 1, not indented<br /></li>
-<li>item 2, not indented<br /></li>
-<li>item 3, not indented<br /></li>
-</ul>
+<p>:PROPERTIES:<br />
+:BEAMER_env: fullframe<br />
+:BEAMER_opt: [shrink=5]<br />
+:END:<br /></p>
 </div>
+<p>可以在一个幻灯片中缩小显示，效果如下：</p>
+<figure><img src="/ox-hugo/screenshot_20251104_150757.png"/>
+</figure>
+
 <h3 id="colorbox">colorbox</h3>
 <div class="verse">
 <p>#+LaTeX: \setbeamercolor{myblockcolor}{bg=magenta,fg=white}<br />
@@ -637,7 +635,7 @@ c picture link<br />
         <li><a href="#分列布局">分列布局</a></li>
         <li><a href="#block布局">block布局</a></li>
         <li><a href="#beamer-act">BEAMER_ACT</a></li>
-        <li><a href="#no-indent-list">no indent list</a></li>
+        <li><a href="#shrink-幻灯片">shrink 幻灯片</a></li>
         <li><a href="#colorbox">colorbox</a></li>
       </ul>
     </li>
@@ -887,7 +885,7 @@ c picture link<br />
         <li><a href="#分列布局">分列布局</a></li>
         <li><a href="#block布局">block布局</a></li>
         <li><a href="#beamer-act">BEAMER_ACT</a></li>
-        <li><a href="#no-indent-list">no indent list</a></li>
+        <li><a href="#shrink-幻灯片">shrink 幻灯片</a></li>
         <li><a href="#colorbox">colorbox</a></li>
       </ul>
     </li>
@@ -909,7 +907,7 @@ c picture link<br />
     <div class="container-lg clearfix">
         <div class="col-12 footer">
             
-            <span>&copy; 2021-2023
+            <span>&copy; 2021-2025
                 <a href="https://hllu.github.io">hllu</a>
                  | <a href="https://github.com/hllu/day">Source code</a> 
                 | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"

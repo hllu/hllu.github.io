@@ -37,10 +37,10 @@
 <meta property="og:title" content="emacs在org模式使用plantuml" />
 <meta name="twitter:title" content="emacs在org模式使用plantuml" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/" /><meta property="og:description" content="emacs在org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成" />
-<meta name="twitter:description" content="emacs在org模式画图 org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。 配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
+<meta property="og:url" content="https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/" /><meta property="og:description" content="" />
+<meta name="twitter:description" content="" /><meta property="og:image" content="https://hllu.github.io/img/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2023-06-07T11:03:13+08:00" /><meta property="article:modified_time" content="2023-06-07T11:03:13+08:00" />
+<meta name="twitter:image" content="https://hllu.github.io/img/og.png" /><meta property="article:published_time" content="2025-11-04T15:36:03+08:00" /><meta property="article:modified_time" content="2025-11-04T15:36:03+08:00" />
 
 
 <style>
@@ -101,415 +101,16 @@
         <a href="https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/">emacs在org模式使用plantuml</a>
     </h2>
     <div class="post-item post-meta">
-        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2023-06-07</span>
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2025-11-04</span>
 
-<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;2722 words</span>
+<span><i class="iconfont icon-file-tray-sharp"></i>&nbsp;0 words</span>
 
 <span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;<a href="/tags/emacs">emacs</a>&nbsp;<a href="/tags/org-mode">org-mode</a>&nbsp;<a href="/tags/plantuml">plantuml</a>&nbsp;</span>
 
     </div>
     
     <div class="post-content markdown-body">
-        <h2 id="emacs在org模式画图">emacs在org模式画图</h2>
-<p>org模式画简单的图，可以用ditaa这种工具，小巧够用，可以满足大部分的需求。
-配合emacs的picture-mode和artis-mode，可以实现文本画大部分的图。生成的
-图形效果还不错。</p>
-<p>但要画比较复杂的图，比如脑图，时序图等，ditaa就有点不够用了。就需要
-plantuml这种更强大的工具。</p>
-<h2 id="plantuml">plantuml</h2>
-<h3 id="介绍">介绍</h3>
-<p>PlantUML 是基于 Java 语言的开源 UML（Unified Modeling Language）图形绘
-制工具，因为其可以单独绘图，又可以嵌入 Markdown 以及 HTML，因而被不少
-开发文档采用。PlantUML 可以看作是著名绘图工具 Graphviz 的封装。</p>
-<p>PlantUML 支持的图形可简单分为三种类型</p>
-<ul>
-<li>基本类：流程图、时序图、甘特图</li>
-<li>工程类：类图、实体关系图、用例图、组件图</li>
-<li>导图类：思维导图、组织结构导图</li>
-</ul>
-<p>其他的支持类型，可以到官网上查看。</p>
-<p>PlantUML 内置了 30 多种主题，可以通过 help themes 命令查看内置主题列表。
-<a href="https://plantuml.com/zh/" target="_blank">https://plantuml.com/zh/</a></p>
-<h3 id="安装">安装</h3>
-<p>mac下先安装graphviz，是plantuml的依赖组件。</p>
-<p>:: brew install graphviz</p>
-<p>后从官网下载plantuml的jar包，放到emacs的插件目录下。</p>
-<h3 id="配置">配置</h3>
-<p>emacs中，相关的配置</p>
-<pre><code class="language-lisp">(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (ditaa . t)
-   (python . t)
-   (shell . t)
-   (latex . t)
-   (plantuml . t)
-   (dot . t)
-   (lisp . t)
-   (org . t)
-   (java . t)))
-
-(setq org-plantuml-jar-path
-      (expand-file-name &quot;~/.emacs.d/plugins/plantuml-1.2023.8.jar&quot;))
-(setq org-confirm-babel-evaluate nil)   ;picture 不提示
-(add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
-
-(setq org-babel-results-keyword &quot;results&quot;)
-
-(defun bh/display-inline-images ()
-  (condition-case nil
-      (org-display-inline-images)
-    (error nil)))
-
-(define-skeleton skel-org-block-plantuml
-    &quot;Insert a org plantuml block, querying for filename.&quot;
-  &quot;File (no extension): &quot;
-  &quot;#+begin_src plantuml :file &quot; str &quot;.png :cach yes :cmdline -charset UTF-8\n&quot;
-  &quot;title &quot; @ - \n
-  &quot;#+end_src\n&quot;)
-
-(define-abbrev org-mode-abbrev-table &quot;spuml&quot; &quot;&quot; 'skel-org-block-plantuml)
-</code></pre>
-<h3 id="语法">语法</h3>
-<h4 id="颜色-基本组件">颜色，基本组件</h4>
-<ul>
-<li>-&gt;表示消息传递走向，默认箭头类型是单向直线，PlantUML手册中有很多样式可以通过代码自定义颜色和样式</li>
-<li>&ndash;&gt;是单向虚直线箭头，一般是用来传递消息返回信息</li>
-<li>scale=2  设置图形大小</li>
-<li>使用 as关键字重命名参与者</li>
-<li>使用 title 增加标题</li>
-<li>legend 和 end legend 作为关键词，用于配置一个图例(legend). 支持可选
-地使用left,right,center为这个图例指定对齐方式.</li>
-<li>caption显示在图片下方的标题</li>
-<li>together 有时候，默认布局并不完美,你可以使用 together 关键词将某些类进行分组： 布局引擎会尝试将它们捆绑在一起</li>
-<li>package 可以定义不同的样式,你可以通过以下的命令来设置默认样式 :
-skinparam packageStyle,或者对包使用对应的模板</li>
-<li>如果需要调整布局，学会使用a -[hidden]d- c ， A -[hidden]left- B 类似
-的方式</li>
-<li>skinparam nodesep x  will increase the horizontal margin</li>
-<li>skinparam ranksep x   affects the vertical margin</li>
-</ul>
-<h4 id="时序图">时序图</h4>
-<!--list-separator-->
-<ul>
-<li>
-<p>常用对象</p>
-<p>actor :: 实体对象，比如人、操作员等
-participant:: 参与者，可以是类、服务名等
-database ::  数据库
-queue :: 队列，比如kafka队列就可以用这个表示
-boundary :: 边界
-control :: 控制
-entity :: 实体
-collections :: 集合</p>
-</li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>常用操作</p>
-<ul>
-<li>使用activate和deactivate来激活、销毁生命周期</li>
-<li>destroy 表示一个参与者的生命线的终结</li>
-<li>用 alt-else-end 表示分支</li>
-<li>用 loop-end表示循环</li>
-<li>使用 order 来自定义参与者的顺序，值越大的越靠后</li>
-<li>autonumber 自动对消息编号</li>
-<li>使用 note left 或 note right 给消息添加注释，可以用 end note 添加多
-行注释。</li>
-<li>用 == 将图标分隔成多个逻辑步骤</li>
-<li>使用&hellip; 表示延迟，并且可以给延迟添加注释;如&hellip;.5min later&hellip;.</li>
-</ul>
-</li>
-</ul>
-<h4 id="思维导图">思维导图</h4>
-<ul>
-<li>以@startmindmap开始，以@endmindmap结束。</li>
-<li>用+或-新建分支，用符号数量表示层级，+表示分支向右边生长，-表示分支向
-左边生长。也可以用*建立分支</li>
-<li>使用:开始多行内容，;结束多行内容。目前如果要使用: ;只能用*新建分支</li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>思维导图中定义颜色</p>
-<pre><code class="language-bash">  @startmindmap
-  &lt;style&gt;
-  mindmapDiagram {
-    .green {
-      BackgroundColor lightgreen
-    }
-    .rose {
-      BackgroundColor #FFBBCC
-    }
-    .your_style_name {
-      BackgroundColor lightblue
-    }
-  }
-  &lt;/style&gt;
-  * Colors
-  ** Green &lt;&lt;green&gt;&gt;
-  ** Rose &lt;&lt;rose&gt;&gt;
-  ** Blue &lt;&lt;your_style_name&gt;&gt;
-@endmindmap
-</code></pre>
-</li>
-</ul>
-<h4 id="流程图">流程图</h4>
-<h4 id="架构图">架构图</h4>
-<p>plantuml支持Archimate画架构图，也可以通过c4的插件，画c4风格的架构图。</p>
-<p>Archimate是一种架构建模语言，顾名思义，是专业架构师（Archi）的好伴侣
-（Mate）。</p>
-<p>ArchiMate的建模概念元素虽然种类繁多，但究其性质而言不外乎结构元素
-（Structure Element）和行为元素（Behavior Element）两种（也可称为静态
-元素和动态元素），前者代表了各种结构化的实体（如参与者、应用组件以及数
-据等），而后者则用来描述结构化元素所能执行的各种行为（如业务活动、应用
-功能以及服务等）。此外，根据与行为元素之间的关系进一步划分，结构元素又
-可被分为主动性结构元素（Active Structure Element）和被动性结构元素
-（Passive Structure Element），前者表示发起动作的结构元素（例如参与者、
-应用组件等），而后者则被用来描述行为元素的各种目标（例如业务数据、信息
-数据等）。由此可见，ArchiMate所使用的描述方式与很多标准化的描述方式
-（例如RDF语言）有着异曲同工之妙，基本采用“主动对象（主语）、行为（谓
-语）、被动对象（宾语）+相互之间的关系”进行建模描述。</p>
-<p>ArchiMate 3.0可以完全覆盖自身所在行业架构工作建模的方方面面，但它只有
-59个元素 、13种关联关系（relationship） ，如此简洁的要素和关系却可以描
-述如复杂的架构范围，堪称建模语言的翘楚。</p>
-<h3 id="示例">示例</h3>
-<h4 id="流程图">流程图</h4>
-<p>打开一个org文档，加入一个planduml代码块，代码需要以BEGIN_SRC开头
-plantuml开头如下：</p>
-<pre><code class="language-uml">start
-
-if (Graphviz installed?) then (yes)
-  :process all\ndiagrams;
-else (no)
-  :process only
-  __sequence__ and __activity__ diagrams;
-endif
-
-stop
-</code></pre>
-<p>显示效果如下：</p>
-<figure><img src="/ox-hugo/screenshot_20230526_165821.png"/>
-</figure>
-
-<h4 id="架构图">架构图</h4>
-<p>uml代码</p>
-<pre><code class="language-uml">title
- &lt;u&gt;Simple&lt;/u&gt; communication example
- on &lt;i&gt;several&lt;/i&gt; lines and using &lt;back:cadetblue&gt;creole tags&lt;/back&gt;
-end title
-node &quot;note &quot; {
-rectangle GO #lightgreen
-rectangle STOP #red
-rectangle WAIT #orange
-!define Junction_Or circle #black
-!define Junction_And circle #whitesmoke
-Junction_And JunctionAnd
-Junction_Or JunctionOr
-archimate #Technology &quot;VPN Server&quot; as vpnServerA &lt;&lt;technology-device&gt;&gt;
-GO -up-&gt; JunctionOr
-STOP -up-&gt; JunctionOr
-STOP -down-&gt; JunctionAnd
-WAIT -down-&gt; JunctionAnd
-}
-</code></pre>
-<figure><img src="/ox-hugo/archtest.png"/>
-</figure>
-
-<h4 id="package和颜色">package和颜色</h4>
-<pre><code class="language-uml">title comtest
-skinparam rectangle&lt;&lt;behavior&gt;&gt; {
-        roundCorner 25
-}
-sprite $bProcess jar:archimate/business-process
-sprite $aService jar:archimate/application-service
-sprite $aComponent jar:archimate/application-component
-rectangle user #lightyellow;line.dotted;text:red {
-rectangle &quot;Handle claim&quot;  as HC &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-rectangle &quot;Capture Information&quot;  as CI &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-rectangle &quot;Notify\nAdditional Stakeholders&quot; as NAS &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-rectangle &quot;Validate&quot; as V &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-rectangle &quot;Investigate&quot; as I &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-rectangle &quot;Pay&quot; as P &lt;&lt;$bProcess&gt;&gt;&lt;&lt;behavior&gt;&gt; #Business
-
-HC *-down- CI
-HC *-down- NAS
-HC *-down- V
-HC *-down- I
-HC *-down- P
-
-V -right-&gt;&gt; I
-I -right-&gt;&gt; P
-}
-package &quot;severicenow&quot; #lightgreen {
-rectangle &quot;Scanning&quot; as scanning &lt;&lt;$aService&gt;&gt;&lt;&lt;behavior&gt;&gt; #Application
-rectangle &quot;Customer admnistration&quot; as customerAdministration &lt;&lt;$aService&gt;&gt;&lt;&lt;behavior&gt;&gt; #Application
-rectangle &quot;Claims admnistration&quot; as claimsAdministration &lt;&lt;$aService&gt;&gt;&lt;&lt;behavior&gt;&gt; #Application
-rectangle Printing &lt;&lt;$aService&gt;&gt;&lt;&lt;behavior&gt;&gt; #Application
-rectangle Payment &lt;&lt;$aService&gt;&gt;&lt;&lt;behavior&gt;&gt; #Application
-}
-scanning -up-&gt; CI
-customerAdministration  -up-&gt; CI
-claimsAdministration -up-&gt; NAS
-claimsAdministration -up-&gt; I
-Payment -up-&gt; P
-
-Printing -up-&gt; V
-Printing -up-&gt; P
-rectangle #lightgray;line:lightgray {
-rectangle &quot;Document\nManagement\nSystem&quot; as DMS &lt;&lt;$aComponent&gt;&gt; #Application
-rectangle &quot;General\nCRM\nSystem&quot; as CRM &lt;&lt;$aComponent&gt;&gt;  #Application
-rectangle &quot;Home &amp; Away\nPolicy\nAdministration&quot; as HAPA &lt;&lt;$aComponent&gt;&gt; #Application
-rectangle &quot;Home &amp; Away\nFinancial\nAdministration&quot; as HFPA &lt;&lt;$aComponent&gt;&gt;  #Application
-}
-DMS .up.|&gt; scanning
-CRM .up.|&gt; customerAdministration
-HAPA .up.|&gt; claimsAdministration
-HFPA .up.|&gt; Payment
-
-legend left
-Example from the &quot;Archisurance case study&quot; (OpenGroup).
-See
-====
-&lt;$bProcess&gt; :business process
-====
-&lt;$aService&gt; : application service
-====
-&lt;$aComponent&gt; : application component
-endlegend
-
-</code></pre>
-<figure><img src="/ox-hugo/architest.png"/>
-</figure>
-
-<h4 id="可以嵌套的元素">可以嵌套的元素</h4>
-<pre><code class="language-uml">'left to right direction
-top to bottom direction
-rectangle &quot;rc1&quot; as rc1{
-artifact artifact {
-}
-card card {
-}
-cloud cloud {
-}
-component component {
-}
-database database {
-}
-}
-rectangle  &quot;rc2&quot; as rc2 #lightgreen {
-file file {
-}
-folder folder {
-}
-frame frame {
-}
-hexagon hexagon {
-}
-node node {
-}
-}
-package &quot;rc3&quot; as rc3{
-package package {
-}
-queue queue {
-}
-rectangle rectangle {
-}
-stack stack {
-}
-storage storage {
-}
-}
-rc1 -[hidden]-&gt; rc2
-rc2-[hidden]-&gt;rc3
-
-</code></pre>
-<figure><img src="/ox-hugo/jantao.png"/>
-</figure>
-
-<h4 id="package-可以指定种类">package 可以指定种类</h4>
-<pre><code class="language-uml">scale 750 width
-package foo1 &lt;&lt;Node&gt;&gt; {
-  class Class1
-}
-
-package foo2 &lt;&lt;Rectangle&gt;&gt; {
-  class Class2
-}
-
-package foo3 &lt;&lt;Folder&gt;&gt; {
-  class Class3
-}
-
-package foo4 &lt;&lt;Frame&gt;&gt; {
-  class Class4
-}
-
-package foo5 &lt;&lt;Cloud&gt;&gt; {
-  class Class5
-}
-
-package foo6 &lt;&lt;Database&gt;&gt; {
-  class Class6
-}
-</code></pre>
-<figure><img src="/ox-hugo/packagesty.png"/>
-</figure>
-
-<h3 id="plantuml支持ditaa">plantuml支持ditaa</h3>
-<p>plantuml中，可以支持ditaa图。以@startditaa开始以@endditaa之间的内容，
-会按ditaa的语法来处理。plantuml代码块里的代码如下：</p>
-<figure><img src="/ox-hugo/screenshot_20230526_171324.png"/>
-</figure>
-
-<p>生成的图片：</p>
-<figure><img src="/ox-hugo/screenshot_20230526_171146.png"/>
-</figure>
-
-<h3 id="plantuml-画c4图">plantuml 画c4图</h3>
-<pre><code class="language-uml">!include &lt;C4/C4_Container&gt;
-AddElementTag(&quot;microService&quot;, $shape=EightSidedShape(), $bgColor=&quot;CornflowerBlue&quot;, $fontColor=&quot;white&quot;, $legendText=&quot;micro service\neight sided&quot;)
-AddElementTag(&quot;storage&quot;, $shape=RoundedBoxShape(), $bgColor=&quot;lightSkyBlue&quot;, $fontColor=&quot;white&quot;)
-
-SHOW_PERSON_OUTLINE()
-
-Person(customer, Customer, &quot;A customer&quot;)
-
-System_Boundary(c1, &quot;Customer Information&quot;) {
-    Container(app, &quot;Customer Application&quot;, &quot;Javascript, Angular&quot;, &quot;Allows customers to manage their profile&quot;)
-    Container(customer_service, &quot;Customer Service&quot;, &quot;Java, Spring Boot&quot;, &quot;The point of access for customer information&quot;, $tags = &quot;microService&quot;)
-    Container(message_bus, &quot;Message Bus&quot;, &quot;RabbitMQ&quot;, &quot;Transport for business events&quot;)
-    Container(reporting_service, &quot;Reporting Service&quot;, &quot;Ruby&quot;, &quot;Creates normalised data for reporting purposes&quot;, $tags = &quot;microService&quot;)
-    Container(audit_service, &quot;Audit Service&quot;, &quot;C#/.NET&quot;, &quot;Provides organisation-wide auditing facilities&quot;, $tags = &quot;microService&quot;)
-    ContainerDb(customer_db, &quot;Customer Database&quot;, &quot;Oracle 12c&quot;, &quot;Stores customer information&quot;, $tags = &quot;storage&quot;)
-    ContainerDb(reporting_db, &quot;Reporting Database&quot;, &quot;MySQL&quot;, &quot;Stores a normalized version of all business data for ad hoc reporting purposes&quot;, $tags = &quot;storage&quot;)
-    Container(audit_store, &quot;Audit Store&quot;, &quot;Event Store&quot;, &quot;Stores information about events that have happened&quot;, $tags = &quot;storage&quot;)
-}
-
-Rel_D(customer, app, &quot;Uses&quot;, &quot;HTTPS&quot;)
-
-Rel_D(app, customer_service, &quot;Updates customer information using&quot;, &quot;async, JSON/HTTPS&quot;)
-
-Rel_U(customer_service, app, &quot;Sends events to&quot;, &quot;WebSocket&quot;)
-Rel_U(customer_service, message_bus, &quot;Sends customer update events to&quot;)
-Rel(customer_service, customer_db, &quot;Stores data in&quot;, &quot;JDBC&quot;)
-
-Rel(message_bus, reporting_service, &quot;Sends customer update events to&quot;)
-Rel(message_bus, audit_service, &quot;Sends customer update events to&quot;)
-
-Rel(reporting_service, reporting_db, &quot;Stores data in&quot;)
-Rel(audit_service, audit_store, &quot;Stores events in&quot;)
-
-Lay_R(reporting_service, audit_service)
-
-SHOW_LEGEND()
-</code></pre>
-<figure><img src="/ox-hugo/c4test.png"/>
-</figure>
-
-
+        
     </div>
 </article>
 
@@ -723,22 +324,7 @@ SHOW_LEGEND()
         </div>
     </div>
     <div class="sidebar-item sidebar-toc">
-        <h3>Table of Contents</h3><nav id="TableOfContents">
-  <ul>
-    <li><a href="#emacs在org模式画图">emacs在org模式画图</a></li>
-    <li><a href="#plantuml">plantuml</a>
-      <ul>
-        <li><a href="#介绍">介绍</a></li>
-        <li><a href="#安装">安装</a></li>
-        <li><a href="#配置">配置</a></li>
-        <li><a href="#语法">语法</a></li>
-        <li><a href="#示例">示例</a></li>
-        <li><a href="#plantuml支持ditaa">plantuml支持ditaa</a></li>
-        <li><a href="#plantuml-画c4图">plantuml 画c4图</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
+        <h3>Table of Contents</h3><nav id="TableOfContents"></nav></div>
 </aside>
         </div>
         <div class="btn">
@@ -956,22 +542,7 @@ SHOW_LEGEND()
     
     <div class="sidebar-item sidebar-toc">
         <h3>Table of Contents</h3>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#emacs在org模式画图">emacs在org模式画图</a></li>
-    <li><a href="#plantuml">plantuml</a>
-      <ul>
-        <li><a href="#介绍">介绍</a></li>
-        <li><a href="#安装">安装</a></li>
-        <li><a href="#配置">配置</a></li>
-        <li><a href="#语法">语法</a></li>
-        <li><a href="#示例">示例</a></li>
-        <li><a href="#plantuml支持ditaa">plantuml支持ditaa</a></li>
-        <li><a href="#plantuml-画c4图">plantuml 画c4图</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+        <nav id="TableOfContents"></nav>
     </div>
     
     
@@ -983,7 +554,7 @@ SHOW_LEGEND()
     <div class="container-lg clearfix">
         <div class="col-12 footer">
             
-            <span>&copy; 2021-2023
+            <span>&copy; 2021-2025
                 <a href="https://hllu.github.io">hllu</a>
                  | <a href="https://github.com/hllu/day">Source code</a> 
                 | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
