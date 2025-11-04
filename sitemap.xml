@@ -2,10 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hllu.github.io/tags/blame/</loc>
-    <lastmod>2025-11-04T17:03:37+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/emacs/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/org-mode/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/plantuml/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/posts/</loc>
+    <lastmod>2025-11-04T17:38:23+08:00</lastmod>
+  </url><url>
+    <loc>https://hllu.github.io/tags/blame/</loc>
     <lastmod>2025-11-04T17:03:37+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/git/</loc>
@@ -14,23 +29,8 @@
     <loc>https://hllu.github.io/posts/git-blame%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2025-11-04T17:03:37+08:00</lastmod>
   </url><url>
-    <loc>https://hllu.github.io/</loc>
-    <lastmod>2025-11-04T17:03:37+08:00</lastmod>
-  </url><url>
     <loc>https://hllu.github.io/tags/magit/</loc>
     <lastmod>2025-11-04T17:03:37+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/</loc>
-    <lastmod>2025-11-04T17:03:37+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/posts/emacs%E5%9C%A8org%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8plantuml/</loc>
-    <lastmod>2025-11-04T17:03:16+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/org-mode/</loc>
-    <lastmod>2025-11-04T17:03:16+08:00</lastmod>
-  </url><url>
-    <loc>https://hllu.github.io/tags/plantuml/</loc>
-    <lastmod>2025-11-04T17:03:16+08:00</lastmod>
   </url><url>
     <loc>https://hllu.github.io/tags/emacs-org/</loc>
     <lastmod>2023-06-14T09:43:33+08:00</lastmod>
